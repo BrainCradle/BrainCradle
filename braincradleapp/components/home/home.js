@@ -25,7 +25,9 @@
             // Get a reference to the database service
             var database = AppFirebase.database();
 
+            // Get the logged in user
             console.log(AppFirebase.auth().currentUser);
+            self.currentUser = AppFirebase.auth().currentUser;
 
             var now = new Date();
             var ticks = now.getTime();

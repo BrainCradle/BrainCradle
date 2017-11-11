@@ -34,7 +34,7 @@
                 }
             });
         })
-        .service('Auth',function($firebaseAuth,AppFirebase,AppConfig){
+        .service('Auth',function($firebaseAuth,AppFirebase,AppConfig,$state){
             console.log("Auth");
 
             return AppFirebase.auth();
@@ -42,49 +42,28 @@
         .controller('AuthController',function(Auth,$state,AppConfig,AppFirebase){
             var self = this;
 
-            self.user = {
-                email: '',
-                password: '',
-                display_name:''
-            };
-            //console.log(Auth);
+            var provider = new firebase.auth.GoogleAuthProvider();
 
-            self.login = function(){
-                Auth.signInWithEmailAndPassword(self.user.email,self.user.password).then(function (auth){
-                    $state.go('home');
-                }, function (error){
-                    self.error = error;
-                });
-            }
+            Auth.signInWithPopup(provider).then(function(result) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
+                // The signed-in user info.
+                var user = result.user;
+                console.log(user);
+                $state.go('home');
+            }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
 
-            self.register = function(){
-                Auth.createUserWithEmailAndPassword(self.user.email,self.user.password).then(function (user){
+                self.error.message = errorCode + ":" + errorMessage;
+            });
 
-                    Auth.signInWithEmailAndPassword(self.user.email,self.user.password).then(function (auth){
 
-                        var database = AppFirebase.database();
-                        database.ref('users'+'/'+user.uid).set({
-                            display_name: self.user.display_name
-                        });
-
-                        $state.go('home');
-                    }, function (error){
-                        self.error = error;
-                    });
-
-                    //user.updateProfile({
-                    //    displayName: self.user.display_name
-                    //}).then(function() {
-                    //    // Update successful.
-                    //    self.login();
-                    //}, function(error) {
-                    //    self.error = error;
-                    //});
-                    //self.login();
-                }, function (error){
-                    self.error = error;
-                });
-            }
         })
 
 })();

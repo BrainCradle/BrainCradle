@@ -44,6 +44,15 @@
 .page-title-right{
     text-align: right;
 }
+.right-menu {
+    position: fixed;
+    right: 10px;
+    z-index: 2000;
+    top: 7px;
+}
+.right-menu a {
+    color: white;
+}
 
 /*.nav-pills>li>a {*/
     /*border-radius: 0px;*/

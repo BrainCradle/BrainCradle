@@ -1,7 +1,16 @@
-<nav class="navbar navbar-fixed-top app-navbar" role="navigation" ng-controller='HeaderController as headerCtrl'>
-    <div class="container">
-        <app-menu></app-menu>
-        <a class="navbar-brand">BrainCradle</a>
+<div ng-controller='HeaderController as headerCtrl'>
+    <nav class="navbar navbar-fixed-top app-navbar" role="navigation">
+        <div class="container">
+            <app-menu></app-menu>
+            <a class="navbar-brand">BrainCradle</a>
+        </div>
+    </nav>
+    <div class="right-menu">
+        <a ng-if="headerCtrl.signin" ui-sref="login" class="btn" tooltip-placement="left" uib-tooltip="Sign in"><i class="fa fa-sign-in fa-large" aria-hidden="true"></i></a>
+        <span ng-if="!headerCtrl.signin">
+            <ng-avatar style="margin-top: 5px;" string="{{headerCtrl.currentUser.displayName}}" round-shape="true" bg-color="#FF6600" auto-color="false" width="25" style="display: inline-block;"></ng-avatar>
+        </span>
     </div>
-</nav>
+</div>
+
 

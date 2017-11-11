@@ -17,6 +17,47 @@
         .controller('BlogsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
             var self = this;
 
+            // Get the logged in user
+            console.log(AppFirebase.auth().currentUser);
+            self.currentUser = AppFirebase.auth().currentUser;
+
+            // Get a reference to the database service
+            var database = AppFirebase.database();
+
+            var blogsRef = database.ref().child("blogs");
+            self.blogs = $firebaseArray(blogsRef);
+            
+            self.addNew = false;
+            self.viewPost = false;
+
+            self.AddNew = function () {
+                self.addNew = true;
+                self.newpost = {}
+            }
+            self.Save = function () {
+                var updateObj = {
+                    blog_title: self.newpost.blog_title,
+                    blog_post: self.newpost.blog_post,
+                    author: {email:self.currentUser.email,user:self.currentUser.displayName}
+                }
+                console.log(updateObj);
+                // Get a key for a new record.
+                var newKey = firebase.database().ref().child('blogs').push().key;
+                database.ref('blogs/'+newKey).set(updateObj);
+
+                // Done
+                self.newpost = {}
+                self.addNew = false;
+            }
+            self.Cancel = function () {
+                self.newpost = {}
+                self.addNew = false;
+            }
+
+            self.ViewPost = function () {
+                self.viewPost = true;
+            }
+
         })
 
 })();
