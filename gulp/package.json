@@ -1,0 +1,15 @@
+{
+  "name": "BrainCradle",
+  "version": "1.0.0",
+  "devDependencies": {
+    "del": "^2.0.2",
+    "gulp": "^3.9.1",
+    "gulp-clean-dest": "^0.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-html-replace": "^1.5.4",
+    "gulp-useref": "^2.0.1"
+  },
+  "dependencies": {
+    "gulp-cli": "^1.4.0"
+  }
+}

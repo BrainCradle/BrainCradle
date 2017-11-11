@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html ng-app="braincradle.app">
+<head>
+    <title>Brain Cradle</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+
+    <!-- App Styles -->
+    <!--Bootstrap -->
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+
+    <!--Font awesome -->
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/xeditable/xeditable.min.css">
+
+    <!--Main App CSS -->
+    <!-- build:css -->
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="components/navbar/navbar.css">
+    <link rel="stylesheet" href="components/menu/menu.css">
+    <link rel="stylesheet" href="components/home/home.css">
+    <link rel="stylesheet" href="components/blogs/blogs.css">
+    <link rel="stylesheet" href="components/presentations/presentations.css">
+    <link rel="stylesheet" href="components/projects/projects.css">
+    <link rel="stylesheet" href="components/solutions/solutions.css">
+    <link rel="stylesheet" href="components/tutorials/tutorials.css">
+    <!-- endbuild -->
+
+</head>
+<body ng-controller="appController as appCtrl">
+
+    <!-- Header Navigation -->
+    <div>
+        <app-header></app-header>
+    </div>
+
+    <!-- Body Content -->
+    <div class="body-content" ui-view autoscroll="true"></div>
+
+    <!-- Footer -->
+    <div></div>
+
+    <!-- Load JS libraries -->
+    <!--Utils-->
+    <script type="text/javascript" src="lib/utils/lodash.min.js"></script>
+    <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <!--Angular -->
+    <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+    <script type="text/javascript" src="lib/angular/angular-animate.min.js"></script>
+    <script type="text/javascript" src="lib/angular/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="lib/angular/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="lib/avatar/angular-avatar.min.js"></script>
+    <script type="text/javascript" src="lib/xeditable/xeditable.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="lib/firebase/firebase.js"></script>
+    <script src="lib/firebase/angularfire.min.js"></script>
+
+    <!-- D3 -->
+    <script src="lib/d3/d3.min.js"></script>
+
+    <!-- Load App libraries -->
+    <!-- build:appconfigjs -->
+    <script type="text/javascript" src="app.config.js"></script>
+    <!-- endbuild -->
+    <!-- build:js -->
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="components/auth/auth.js"></script>
+    <script type="text/javascript" src="components/navbar/navbar.js"></script>
+    <script type="text/javascript" src="components/menu/menu.js"></script>
+    <script type="text/javascript" src="components/home/home.js"></script>
+    <script type="text/javascript" src="components/blogs/blogs.js"></script>
+    <script type="text/javascript" src="components/presentations/presentations.js"></script>
+    <script type="text/javascript" src="components/projects/projects.js"></script>
+    <script type="text/javascript" src="components/solutions/solutions.js"></script>
+    <script type="text/javascript" src="components/tutorials/tutorials.js"></script>
+    <!-- endbuild -->
+</body>
+</html>

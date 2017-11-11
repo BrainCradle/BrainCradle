@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-lg-4">
+            <legend>Log In</legend>
+        </div>
+    </div>
+    <div ng-show="authCtrl.error">
+        <span>{{ authCtrl.error.message }}</span>
+    </div>
+    <form role="form" ng-submit="authCtrl.login()">
+        <div class="row">
+            <div class="col-md-4 col-lg-4">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" ng-model="authCtrl.user.email" id="email" placeholder="Email">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-lg-4">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" ng-model="authCtrl.user.password" placeholder="Password">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-lg-4">
+                <button type="submit" class="btn btn-default">Log In</button>
+            </div>
+        </div>
+    </form>
+</div>

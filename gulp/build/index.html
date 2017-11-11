@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="braincradle.app">
+<head>
+    <title>Brain Cradle</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+
+    <!-- App Styles -->
+    <!--Bootstrap -->
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+
+    <!--Font awesome -->
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/xeditable/xeditable.min.css">
+
+    <!--Main App CSS -->
+    <link rel="stylesheet" href="main.css?v=1510424990216">
+
+</head>
+<body ng-controller="appController as appCtrl">
+
+    <!-- Header Navigation -->
+    <div>
+        <app-header></app-header>
+    </div>
+
+    <!-- Body Content -->
+    <div class="body-content" ui-view autoscroll="true"></div>
+
+    <!-- Footer -->
+    <div></div>
+
+    <!-- Load JS libraries -->
+    <!--Utils-->
+    <script type="text/javascript" src="lib/utils/lodash.min.js"></script>
+    <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <!--Angular -->
+    <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+    <script type="text/javascript" src="lib/angular/angular-animate.min.js"></script>
+    <script type="text/javascript" src="lib/angular/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="lib/angular/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="lib/avatar/angular-avatar.min.js"></script>
+    <script type="text/javascript" src="lib/xeditable/xeditable.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="lib/firebase/firebase.js"></script>
+    <script src="lib/firebase/angularfire.min.js"></script>
+
+    <!-- D3 -->
+    <script src="lib/d3/d3.min.js"></script>
+
+    <!-- Load App libraries -->
+    <script src="app.config.js?v=1510424990216"></script>
+    <script src="main.js?v=1510424990216"></script></body>
+</html>
