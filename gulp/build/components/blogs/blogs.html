@@ -5,7 +5,7 @@
                 <navbar-strip active="blogs"></navbar-strip>
             </div>
             <div class="col-xs-5 page-title-right">
-
+                <a ng-if="blogsCtrl.currentUser" class="btn" tooltip-placement="left" uib-tooltip="Add new blog" ng-click="blogsCtrl.AddNew()"><i class="fa fa-plus-circle fa-large" aria-hidden="true"></i></a>
             </div>
         </div>
     </div>
@@ -13,5 +13,47 @@
 
 
 <div class="container body-content">
-    Blog content will come here....
+    <div ng-if="!blogsCtrl.addNew && !blogsCtrl.viewPost">
+        <div class="row">
+            <ul class="post-grid">
+                <li ng-repeat="post in blogsCtrl.blogs" class="col-md-4" ng-class="{ 'reset-s' : $index%3==0 }" ng-click="blogsCtrl.viewPost($index)" >
+                    <h3>{{post.blog_title}}</h3>
+                    <p ng-bind-html="post.blog_post"></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div ng-if="blogsCtrl.viewPost">
+
+    </div>
+    <div ng-if="blogsCtrl.addNew">
+        <h4>Add New Post</h4>
+        <div class="well">
+            <form name="inputform">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Title</label>
+                            <input type="text" ng-model="blogsCtrl.newpost.blog_title" class="form-control" placeholder="Title" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Post</label>
+                            <div text-angular ng-model="blogsCtrl.newpost.blog_post" class="btn-groups"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <a class="btn btn-primary" ng-click="blogsCtrl.Save()" ng-disabled="inputform.$invalid">Post</a>&nbsp;&nbsp;
+                        <a class="btn btn-default" ng-click="blogsCtrl.Cancel()">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

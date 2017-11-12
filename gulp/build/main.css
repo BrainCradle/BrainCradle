@@ -1,4 +1,22 @@
-
+ul.post-grid {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+ul.post-grid li {
+    padding: 20px;
+    cursor: pointer;
+    -webkit-transition: background linear 0.5s;
+    transition: background linear 0.5s;
+    border-bottom: 1px solid #3a8bab;
+}
+ul.post-grid li:hover {
+    background: #3a8bab;
+    color: white;
+}
+ul.post-grid li:hover h3 {
+    color: white;
+}
 
 
 #navigation{
@@ -177,6 +195,15 @@
 .page-title-right{
     text-align: right;
 }
+.right-menu {
+    position: fixed;
+    right: 10px;
+    z-index: 2000;
+    top: 7px;
+}
+.right-menu a {
+    color: white;
+}
 
 /*.nav-pills>li>a {*/
     /*border-radius: 0px;*/
@@ -240,4 +267,7 @@ body{
     align-items: center;
     justify-content: center;
     flex-direction: row;
+}
+.fa-large {
+    font-size: 20px;
 }
