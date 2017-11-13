@@ -30,7 +30,7 @@
 }
 
 .navbar-title{
-    padding-top:8px;
+    padding-top:20px;
 }
 .page-title{
     text-align: center;
@@ -69,11 +69,62 @@
     border-radius:0px;
     border-bottom-width: 4px;
     border-bottom-style: solid;
-    border-bottom-color: #FF6600;
-    color: #000 !important;
+    border-bottom-color: #8CC2BD;
+    color: #E79841 !important;
     background-color: transparent !important;
     margin-right: 10px;
 }
+
 .nav-pill-item{
     color: #4b4b4b;
+    font-family: Montserrat, sans-serif;
+    font-size: 12pt;
+    font-weight: 400;
+    text-transform: uppercase;
+
+}
+
+.primary-link{
+    margin-top: 16px;
+    margin-left: 3px;
+}
+
+.brain-cradle-logo{
+    margin-top: -15px;
+    padding-top:8px;
+    padding-bottom: 8px;
+    padding-left: 6px;
+    padding-right: 35px;
+
+}
+
+.logo-text{
+    font-family: 'Oswald', sans-serif;
+    padding-left: 10px;
+}
+
+.h1 {
+    font-size: 28px;
+}
+
+#logo-link {
+    text-decoration: none;
+    font-weight: inherit;
+    border-radius:0px;
+    border-bottom-width: 0px;
+    border-bottom-style: hidden;
+    color: inherit;
+    background-color: transparent !important;
+    margin-right: inherit;
+}
+
+#logo-link:hover {
+    text-decoration: none;
+    font-weight: inherit;
+    border-radius:0px;
+    border-bottom-width: 0px;
+    border-bottom-style: hidden;
+    color: #E79841 !important;
+    background-color: transparent !important;
+    margin-right: inherit;
 }

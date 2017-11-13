@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="078641d1-78c2-42ac-b21f-5663a8510d5f" name="Default" comment="" />
+    <list default="true" id="078641d1-78c2-42ac-b21f-5663a8510d5f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/braincradleapp/app.css" afterPath="$PROJECT_DIR$/braincradleapp/app.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/braincradleapp/components/blogs/blogs.html" afterPath="$PROJECT_DIR$/braincradleapp/components/blogs/blogs.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/braincradleapp/components/home/home.html" afterPath="$PROJECT_DIR$/braincradleapp/components/home/home.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/braincradleapp/components/navbar/navbar.css" afterPath="$PROJECT_DIR$/braincradleapp/components/navbar/navbar.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/braincradleapp/components/navbar/navbarstrip.html" afterPath="$PROJECT_DIR$/braincradleapp/components/navbar/navbarstrip.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/braincradleapp/components/presentations/presentations.html" afterPath="$PROJECT_DIR$/braincradleapp/components/presentations/presentations.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/braincradleapp/components/projects/projects.html" afterPath="$PROJECT_DIR$/braincradleapp/components/projects/projects.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/braincradleapp/components/solutions/solutions.html" afterPath="$PROJECT_DIR$/braincradleapp/components/solutions/solutions.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/braincradleapp/components/tutorials/tutorials.html" afterPath="$PROJECT_DIR$/braincradleapp/components/tutorials/tutorials.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/braincradleapp/index.html" afterPath="$PROJECT_DIR$/braincradleapp/index.html" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -14,79 +26,75 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="blogs.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/braincradleapp/components/blogs/blogs.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="39" column="29" lean-forward="false" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="blogs.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="blogs.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/braincradleapp/components/blogs/blogs.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="53" lean-forward="false" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
+            <state relative-caret-position="510">
+              <caret line="34" column="48" lean-forward="true" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
               <folding>
-                <element signature="e#2066#2072#1" expanded="true" />
-                <element signature="e#2289#2295#0" expanded="true" />
-                <element signature="e#2295#2301#0" expanded="true" />
+                <element signature="e#2073#2079#1" expanded="true" />
+                <element signature="e#2296#2302#0" expanded="true" />
+                <element signature="e#2302#2308#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="blogs.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/braincradleapp/components/blogs/blogs.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="1" lean-forward="false" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/braincradleapp/app.js">
+      <file leaf-file-name="projects.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/braincradleapp/components/projects/projects.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
-              <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-              <folding>
-                <element signature="e#2838#3469#0" expanded="false" />
-                <element signature="e#3524#4155#0" expanded="false" />
-                <element signature="e#4203#4760#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/braincradleapp/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="915">
-              <caret line="61" column="85" lean-forward="false" selection-start-line="61" selection-start-column="85" selection-end-line="61" selection-end-column="85" />
+              <caret line="6" column="32" lean-forward="false" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="auth.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/braincradleapp/components/auth/auth.js">
+      <file leaf-file-name="solutions.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/braincradleapp/components/solutions/solutions.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="780">
-              <caret line="52" column="31" lean-forward="false" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
+            <state relative-caret-position="225">
+              <caret line="15" column="6" lean-forward="true" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="navbar.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/braincradleapp/components/navbar/navbar.js">
+      <file leaf-file-name="tutorials.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/braincradleapp/components/tutorials/tutorials.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="31" column="36" lean-forward="false" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="36" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tutorials.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/braincradleapp/components/tutorials/tutorials.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="6" lean-forward="true" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/braincradleapp/components/home/home.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="14" column="6" lean-forward="true" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="presentations.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/braincradleapp/components/presentations/presentations.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="6" lean-forward="true" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -95,8 +103,8 @@
       <file leaf-file-name="header.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/braincradleapp/components/navbar/header.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="40" lean-forward="false" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="40" />
+            <state relative-caret-position="105">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="12" selection-end-column="10" />
               <folding>
                 <element signature="n#style#0;n#ng-avatar#0;n#span#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#1;n#ng-avatar#0;n#span#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -105,11 +113,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/braincradleapp/components/home/home.js">
+      <file leaf-file-name="navbarstrip.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/braincradleapp/components/navbar/navbarstrip.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="50" lean-forward="false" selection-start-line="24" selection-start-column="12" selection-end-line="25" selection-end-column="50" />
+            <state relative-caret-position="105">
+              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -118,8 +126,8 @@
       <file leaf-file-name="navbar.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/braincradleapp/components/navbar/navbar.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1065">
-              <caret line="71" column="32" lean-forward="false" selection-start-line="71" selection-start-column="25" selection-end-line="71" selection-end-column="32" />
+            <state relative-caret-position="815">
+              <caret line="126" column="18" lean-forward="false" selection-start-line="126" selection-start-column="18" selection-end-line="126" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -164,24 +172,24 @@
         <option value="$PROJECT_DIR$/braincradleapp/components/projects/projects.js" />
         <option value="$PROJECT_DIR$/braincradleapp/components/solutions/solutions.js" />
         <option value="$PROJECT_DIR$/braincradleapp/components/tutorials/tutorials.js" />
-        <option value="$PROJECT_DIR$/braincradleapp/components/home/home.html" />
-        <option value="$PROJECT_DIR$/braincradleapp/components/navbar/navbarstrip.html" />
-        <option value="$PROJECT_DIR$/braincradleapp/components/presentations/presentations.html" />
-        <option value="$PROJECT_DIR$/braincradleapp/components/projects/projects.html" />
-        <option value="$PROJECT_DIR$/braincradleapp/components/solutions/solutions.html" />
-        <option value="$PROJECT_DIR$/braincradleapp/components/tutorials/tutorials.html" />
         <option value="$PROJECT_DIR$/braincradleapp/components/common/common.js" />
-        <option value="$PROJECT_DIR$/braincradleapp/components/navbar/navbar.css" />
-        <option value="$PROJECT_DIR$/braincradleapp/app.css" />
         <option value="$PROJECT_DIR$/braincradleapp/components/auth/auth.js" />
         <option value="$PROJECT_DIR$/braincradleapp/components/navbar/navbar.js" />
         <option value="$PROJECT_DIR$/braincradleapp/components/home/home.js" />
-        <option value="$PROJECT_DIR$/braincradleapp/components/navbar/header.html" />
-        <option value="$PROJECT_DIR$/braincradleapp/index.html" />
         <option value="$PROJECT_DIR$/braincradleapp/app.js" />
         <option value="$PROJECT_DIR$/braincradleapp/components/blogs/blogs.js" />
         <option value="$PROJECT_DIR$/braincradleapp/components/blogs/blogs.css" />
+        <option value="$PROJECT_DIR$/braincradleapp/components/navbar/header.html" />
+        <option value="$PROJECT_DIR$/braincradleapp/index.html" />
+        <option value="$PROJECT_DIR$/braincradleapp/app.css" />
+        <option value="$PROJECT_DIR$/braincradleapp/components/home/home.html" />
+        <option value="$PROJECT_DIR$/braincradleapp/components/navbar/navbarstrip.html" />
+        <option value="$PROJECT_DIR$/braincradleapp/components/navbar/navbar.css" />
+        <option value="$PROJECT_DIR$/braincradleapp/components/presentations/presentations.html" />
         <option value="$PROJECT_DIR$/braincradleapp/components/blogs/blogs.html" />
+        <option value="$PROJECT_DIR$/braincradleapp/components/projects/projects.html" />
+        <option value="$PROJECT_DIR$/braincradleapp/components/solutions/solutions.html" />
+        <option value="$PROJECT_DIR$/braincradleapp/components/tutorials/tutorials.html" />
       </list>
     </option>
   </component>
@@ -194,10 +202,9 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/gulp/node_modules" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1680" />
-    <option name="height" value="946" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -217,7 +224,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -234,14 +240,20 @@
               <item name="BrainCradle" type="b2602c69:ProjectViewProjectNode" />
               <item name="BrainCradle" type="462c0819:PsiDirectoryNode" />
               <item name="braincradleapp" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BrainCradle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BrainCradle" type="462c0819:PsiDirectoryNode" />
+              <item name="braincradleapp" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BrainCradle" type="b2602c69:ProjectViewProjectNode" />
               <item name="BrainCradle" type="462c0819:PsiDirectoryNode" />
               <item name="braincradleapp" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="auth" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BrainCradle" type="b2602c69:ProjectViewProjectNode" />
@@ -255,14 +267,14 @@
               <item name="BrainCradle" type="462c0819:PsiDirectoryNode" />
               <item name="braincradleapp" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="home" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BrainCradle" type="b2602c69:ProjectViewProjectNode" />
               <item name="BrainCradle" type="462c0819:PsiDirectoryNode" />
               <item name="braincradleapp" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="home" type="462c0819:PsiDirectoryNode" />
+              <item name="menu" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BrainCradle" type="b2602c69:ProjectViewProjectNode" />
@@ -271,10 +283,45 @@
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="navbar" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="BrainCradle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BrainCradle" type="462c0819:PsiDirectoryNode" />
+              <item name="braincradleapp" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="presentations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BrainCradle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BrainCradle" type="462c0819:PsiDirectoryNode" />
+              <item name="braincradleapp" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BrainCradle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BrainCradle" type="462c0819:PsiDirectoryNode" />
+              <item name="braincradleapp" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="solutions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BrainCradle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BrainCradle" type="462c0819:PsiDirectoryNode" />
+              <item name="braincradleapp" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="tutorials" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BrainCradle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BrainCradle" type="462c0819:PsiDirectoryNode" />
+              <item name="braincradleapp" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -285,6 +332,11 @@
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/braincradleapp/assets" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -319,14 +371,16 @@
       <workItem from="1510252067648" duration="4788000" />
       <workItem from="1510409199164" duration="11552000" />
       <workItem from="1510528227355" duration="18000" />
+      <workItem from="1510545791784" duration="27000" />
+      <workItem from="1510545834998" duration="7282000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16358000" />
+    <option name="totallyTimeSpent" value="23667000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="946" extended-state="0" />
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27916667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -358,6 +412,26 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/braincradleapp/components/navbar/navbar.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1065">
+          <caret line="71" column="32" lean-forward="false" selection-start-line="71" selection-start-column="25" selection-end-line="71" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/braincradleapp/components/blogs/blogs.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="53" lean-forward="false" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
+          <folding>
+            <element signature="e#2073#2079#1" expanded="true" />
+            <element signature="e#2296#2302#0" expanded="true" />
+            <element signature="e#2302#2308#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/braincradleapp/components/blogs/blogs.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="585">
@@ -442,9 +516,9 @@
         <state relative-caret-position="300">
           <caret line="20" column="53" lean-forward="false" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
           <folding>
-            <element signature="e#2066#2072#1" expanded="true" />
-            <element signature="e#2289#2295#0" expanded="true" />
-            <element signature="e#2295#2301#0" expanded="true" />
+            <element signature="e#2073#2079#1" expanded="true" />
+            <element signature="e#2296#2302#0" expanded="true" />
+            <element signature="e#2302#2308#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -547,27 +621,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/braincradleapp/components/tutorials/tutorials.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/braincradleapp/components/home/home.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/braincradleapp/components/menu/menu.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="52" lean-forward="false" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/braincradleapp/components/presentations/presentations.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -596,59 +649,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/braincradleapp/components/navbar/navbarstrip.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="5" lean-forward="false" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/braincradleapp/components/home/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="11" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/braincradleapp/components/presentations/presentations.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="11" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/braincradleapp/components/projects/projects.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="11" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/braincradleapp/components/solutions/solutions.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="11" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/braincradleapp/components/tutorials/tutorials.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="64" lean-forward="false" selection-start-line="4" selection-start-column="64" selection-end-line="4" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/braincradleapp/components/common/common.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="42" lean-forward="false" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/braincradleapp/app.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" column="1" lean-forward="false" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -664,41 +668,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="25" column="50" lean-forward="false" selection-start-line="24" selection-start-column="12" selection-end-line="25" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/braincradleapp/components/navbar/navbar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="36" lean-forward="false" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/braincradleapp/components/navbar/navbar.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1065">
-          <caret line="71" column="32" lean-forward="false" selection-start-line="71" selection-start-column="25" selection-end-line="71" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/braincradleapp/components/navbar/header.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="40" lean-forward="false" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="40" />
-          <folding>
-            <element signature="n#style#0;n#ng-avatar#0;n#span#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#1;n#ng-avatar#0;n#span#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/braincradleapp/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="915">
-          <caret line="61" column="85" lean-forward="false" selection-start-line="61" selection-start-column="85" selection-end-line="61" selection-end-column="85" />
           <folding />
         </state>
       </provider>
@@ -731,15 +700,130 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/braincradleapp/components/menu/menu.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="21" lean-forward="true" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/braincradleapp/components/navbar/navbar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="36" lean-forward="false" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/braincradleapp/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/braincradleapp/app.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="45" column="28" lean-forward="true" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/braincradleapp/components/home/home.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/braincradleapp/components/navbar/header.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="12" selection-end-column="10" />
+          <folding>
+            <element signature="n#style#0;n#ng-avatar#0;n#span#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#1;n#ng-avatar#0;n#span#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/braincradleapp/components/navbar/navbarstrip.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/braincradleapp/components/navbar/navbar.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="815">
+          <caret line="126" column="18" lean-forward="false" selection-start-line="126" selection-start-column="18" selection-end-line="126" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/braincradleapp/components/home/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="6" lean-forward="true" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/braincradleapp/components/presentations/presentations.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="6" lean-forward="true" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/braincradleapp/components/blogs/blogs.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="53" lean-forward="false" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
+        <state relative-caret-position="510">
+          <caret line="34" column="48" lean-forward="true" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
           <folding>
-            <element signature="e#2066#2072#1" expanded="true" />
-            <element signature="e#2289#2295#0" expanded="true" />
-            <element signature="e#2295#2301#0" expanded="true" />
+            <element signature="e#2073#2079#1" expanded="true" />
+            <element signature="e#2296#2302#0" expanded="true" />
+            <element signature="e#2302#2308#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/braincradleapp/components/projects/projects.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="32" lean-forward="false" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/braincradleapp/components/solutions/solutions.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="6" lean-forward="true" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/braincradleapp/components/tutorials/tutorials.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/braincradleapp/components/tutorials/tutorials.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="6" lean-forward="true" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>

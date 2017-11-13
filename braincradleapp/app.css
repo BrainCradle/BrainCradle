@@ -2,6 +2,10 @@ html {
     /*height: 100%;*/
     margin: 0;
     padding: 0;
+    color: #404040;
+
+    font-family: Montserrat, sans-serif;
+
 }
 body{
     /*height:100%;*/
@@ -36,4 +40,8 @@ body{
 }
 .fa-large {
     font-size: 20px;
+}
+
+.navbar {
+    background-color: white;
 }
