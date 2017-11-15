@@ -4,16 +4,29 @@ ul.post-grid {
     list-style-type: none;
 }
 ul.post-grid li {
-    padding: 20px;
+    padding: 10px;
     cursor: pointer;
     -webkit-transition: background linear 0.5s;
     transition: background linear 0.5s;
-    border-bottom: 1px solid #3a8bab;
+
 }
 ul.post-grid li:hover {
-    background: #3a8bab;
-    color: white;
+    background: #e2e2e2;
+    /*color: white;*/
 }
 ul.post-grid li:hover h3 {
-    color: white;
+    /*color: white;*/
+}
+.blog-container{
+    padding: 15px;
+    background-color: #ffffff;
+}
+.blog-post-summary{
+    min-height: 140px;
+    max-height: 140px;
+    overflow: hidden;
+
+}
+.blog-post-summary-buttons{
+    border-top: 1px solid #3a8bab;
 }

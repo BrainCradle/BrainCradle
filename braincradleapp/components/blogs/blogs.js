@@ -54,8 +54,12 @@
                 self.addNew = false;
             }
 
-            self.ViewPost = function () {
+            self.ViewPost = function (post) {
                 self.viewPost = true;
+                self.current_post = post;
+            }
+            self.AllPosts = function () {
+                self.viewPost = false;
             }
 
         })
