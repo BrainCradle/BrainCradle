@@ -12,7 +12,7 @@ body{
     background: #ececec;
 }
 .body-content{
-    margin-top: 115px;
+    margin-top: 170px;
     position: relative;
 }
 
@@ -40,8 +40,4 @@ body{
 }
 .fa-large {
     font-size: 20px;
-}
-
-.navbar {
-    background-color: white;
 }

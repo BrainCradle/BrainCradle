@@ -1,10 +1,10 @@
 <nav class="navbar navbar-default navbar-fixed-title">
-    <div class="container navbar-title">
+    <div class="container-fluid navbar-title">
         <div class="row">
-            <div class="col-xs-7 page-title-left">
+            <div class="col-xs-11 page-title-left">
                 <navbar-strip active="blogs"></navbar-strip>
             </div>
-            <div class="col-xs-5 page-title-right">
+            <div class="col-xs-1 page-title-right">
                 <a ng-if="blogsCtrl.currentUser" class="btn" tooltip-placement="left" uib-tooltip="Add new blog" ng-click="blogsCtrl.AddNew()"><i class="fa fa-plus-circle fa-large" aria-hidden="true"></i></a>
             </div>
         </div>
@@ -16,7 +16,7 @@
     <div ng-if="!blogsCtrl.addNew && !blogsCtrl.viewPost">
         <div class="row">
             <ul class="post-grid">
-                <li ng-repeat="post in blogsCtrl.blogs" class="col-md-4" ng-class="{ 'reset-s' : $index%3==0 }" ng-click="blogsCtrl.viewPost($index)" >
+                <li ng-repeat="post in blogsCtrl.blogs" class="col-md-4" ng-class="{ 'reset-s' : $index%3==0 }" ng-click="blogsCtrl.ViewPost(post)" >
                     <div class="blog-container">
                         <h3>{{post.blog_title}}</h3>
                         <p class="blog-post-summary" ng-bind-html="post.blog_post"></p>
@@ -31,7 +31,19 @@
         </div>
     </div>
     <div ng-if="blogsCtrl.viewPost">
-
+        <div class="row">
+            <div class="col-xs-12">
+                <a ng-click="blogsCtrl.AllPosts()">All posts</a>
+            </div>
+        </div>
+        <div class="blog-container">
+            <h3>{{blogsCtrl.current_post.blog_title}}</h3>
+            <p class="blog-post-summary" ng-bind-html="blogsCtrl.current_post.blog_post"></p>
+            <p class="blog-post-summary-buttons">
+                <span class="pull-left"><i class="fa fa-comments" aria-hidden="true"></i></span>
+                <span class="pull-right"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+            </p>
+        </div>
     </div>
     <div ng-if="blogsCtrl.addNew">
         <h4>Add New Post</h4>

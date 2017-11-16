@@ -71,66 +71,7 @@
             var self = this;
             console.log("appController");
 
-            //AppFirebase.auth().onAuthStateChanged(function(user) {
-            //    if (user) {
-            //        // User is signed in.
-            //        console.log(user);
-            //        AppService.currentUser=user;
-            //    } else {
-            //        // No user is signed in.
-            //        console.log('User not logged in');
-            //        $state.go('login');
-            //    }
-            //});
 
         })
-        .filter('ExistsInArray', function($filter){
-            return function(list, arrayFilter, element1,element2){
-                //console.log(arrayFilter);
-                //console.log(element1+'-'+element2);
-                if(arrayFilter){
-                    return $filter("filter")(list, function(listItem){
-                        //return arrayFilter.indexOf(listItem[element]) != -1;
-                        return (_.findIndex(arrayFilter, function(o) { return listItem[element1] == o[element2]; }) != -1)
-                    });
-
-                    //return list;
-                }else{
-                    return list;
-                }
-            };
-        })
-        .filter('NotExistsInArray', function($filter){
-            return function(list, arrayFilter, element1,element2){
-                //console.log(arrayFilter);
-                //console.log(element1+'-'+element2);
-                if(arrayFilter){
-                    return $filter("filter")(list, function(listItem){
-                        //return arrayFilter.indexOf(listItem[element]) != -1;
-                        return (_.findIndex(arrayFilter, function(o) { return listItem[element1] == o[element2]; }) == -1)
-                    });
-
-                    //return list;
-                }else{
-                    return list;
-                }
-            };
-        })
-        .filter('IsNotNull', function($filter){
-            return function(list, columnname){
-                //console.log(arrayFilter);
-                //console.log(element1+'-'+element2);
-                if(columnname){
-                    return $filter("filter")(list, function(listItem){
-                        //return (_.findIndex(arrayFilter, function(o) { return listItem[element1] == o[element2]; }) != -1)
-                        return listItem[columnname] != '';
-                    });
-
-                }else{
-                    return list;
-                }
-            };
-        })
-
 })();
 

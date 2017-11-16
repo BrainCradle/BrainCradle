@@ -1,5 +1,7 @@
 // Include gulp
 var gulp = require('gulp');
+// Karma Server
+var Server = require('karma').Server;
 // Include plugins
 var concat = require('gulp-concat');
 var htmlreplace = require('gulp-html-replace');
@@ -81,6 +83,14 @@ gulp.task('print',['clean'], function () {
 gulp.task('clean', function () {
 	return del(['build/**/*']);
 });
+
+// // Run Unit Tests
+// gulp.task('test', function (done) {
+//   new Server({
+//     configFile: 'karma.conf.js',
+//     singleRun: true
+//   }, done).start();
+// });
 
 // Default Task
 gulp.task('default', ['print','index', 'lib', 'assets', 'icons', 'resources', 'js', 'css', 'html', 'appconfig']);

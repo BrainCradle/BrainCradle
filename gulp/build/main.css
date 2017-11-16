@@ -31,7 +31,6 @@ ul.post-grid li:hover h3 {
     border-top: 1px solid #3a8bab;
 }
 
-
 #navigation{
     background:#171B26;
     height: 100%;
@@ -163,6 +162,7 @@ ul.post-grid li:hover h3 {
 .no-padding{padding:0!important;}
 
 
+
 .app-navbar{
     background-color: rgb(30, 115, 252);
 }
@@ -191,10 +191,11 @@ ul.post-grid li:hover h3 {
     top: 50px;
     /*border-width: 0 0 1px;*/
     box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+    background-color: white;
 }
 
 .navbar-title{
-    padding-top:8px;
+    padding-top:20px;
 }
 .page-title{
     text-align: center;
@@ -233,13 +234,64 @@ ul.post-grid li:hover h3 {
     border-radius:0px;
     border-bottom-width: 4px;
     border-bottom-style: solid;
-    border-bottom-color: #FF6600;
-    color: #000 !important;
+    border-bottom-color: #8CC2BD;
+    color: #E79841 !important;
     background-color: transparent !important;
     margin-right: 10px;
 }
+
 .nav-pill-item{
     color: #4b4b4b;
+    font-family: Montserrat, sans-serif;
+    font-size: 12pt;
+    font-weight: 400;
+    text-transform: uppercase;
+
+}
+
+.primary-link{
+    margin-top: 16px;
+    margin-left: 3px;
+}
+
+.brain-cradle-logo{
+    margin-top: -15px;
+    padding-top:8px;
+    padding-bottom: 8px;
+    padding-left: 6px;
+    padding-right: 35px;
+
+}
+
+.logo-text{
+    font-family: 'Oswald', sans-serif;
+    padding-left: 10px;
+}
+
+.h1 {
+    font-size: 28px;
+}
+
+#logo-link {
+    text-decoration: none;
+    font-weight: inherit;
+    border-radius:0px;
+    border-bottom-width: 0px;
+    border-bottom-style: hidden;
+    color: inherit;
+    background-color: transparent !important;
+    margin-right: inherit;
+}
+
+#logo-link:hover {
+    text-decoration: none;
+    font-weight: inherit;
+    border-radius:0px;
+    border-bottom-width: 0px;
+    border-bottom-style: hidden;
+    color: #E79841 !important;
+    background-color: transparent !important;
+    margin-right: inherit;
 }
 
 
@@ -249,13 +301,17 @@ html {
     /*height: 100%;*/
     margin: 0;
     padding: 0;
+    color: #404040;
+
+    font-family: Montserrat, sans-serif;
+
 }
 body{
     /*height:100%;*/
     background: #ececec;
 }
 .body-content{
-    margin-top: 115px;
+    margin-top: 170px;
     position: relative;
 }
 
