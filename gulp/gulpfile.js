@@ -84,13 +84,13 @@ gulp.task('clean', function () {
 	return del(['build/**/*']);
 });
 
-// // Run Unit Tests
-// gulp.task('test', function (done) {
-//   new Server({
-//     configFile: 'karma.conf.js',
-//     singleRun: true
-//   }, done).start();
-// });
+// Run Unit Tests
+gulp.task('test',['index'], function (done) {
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
+});
 
 // Default Task
-gulp.task('default', ['print','index', 'lib', 'assets', 'icons', 'resources', 'js', 'css', 'html', 'appconfig']);
+gulp.task('default', ['test','print','index', 'lib', 'assets', 'icons', 'resources', 'js', 'css', 'html', 'appconfig']);

@@ -34,7 +34,7 @@
                 }
             });
         })
-        .service('Auth',function($firebaseAuth,AppFirebase,AppConfig,$state){
+        .service('Auth',function(AppFirebase){
             console.log("Auth");
 
             return AppFirebase.auth();
