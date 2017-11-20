@@ -149,132 +149,6 @@
 })();
 (function() {
     'use strict';
-    angular.module('braincradle.app.menu', [])
-        .directive('appMenu', function () {
-            // <app-menu></app-menu>
-            return {
-                restrict: 'E',
-                templateUrl: 'components/menu/menu.html',
-                link: function (scope, element, attrs) {
-                    $(".hamburger").click(function(event) {
-
-                        $(".top-menu").toggleClass("top-animate");
-                        $(".mid-menu").toggleClass("mid-animate");
-                        $(".bottom-menu").toggleClass("bottom-animate");
-                        if($("#nav-container").hasClass("menu-close")){
-                            $("#nav-container" ).animate({ "left": "0px" }, "310" );
-                            $("#nav-container").removeClass("menu-close");
-                            $("#nav-container").addClass("menu-open");
-
-                        }
-                        else{
-                            $("#nav-container").removeClass("menu-open");
-                            $("#nav-container").addClass("menu-close");
-                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
-                        }
-                        //event.stopPropagation();
-                    });
-                    $("body").click(function(){
-                        //console.log("body click");
-                        //if($("#nav-container").hasClass("menu-open")){
-                        //    $("#nav-container" ).animate({ "left": "-300px" }, "310" );
-                        //    $(".top-menu").toggleClass("top-animate");
-                        //    $(".mid-menu").toggleClass("mid-animate");
-                        //    $(".bottom-menu").toggleClass("bottom-animate");
-                        //    $("#nav-container").removeClass("menu-open");
-                        //    $("#nav-container").addClass("menu-close");
-                        //}
-                    })
-                    $(".custom-drop li").click(function() {
-                        console.log(this);
-                        if($(this).children().length>1){
-
-                        }
-                        else{
-                            $("#nav-container").removeClass("menu-open");
-                            $("#nav-container").addClass("menu-close");
-                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
-                            $(".top-menu").toggleClass("top-animate");
-                            $(".mid-menu").toggleClass("mid-animate");
-                            $(".bottom-menu").toggleClass("bottom-animate");
-                        }
-                    });
-                }
-            };
-        })
-
-})();
-
-
-(function() {
-    'use strict';
-    angular.module('braincradle.app.navbar', [])
-        .directive('appHeader', function () {
-            // <app-navbar></app-navbar>
-            return {
-                restrict: 'E',
-                templateUrl: 'components/navbar/header.html'
-            };
-        })
-        .directive('navbarStrip', function () {
-            // <navbar-strip></navbar-strip>
-            return {
-                restrict: 'E',
-                templateUrl: 'components/navbar/navbarstrip.html',
-                link: link
-            };
-            function link(scope, element, attrs) {
-                scope.active = attrs.active;
-            }
-        })
-        .controller('HeaderController', function ($scope,AppFirebase) {
-            var self = this;
-
-            self.signin = true;
-
-            AppFirebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    self.signin = false;
-                    // User is signed in.
-                    //console.log(user);
-                    self.currentUser = user;
-
-                    $scope.$apply();
-
-                } else {
-                    // No user is signed in.
-                    console.log('User not logged in');
-                }
-            });
-
-        })
-
-})();
-
-(function() {
-    'use strict';
-    angular.module('braincradle.app.presentations', [])
-        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
-            var now = new Date();
-            var ticks = now.getTime();
-
-            // Blogs Main
-            $stateProvider.state('presentations', {
-                url: '/presentations',
-                templateUrl: 'components/presentations/presentations.html?'+ticks,
-                controller: 'PresentationsController',
-                controllerAs: 'presentationsCtrl'
-            });
-
-        })
-        .controller('PresentationsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
-            var self = this;
-
-        })
-
-})();
-(function() {
-    'use strict';
     angular.module('braincradle.app.blogs', [])
         .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
             var now = new Date();
@@ -344,72 +218,6 @@
             self.AllPosts = function () {
                 self.viewPost = false;
             }
-
-        })
-
-})();
-(function() {
-    'use strict';
-    angular.module('braincradle.app.projects', [])
-        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
-            var now = new Date();
-            var ticks = now.getTime();
-
-            // Blogs Main
-            $stateProvider.state('projects', {
-                url: '/projects',
-                templateUrl: 'components/projects/projects.html?'+ticks,
-                controller: 'ProjectsController',
-                controllerAs: 'projectsCtrl'
-            });
-
-        })
-        .controller('ProjectsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
-            var self = this;
-
-        })
-
-})();
-(function() {
-    'use strict';
-    angular.module('braincradle.app.solutions', [])
-        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
-            var now = new Date();
-            var ticks = now.getTime();
-
-            // Blogs Main
-            $stateProvider.state('solutions', {
-                url: '/solutions',
-                templateUrl: 'components/solutions/solutions.html?'+ticks,
-                controller: 'SolutionsController',
-                controllerAs: 'solutionsCtrl'
-            });
-
-        })
-        .controller('SolutionsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
-            var self = this;
-
-        })
-
-})();
-(function() {
-    'use strict';
-    angular.module('braincradle.app.tutorials', [])
-        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
-            var now = new Date();
-            var ticks = now.getTime();
-
-            // Blogs Main
-            $stateProvider.state('tutorials', {
-                url: '/tutorials',
-                templateUrl: 'components/tutorials/tutorials.html?'+ticks,
-                controller: 'TutorialsController',
-                controllerAs: 'tutorialsCtrl'
-            });
-
-        })
-        .controller('TutorialsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
-            var self = this;
 
         })
 
@@ -666,6 +474,199 @@
             //    id: ticks
             //});
 
+
+        })
+
+})();
+
+(function() {
+    'use strict';
+    angular.module('braincradle.app.menu', [])
+        .directive('appMenu', function () {
+            // <app-menu></app-menu>
+            return {
+                restrict: 'E',
+                templateUrl: 'components/menu/menu.html',
+                link: function (scope, element, attrs) {
+                    $(".hamburger").click(function(event) {
+
+                        $(".top-menu").toggleClass("top-animate");
+                        $(".mid-menu").toggleClass("mid-animate");
+                        $(".bottom-menu").toggleClass("bottom-animate");
+                        if($("#nav-container").hasClass("menu-close")){
+                            $("#nav-container" ).animate({ "left": "0px" }, "310" );
+                            $("#nav-container").removeClass("menu-close");
+                            $("#nav-container").addClass("menu-open");
+
+                        }
+                        else{
+                            $("#nav-container").removeClass("menu-open");
+                            $("#nav-container").addClass("menu-close");
+                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
+                        }
+                        //event.stopPropagation();
+                    });
+                    $("body").click(function(){
+                        //console.log("body click");
+                        //if($("#nav-container").hasClass("menu-open")){
+                        //    $("#nav-container" ).animate({ "left": "-300px" }, "310" );
+                        //    $(".top-menu").toggleClass("top-animate");
+                        //    $(".mid-menu").toggleClass("mid-animate");
+                        //    $(".bottom-menu").toggleClass("bottom-animate");
+                        //    $("#nav-container").removeClass("menu-open");
+                        //    $("#nav-container").addClass("menu-close");
+                        //}
+                    })
+                    $(".custom-drop li").click(function() {
+                        console.log(this);
+                        if($(this).children().length>1){
+
+                        }
+                        else{
+                            $("#nav-container").removeClass("menu-open");
+                            $("#nav-container").addClass("menu-close");
+                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
+                            $(".top-menu").toggleClass("top-animate");
+                            $(".mid-menu").toggleClass("mid-animate");
+                            $(".bottom-menu").toggleClass("bottom-animate");
+                        }
+                    });
+                }
+            };
+        })
+
+})();
+
+
+(function() {
+    'use strict';
+    angular.module('braincradle.app.navbar', [])
+        .directive('appHeader', function () {
+            // <app-navbar></app-navbar>
+            return {
+                restrict: 'E',
+                templateUrl: 'components/navbar/header.html'
+            };
+        })
+        .directive('navbarStrip', function () {
+            // <navbar-strip></navbar-strip>
+            return {
+                restrict: 'E',
+                templateUrl: 'components/navbar/navbarstrip.html',
+                link: link
+            };
+            function link(scope, element, attrs) {
+                scope.active = attrs.active;
+            }
+        })
+        .controller('HeaderController', function ($scope,AppFirebase) {
+            var self = this;
+
+            self.signin = true;
+
+            AppFirebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    self.signin = false;
+                    // User is signed in.
+                    //console.log(user);
+                    self.currentUser = user;
+
+                    $scope.$apply();
+
+                } else {
+                    // No user is signed in.
+                    console.log('User not logged in');
+                }
+            });
+
+        })
+
+})();
+
+(function() {
+    'use strict';
+    angular.module('braincradle.app.presentations', [])
+        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
+            var now = new Date();
+            var ticks = now.getTime();
+
+            // Blogs Main
+            $stateProvider.state('presentations', {
+                url: '/presentations',
+                templateUrl: 'components/presentations/presentations.html?'+ticks,
+                controller: 'PresentationsController',
+                controllerAs: 'presentationsCtrl'
+            });
+
+        })
+        .controller('PresentationsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
+            var self = this;
+
+        })
+
+})();
+(function() {
+    'use strict';
+    angular.module('braincradle.app.projects', [])
+        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
+            var now = new Date();
+            var ticks = now.getTime();
+
+            // Blogs Main
+            $stateProvider.state('projects', {
+                url: '/projects',
+                templateUrl: 'components/projects/projects.html?'+ticks,
+                controller: 'ProjectsController',
+                controllerAs: 'projectsCtrl'
+            });
+
+        })
+        .controller('ProjectsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
+            var self = this;
+
+        })
+
+})();
+(function() {
+    'use strict';
+    angular.module('braincradle.app.solutions', [])
+        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
+            var now = new Date();
+            var ticks = now.getTime();
+
+            // Blogs Main
+            $stateProvider.state('solutions', {
+                url: '/solutions',
+                templateUrl: 'components/solutions/solutions.html?'+ticks,
+                controller: 'SolutionsController',
+                controllerAs: 'solutionsCtrl'
+            });
+
+        })
+        .controller('SolutionsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
+            var self = this;
+
+        })
+
+})();
+(function() {
+    'use strict';
+    angular.module('braincradle.app.tutorials', [])
+        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
+            var now = new Date();
+            var ticks = now.getTime();
+
+            // Blogs Main
+            $stateProvider.state('tutorials', {
+                url: '/tutorials',
+                templateUrl: 'components/tutorials/tutorials.html?'+ticks,
+                controller: 'TutorialsController',
+                controllerAs: 'tutorialsCtrl'
+            });
+
+        })
+        .controller('TutorialsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
+            var self = this;
 
         })
 

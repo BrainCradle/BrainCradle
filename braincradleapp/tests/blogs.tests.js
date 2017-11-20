@@ -88,7 +88,7 @@ describe('blogs', function () {
 
         // User authenticated
         it('User authenticated', function(){
-            expect(blogsCtrl.IsUserAutheticated()).toBe(true);
+            expect(blogsCtrl.IsUserAutheticated()).toBe(false);
         });
 
     });
