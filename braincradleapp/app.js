@@ -20,9 +20,9 @@
         ,'braincradle.app.tutorials'
     ])
         .service('AppFirebase',function(){
-
+            var self = this;
             // Initialize Firebase
-            var config = {
+            self.config = {
                 apiKey: "AIzaSyDaLDh5Lmmm27ZkIqc_caYsdPlZGVvD72A",
                 authDomain: "braincradleai.firebaseapp.com",
                 databaseURL: "https://braincradleai.firebaseio.com",
@@ -30,7 +30,9 @@
                 storageBucket: "braincradleai.appspot.com",
                 messagingSenderId: "434325403197"
             };
-            firebase.initializeApp(config);
+            if (!firebase.apps.length) {
+                firebase.initializeApp(self.config);
+            }
 
             return firebase;
         })
@@ -71,7 +73,7 @@
             var self = this;
             console.log("appController");
 
-
+            self.controllerLoaded = true;
         })
 })();
 

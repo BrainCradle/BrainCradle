@@ -30,6 +30,14 @@
             self.addNew = false;
             self.viewPost = false;
 
+            self.IsUserAutheticated = function(){
+                if(self.currentUser){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
             self.AddNew = function () {
                 self.addNew = true;
                 self.newpost = {}
