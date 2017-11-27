@@ -80,150 +80,6 @@
 
 (function() {
     'use strict';
-    angular.module('braincradle.app.auth', [])
-        .config(function($stateProvider){
-            var now = new Date();
-            var ticks = now.getTime();
-
-            $stateProvider.state('login', {
-                url: '/login',
-                controller: 'AuthController as authCtrl',
-                templateUrl: 'components/auth/login.html?'+ticks,
-                resolve: {
-                    requireNoAuth: function($state, Auth){
-                        if(Auth.currentUser == null){
-                            return;
-                        }else{
-                            $state.go('home');
-                        }
-                    }
-                }
-            });
-            $stateProvider.state('register', {
-                url: '/register',
-                controller: 'AuthController as authCtrl',
-                templateUrl: 'components/auth/register.html?'+ticks,
-                resolve: {
-                    requireNoAuth: function($state, Auth){
-                        if(Auth.currentUser == null){
-                            return;
-                        }else{
-                            $state.go('home');
-                        }
-                    }
-                }
-            });
-        })
-        .service('Auth',function(AppFirebase){
-            console.log("Auth");
-
-            return AppFirebase.auth();
-        })
-        .controller('AuthController',function(Auth,$state,AppConfig,AppFirebase){
-            var self = this;
-
-            var provider = new firebase.auth.GoogleAuthProvider();
-
-            Auth.signInWithPopup(provider).then(function(result) {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                var token = result.credential.accessToken;
-                // The signed-in user info.
-                var user = result.user;
-                console.log(user);
-                $state.go('home');
-            }).catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
-
-                self.error.message = errorCode + ":" + errorMessage;
-            });
-
-
-        })
-
-})();
-(function() {
-    'use strict';
-    angular.module('braincradle.app.blogs', [])
-        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
-            var now = new Date();
-            var ticks = now.getTime();
-
-            // Blogs Main
-            $stateProvider.state('blogs', {
-                url: '/blogs',
-                templateUrl: 'components/blogs/blogs.html?'+ticks,
-                controller: 'BlogsController',
-                controllerAs: 'blogsCtrl'
-            });
-
-        })
-        .controller('BlogsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
-            var self = this;
-
-            // Get the logged in user
-            console.log(AppFirebase.auth().currentUser);
-            self.currentUser = AppFirebase.auth().currentUser;
-
-            // Get a reference to the database service
-            var database = AppFirebase.database();
-
-            var blogsRef = database.ref().child("blogs");
-            self.blogs = $firebaseArray(blogsRef);
-            
-            self.addNew = false;
-            self.viewPost = false;
-
-            self.IsUserAutheticated = function(){
-                if(self.currentUser){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
-
-            self.AddNew = function () {
-                self.addNew = true;
-                self.newpost = {}
-            }
-            self.Save = function () {
-                var updateObj = {
-                    blog_title: self.newpost.blog_title,
-                    blog_post: self.newpost.blog_post,
-                    author: {email:self.currentUser.email,user:self.currentUser.displayName}
-                }
-                console.log(updateObj);
-                // Get a key for a new record.
-                var newKey = firebase.database().ref().child('blogs').push().key;
-                database.ref('blogs/'+newKey).set(updateObj);
-
-                // Done
-                self.newpost = {}
-                self.addNew = false;
-            }
-            self.Cancel = function () {
-                self.newpost = {}
-                self.addNew = false;
-            }
-
-            self.ViewPost = function (post) {
-                self.viewPost = true;
-                self.current_post = post;
-            }
-            self.AllPosts = function () {
-                self.viewPost = false;
-            }
-
-        })
-
-})();
-(function() {
-    'use strict';
     angular.module('braincradle.app.common', [])
         .controller('confirmmodalController', function ($uibModalInstance, valid) {
             var self = this;
@@ -437,43 +293,210 @@
 
 (function() {
     'use strict';
-    angular.module('braincradle.app.home', [])
+    angular.module('braincradle.app.blogs', [])
         .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
             var now = new Date();
             var ticks = now.getTime();
 
-            // Auto Scroll tot he top
-            $uiViewScrollProvider.useAnchorScroll();
-
-            // Home
-            $stateProvider.state('home', {
-                url: '/',
-                templateUrl: 'components/home/home.html?'+ticks,
-                controller: 'HomeController',
-                controllerAs: 'homeCtrl'
+            // Blogs Main
+            $stateProvider.state('blogs', {
+                url: '/blogs',
+                templateUrl: 'components/blogs/blogs.html?'+ticks,
+                controller: 'BlogsController',
+                controllerAs: 'blogsCtrl'
             });
 
-            $urlRouterProvider.otherwise('/');
-
         })
-        .controller('HomeController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
+        .controller('BlogsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
             var self = this;
-
-            // Get a reference to the database service
-            var database = AppFirebase.database();
 
             // Get the logged in user
             console.log(AppFirebase.auth().currentUser);
             self.currentUser = AppFirebase.auth().currentUser;
 
+            // Get a reference to the database service
+            var database = AppFirebase.database();
+
+            var blogsRef = database.ref().child("blogs");
+            self.blogs = $firebaseArray(blogsRef);
+            
+            self.addNew = false;
+            self.viewPost = false;
+
+            self.IsUserAutheticated = function(){
+                if(self.currentUser){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+            self.AddNew = function () {
+                self.addNew = true;
+                self.newpost = {}
+            }
+            self.Save = function () {
+                var updateObj = {
+                    blog_title: self.newpost.blog_title,
+                    blog_post: self.newpost.blog_post,
+                    author: {email:self.currentUser.email,user:self.currentUser.displayName}
+                }
+                console.log(updateObj);
+                // Get a key for a new record.
+                var newKey = firebase.database().ref().child('blogs').push().key;
+                database.ref('blogs/'+newKey).set(updateObj);
+
+                // Done
+                self.newpost = {}
+                self.addNew = false;
+            }
+            self.Cancel = function () {
+                self.newpost = {}
+                self.addNew = false;
+            }
+
+            self.ViewPost = function (post) {
+                self.viewPost = true;
+                self.current_post = post;
+            }
+            self.AllPosts = function () {
+                self.viewPost = false;
+            }
+
+        })
+
+})();
+(function() {
+    'use strict';
+    angular.module('braincradle.app.auth', [])
+        .config(function($stateProvider){
             var now = new Date();
             var ticks = now.getTime();
 
-            //firebase.database().ref('table01/' + ticks).set({
-            //    name: "Test-"+ticks,
-            //    id: ticks
-            //});
+            $stateProvider.state('login', {
+                url: '/login',
+                controller: 'AuthController as authCtrl',
+                templateUrl: 'components/auth/login.html?'+ticks,
+                resolve: {
+                    requireNoAuth: function($state, Auth){
+                        if(Auth.currentUser == null){
+                            return;
+                        }else{
+                            $state.go('home');
+                        }
+                    }
+                }
+            });
+            $stateProvider.state('register', {
+                url: '/register',
+                controller: 'AuthController as authCtrl',
+                templateUrl: 'components/auth/register.html?'+ticks,
+                resolve: {
+                    requireNoAuth: function($state, Auth){
+                        if(Auth.currentUser == null){
+                            return;
+                        }else{
+                            $state.go('home');
+                        }
+                    }
+                }
+            });
+        })
+        .service('Auth',function(AppFirebase){
+            console.log("Auth");
 
+            return AppFirebase.auth();
+        })
+        .controller('AuthController',function(Auth,$state,AppConfig,AppFirebase){
+            var self = this;
+
+            var provider = new firebase.auth.GoogleAuthProvider();
+
+            Auth.signInWithPopup(provider).then(function(result) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
+                // The signed-in user info.
+                var user = result.user;
+                console.log(user);
+                $state.go('home');
+            }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+
+                self.error.message = errorCode + ":" + errorMessage;
+            });
+
+
+        })
+
+})();
+(function() {
+    'use strict';
+    angular.module('braincradle.app.presentations', [])
+        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
+            var now = new Date();
+            var ticks = now.getTime();
+
+            // Blogs Main
+            $stateProvider.state('presentations', {
+                url: '/presentations',
+                templateUrl: 'components/presentations/presentations.html?'+ticks,
+                controller: 'PresentationsController',
+                controllerAs: 'presentationsCtrl'
+            });
+
+        })
+        .controller('PresentationsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
+            var self = this;
+
+        })
+
+})();
+(function() {
+    'use strict';
+    angular.module('braincradle.app.navbar', [])
+        .directive('appHeader', function () {
+            // <app-navbar></app-navbar>
+            return {
+                restrict: 'E',
+                templateUrl: 'components/navbar/header.html'
+            };
+        })
+        .directive('navbarStrip', function () {
+            // <navbar-strip></navbar-strip>
+            return {
+                restrict: 'E',
+                templateUrl: 'components/navbar/navbarstrip.html',
+                link: link
+            };
+            function link(scope, element, attrs) {
+                scope.active = attrs.active;
+            }
+        })
+        .controller('HeaderController', function ($scope,AppFirebase) {
+            var self = this;
+
+            self.signin = true;
+
+            AppFirebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    self.signin = false;
+                    // User is signed in.
+                    //console.log(user);
+                    self.currentUser = user;
+
+                    $scope.$apply();
+
+                } else {
+                    // No user is signed in.
+                    console.log('User not logged in');
+                }
+            });
 
         })
 
@@ -540,73 +563,6 @@
 
 (function() {
     'use strict';
-    angular.module('braincradle.app.navbar', [])
-        .directive('appHeader', function () {
-            // <app-navbar></app-navbar>
-            return {
-                restrict: 'E',
-                templateUrl: 'components/navbar/header.html'
-            };
-        })
-        .directive('navbarStrip', function () {
-            // <navbar-strip></navbar-strip>
-            return {
-                restrict: 'E',
-                templateUrl: 'components/navbar/navbarstrip.html',
-                link: link
-            };
-            function link(scope, element, attrs) {
-                scope.active = attrs.active;
-            }
-        })
-        .controller('HeaderController', function ($scope,AppFirebase) {
-            var self = this;
-
-            self.signin = true;
-
-            AppFirebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    self.signin = false;
-                    // User is signed in.
-                    //console.log(user);
-                    self.currentUser = user;
-
-                    $scope.$apply();
-
-                } else {
-                    // No user is signed in.
-                    console.log('User not logged in');
-                }
-            });
-
-        })
-
-})();
-
-(function() {
-    'use strict';
-    angular.module('braincradle.app.presentations', [])
-        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
-            var now = new Date();
-            var ticks = now.getTime();
-
-            // Blogs Main
-            $stateProvider.state('presentations', {
-                url: '/presentations',
-                templateUrl: 'components/presentations/presentations.html?'+ticks,
-                controller: 'PresentationsController',
-                controllerAs: 'presentationsCtrl'
-            });
-
-        })
-        .controller('PresentationsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
-            var self = this;
-
-        })
-
-})();
-(function() {
-    'use strict';
     angular.module('braincradle.app.projects', [])
         .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
             var now = new Date();
@@ -667,6 +623,49 @@
         })
         .controller('TutorialsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
             var self = this;
+
+        })
+
+})();
+(function() {
+    'use strict';
+    angular.module('braincradle.app.home', [])
+        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
+            var now = new Date();
+            var ticks = now.getTime();
+
+            // Auto Scroll tot he top
+            $uiViewScrollProvider.useAnchorScroll();
+
+            // Home
+            $stateProvider.state('home', {
+                url: '/',
+                templateUrl: 'components/home/home.html?'+ticks,
+                controller: 'HomeController',
+                controllerAs: 'homeCtrl'
+            });
+
+            $urlRouterProvider.otherwise('/');
+
+        })
+        .controller('HomeController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
+            var self = this;
+
+            // Get a reference to the database service
+            var database = AppFirebase.database();
+
+            // Get the logged in user
+            console.log(AppFirebase.auth().currentUser);
+            self.currentUser = AppFirebase.auth().currentUser;
+
+            var now = new Date();
+            var ticks = now.getTime();
+
+            //firebase.database().ref('table01/' + ticks).set({
+            //    name: "Test-"+ticks,
+            //    id: ticks
+            //});
+
 
         })
 
