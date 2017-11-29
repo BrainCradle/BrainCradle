@@ -19,7 +19,7 @@
             $urlRouterProvider.otherwise('/');
 
         })
-        .controller('HomeController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
+        .controller('HomeController', function ($firebaseAuth,$firebaseArray,AppFirebase,AppService) {
             var self = this;
 
             // Get a reference to the database service
@@ -28,6 +28,8 @@
             // Get the logged in user
             console.log(AppFirebase.auth().currentUser);
             self.currentUser = AppFirebase.auth().currentUser;
+
+            AppService.active = "home";
 
             var now = new Date();
             var ticks = now.getTime();

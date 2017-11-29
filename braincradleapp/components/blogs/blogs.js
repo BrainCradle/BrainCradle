@@ -14,7 +14,7 @@
             });
 
         })
-        .controller('BlogsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
+        .controller('BlogsController', function ($firebaseAuth,$firebaseArray,AppFirebase,AppService) {
             var self = this;
 
             // Get the logged in user
@@ -26,7 +26,8 @@
 
             var blogsRef = database.ref().child("blogs");
             self.blogs = $firebaseArray(blogsRef);
-            
+
+            AppService.active = "blogs";
             self.addNew = false;
             self.viewPost = false;
 

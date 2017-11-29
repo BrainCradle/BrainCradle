@@ -14,8 +14,10 @@
             });
 
         })
-        .controller('SolutionsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
+        .controller('SolutionsController', function ($firebaseAuth,$firebaseArray,AppFirebase,AppService) {
             var self = this;
+
+            AppService.active = "solutions";
 
         })
 

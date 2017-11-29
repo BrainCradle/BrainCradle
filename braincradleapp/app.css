@@ -12,8 +12,9 @@ body{
     background: #ececec;
 }
 .body-content{
-    margin-top: 170px;
+    margin-top: 140px;
     position: relative;
+    font-size: 12px;
 }
 
 .search-group{

@@ -14,8 +14,10 @@
             });
 
         })
-        .controller('ProjectsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
+        .controller('ProjectsController', function ($firebaseAuth,$firebaseArray,AppFirebase,AppService) {
             var self = this;
+
+            AppService.active = "projects";
 
         })
 

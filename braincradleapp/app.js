@@ -68,10 +68,13 @@
 
                 return deferred.promise;
             }
+            self.active = "home";
         })
         .controller('appController', function (AppFirebase,$state,AppService) {
             var self = this;
             console.log("appController");
+
+            self.AppService = AppService;
 
             self.controllerLoaded = true;
         })
