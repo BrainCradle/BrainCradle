@@ -25,10 +25,14 @@
             var database = AppFirebase.database();
 
             var blogsRef = database.ref().child("blogs");
+
             self.blogs = $firebaseArray(blogsRef);
             
             self.addNew = false;
             self.viewPost = false;
+            self.editPost = false;
+            self.leaveComment = false;
+            self.hasComment = false;
 
             self.IsUserAutheticated = function(){
                 if(self.currentUser){
@@ -43,14 +47,14 @@
                 self.newpost = {}
             }
             self.Save = function () {
+                var newKey = firebase.database().ref().child('blogs').push().key;
                 var updateObj = {
+                    post_id: newKey,
                     blog_title: self.newpost.blog_title,
                     blog_post: self.newpost.blog_post,
                     author: {email:self.currentUser.email,user:self.currentUser.displayName}
                 }
-                console.log(updateObj);
                 // Get a key for a new record.
-                var newKey = firebase.database().ref().child('blogs').push().key;
                 database.ref('blogs/'+newKey).set(updateObj);
 
                 // Done
@@ -65,10 +69,67 @@
             self.ViewPost = function (post) {
                 self.viewPost = true;
                 self.current_post = post;
+                self.ifComment()
+                console.log(self.hasComment)
             }
+
             self.AllPosts = function () {
                 self.viewPost = false;
             }
+            self.EditPost = function () {
+                self.editPost = true;
+            }
+            self.SaveChange = function () {
+                var updateRef = blogsRef.child(self.current_post.post_id)
+                var updates = {};
+                var postData = {
+                    "post_id": self.current_post.post_id,
+                    "blog_title": self.current_post.blog_title,
+                    "blog_post" :self.current_post.blog_post,
+                    "author": self.current_post.author}
+
+                updates['/blogs/' + self.current_post.post_id] = postData;
+                firebase.database().ref().update(updates)
+
+                self.editPost = false;
+
+            }
+            self.Comment = function () {
+                self.leaveComment = true;
+                self.comment = {}
+
+            }
+            self.SaveComment = function () {
+                self.comment.author = {email:self.currentUser.email,user:self.currentUser.displayName}
+                console.log(self.comment)
+                var postData = {
+                    "post_id": self.current_post.post_id,
+                    "blog_title": self.current_post.blog_title,
+                    "blog_post" :self.current_post.blog_post,
+                    "author": self.current_post.author,
+                    comment: self.comment
+                }
+                var updates = {};
+                updates['/blogs/' + self.current_post.post_id] = postData;
+                firebase.database().ref().update(updates)
+                self.comment = {}
+                self.leaveComment = false;
+                self.displayComment += 1;
+            }
+
+            self.ifComment = function () {
+                console.log("ifComment")
+                var currentBlog = firebase.database().ref().child('blogs').child(self.current_post.post_id)
+                console.log(currentBlog)
+                currentBlog.child("comment").once("value").then(function(snapshot){
+                    if(snapshot.val()){
+                        console.log(snapshot.val())
+                        self.hasComment = true;
+                    }
+                    }
+                )
+                }
+
 
         })
 

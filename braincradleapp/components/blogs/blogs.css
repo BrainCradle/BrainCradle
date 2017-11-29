@@ -27,6 +27,21 @@ ul.post-grid li:hover h3 {
     overflow: hidden;
 
 }
+.blog-post{
+    min-height: 140px;
+    overflow: hidden;
+}
+
 .blog-post-summary-buttons{
     border-top: 1px solid #3a8bab;
+}
+.comment-container{
+    padding: 30px;
+    background-color: #ffffff;
+}
+.comment-post{
+    min-height: 40px;
+    max-height: 140px;
+    overflow: hidden;
+
 }

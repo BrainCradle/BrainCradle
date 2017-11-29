@@ -18,7 +18,9 @@
         ,'braincradle.app.projects'
         ,'braincradle.app.solutions'
         ,'braincradle.app.tutorials'
+        ,'braincradle.app.FBauth'
     ])
+        .constant('FBMSG', 'https://braincradleai.firebaseio.com/')
         .service('AppFirebase',function(){
             var self = this;
             // Initialize Firebase
