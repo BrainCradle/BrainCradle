@@ -60,7 +60,7 @@
             }
             self.Cancel = function () {
                 self.newpost = {}
-                self.addNew = false;  
+                self.addNew = false;     
             }
 
             self.ViewPost = function (post) {
