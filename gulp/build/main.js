@@ -68,16 +68,88 @@
 
                 return deferred.promise;
             }
+            self.active = "home";
         })
         .controller('appController', function (AppFirebase,$state,AppService) {
             var self = this;
             console.log("appController");
+
+            self.AppService = AppService;
 
             self.controllerLoaded = true;
         })
 })();
 
 
+(function() {
+    'use strict';
+    angular.module('braincradle.app.auth', [])
+        .config(function($stateProvider){
+            var now = new Date();
+            var ticks = now.getTime();
+
+            $stateProvider.state('login', {
+                url: '/login',
+                controller: 'AuthController as authCtrl',
+                templateUrl: 'components/auth/login.html?'+ticks,
+                resolve: {
+                    requireNoAuth: function($state, Auth){
+                        if(Auth.currentUser == null){
+                            return;
+                        }else{
+                            $state.go('home');
+                        }
+                    }
+                }
+            });
+            $stateProvider.state('register', {
+                url: '/register',
+                controller: 'AuthController as authCtrl',
+                templateUrl: 'components/auth/register.html?'+ticks,
+                resolve: {
+                    requireNoAuth: function($state, Auth){
+                        if(Auth.currentUser == null){
+                            return;
+                        }else{
+                            $state.go('home');
+                        }
+                    }
+                }
+            });
+        })
+        .service('Auth',function(AppFirebase){
+            console.log("Auth");
+
+            return AppFirebase.auth();
+        })
+        .controller('AuthController',function(Auth,$state,AppConfig,AppFirebase){
+            var self = this;
+
+            var provider = new firebase.auth.GoogleAuthProvider();
+
+            Auth.signInWithPopup(provider).then(function(result) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
+                // The signed-in user info.
+                var user = result.user;
+                console.log(user);
+                $state.go('home');
+            }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+
+                self.error.message = errorCode + ":" + errorMessage;
+            });
+
+
+        })
+
+})();
 (function() {
     'use strict';
     angular.module('braincradle.app.common', [])
@@ -293,6 +365,111 @@
 
 (function() {
     'use strict';
+    angular.module('braincradle.app.home', [])
+        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
+            var now = new Date();
+            var ticks = now.getTime();
+
+            // Auto Scroll tot he top
+            $uiViewScrollProvider.useAnchorScroll();
+
+            // Home
+            $stateProvider.state('home', {
+                url: '/',
+                templateUrl: 'components/home/home.html?'+ticks,
+                controller: 'HomeController',
+                controllerAs: 'homeCtrl'
+            });
+
+            $urlRouterProvider.otherwise('/');
+
+        })
+        .controller('HomeController', function ($firebaseAuth,$firebaseArray,AppFirebase,AppService) {
+            var self = this;
+
+            // Get a reference to the database service
+            var database = AppFirebase.database();
+
+            // Get the logged in user
+            console.log(AppFirebase.auth().currentUser);
+            self.currentUser = AppFirebase.auth().currentUser;
+
+            AppService.active = "home";
+
+            var now = new Date();
+            var ticks = now.getTime();
+
+            //firebase.database().ref('table01/' + ticks).set({
+            //    name: "Test-"+ticks,
+            //    id: ticks
+            //});
+
+
+        })
+
+})();
+
+(function() {
+    'use strict';
+    angular.module('braincradle.app.menu', [])
+        .directive('appMenu', function () {
+            // <app-menu></app-menu>
+            return {
+                restrict: 'E',
+                templateUrl: 'components/menu/menu.html',
+                link: function (scope, element, attrs) {
+                    $(".hamburger").click(function(event) {
+
+                        $(".top-menu").toggleClass("top-animate");
+                        $(".mid-menu").toggleClass("mid-animate");
+                        $(".bottom-menu").toggleClass("bottom-animate");
+                        if($("#nav-container").hasClass("menu-close")){
+                            $("#nav-container" ).animate({ "left": "0px" }, "310" );
+                            $("#nav-container").removeClass("menu-close");
+                            $("#nav-container").addClass("menu-open");
+
+                        }
+                        else{
+                            $("#nav-container").removeClass("menu-open");
+                            $("#nav-container").addClass("menu-close");
+                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
+                        }
+                        //event.stopPropagation();
+                    });
+                    $("body").click(function(){
+                        //console.log("body click");
+                        //if($("#nav-container").hasClass("menu-open")){
+                        //    $("#nav-container" ).animate({ "left": "-300px" }, "310" );
+                        //    $(".top-menu").toggleClass("top-animate");
+                        //    $(".mid-menu").toggleClass("mid-animate");
+                        //    $(".bottom-menu").toggleClass("bottom-animate");
+                        //    $("#nav-container").removeClass("menu-open");
+                        //    $("#nav-container").addClass("menu-close");
+                        //}
+                    })
+                    $(".custom-drop li").click(function() {
+                        console.log(this);
+                        if($(this).children().length>1){
+
+                        }
+                        else{
+                            $("#nav-container").removeClass("menu-open");
+                            $("#nav-container").addClass("menu-close");
+                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
+                            $(".top-menu").toggleClass("top-animate");
+                            $(".mid-menu").toggleClass("mid-animate");
+                            $(".bottom-menu").toggleClass("bottom-animate");
+                        }
+                    });
+                }
+            };
+        })
+
+})();
+
+
+(function() {
+    'use strict';
     angular.module('braincradle.app.blogs', [])
         .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
             var now = new Date();
@@ -307,7 +484,7 @@
             });
 
         })
-        .controller('BlogsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
+        .controller('BlogsController', function ($firebaseAuth,$firebaseArray,AppFirebase,AppService) {
             var self = this;
 
             // Get the logged in user
@@ -319,7 +496,8 @@
 
             var blogsRef = database.ref().child("blogs");
             self.blogs = $firebaseArray(blogsRef);
-            
+
+            AppService.active = "blogs";
             self.addNew = false;
             self.viewPost = false;
 
@@ -362,75 +540,6 @@
             self.AllPosts = function () {
                 self.viewPost = false;
             }
-
-        })
-
-})();
-(function() {
-    'use strict';
-    angular.module('braincradle.app.auth', [])
-        .config(function($stateProvider){
-            var now = new Date();
-            var ticks = now.getTime();
-
-            $stateProvider.state('login', {
-                url: '/login',
-                controller: 'AuthController as authCtrl',
-                templateUrl: 'components/auth/login.html?'+ticks,
-                resolve: {
-                    requireNoAuth: function($state, Auth){
-                        if(Auth.currentUser == null){
-                            return;
-                        }else{
-                            $state.go('home');
-                        }
-                    }
-                }
-            });
-            $stateProvider.state('register', {
-                url: '/register',
-                controller: 'AuthController as authCtrl',
-                templateUrl: 'components/auth/register.html?'+ticks,
-                resolve: {
-                    requireNoAuth: function($state, Auth){
-                        if(Auth.currentUser == null){
-                            return;
-                        }else{
-                            $state.go('home');
-                        }
-                    }
-                }
-            });
-        })
-        .service('Auth',function(AppFirebase){
-            console.log("Auth");
-
-            return AppFirebase.auth();
-        })
-        .controller('AuthController',function(Auth,$state,AppConfig,AppFirebase){
-            var self = this;
-
-            var provider = new firebase.auth.GoogleAuthProvider();
-
-            Auth.signInWithPopup(provider).then(function(result) {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                var token = result.credential.accessToken;
-                // The signed-in user info.
-                var user = result.user;
-                console.log(user);
-                $state.go('home');
-            }).catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
-
-                self.error.message = errorCode + ":" + errorMessage;
-            });
-
 
         })
 
@@ -504,65 +613,6 @@
 
 (function() {
     'use strict';
-    angular.module('braincradle.app.menu', [])
-        .directive('appMenu', function () {
-            // <app-menu></app-menu>
-            return {
-                restrict: 'E',
-                templateUrl: 'components/menu/menu.html',
-                link: function (scope, element, attrs) {
-                    $(".hamburger").click(function(event) {
-
-                        $(".top-menu").toggleClass("top-animate");
-                        $(".mid-menu").toggleClass("mid-animate");
-                        $(".bottom-menu").toggleClass("bottom-animate");
-                        if($("#nav-container").hasClass("menu-close")){
-                            $("#nav-container" ).animate({ "left": "0px" }, "310" );
-                            $("#nav-container").removeClass("menu-close");
-                            $("#nav-container").addClass("menu-open");
-
-                        }
-                        else{
-                            $("#nav-container").removeClass("menu-open");
-                            $("#nav-container").addClass("menu-close");
-                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
-                        }
-                        //event.stopPropagation();
-                    });
-                    $("body").click(function(){
-                        //console.log("body click");
-                        //if($("#nav-container").hasClass("menu-open")){
-                        //    $("#nav-container" ).animate({ "left": "-300px" }, "310" );
-                        //    $(".top-menu").toggleClass("top-animate");
-                        //    $(".mid-menu").toggleClass("mid-animate");
-                        //    $(".bottom-menu").toggleClass("bottom-animate");
-                        //    $("#nav-container").removeClass("menu-open");
-                        //    $("#nav-container").addClass("menu-close");
-                        //}
-                    })
-                    $(".custom-drop li").click(function() {
-                        console.log(this);
-                        if($(this).children().length>1){
-
-                        }
-                        else{
-                            $("#nav-container").removeClass("menu-open");
-                            $("#nav-container").addClass("menu-close");
-                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
-                            $(".top-menu").toggleClass("top-animate");
-                            $(".mid-menu").toggleClass("mid-animate");
-                            $(".bottom-menu").toggleClass("bottom-animate");
-                        }
-                    });
-                }
-            };
-        })
-
-})();
-
-
-(function() {
-    'use strict';
     angular.module('braincradle.app.projects', [])
         .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
             var now = new Date();
@@ -577,8 +627,10 @@
             });
 
         })
-        .controller('ProjectsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
+        .controller('ProjectsController', function ($firebaseAuth,$firebaseArray,AppFirebase,AppService) {
             var self = this;
+
+            AppService.active = "projects";
 
         })
 
@@ -599,8 +651,10 @@
             });
 
         })
-        .controller('SolutionsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
+        .controller('SolutionsController', function ($firebaseAuth,$firebaseArray,AppFirebase,AppService) {
             var self = this;
+
+            AppService.active = "solutions";
 
         })
 
@@ -623,49 +677,6 @@
         })
         .controller('TutorialsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
             var self = this;
-
-        })
-
-})();
-(function() {
-    'use strict';
-    angular.module('braincradle.app.home', [])
-        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
-            var now = new Date();
-            var ticks = now.getTime();
-
-            // Auto Scroll tot he top
-            $uiViewScrollProvider.useAnchorScroll();
-
-            // Home
-            $stateProvider.state('home', {
-                url: '/',
-                templateUrl: 'components/home/home.html?'+ticks,
-                controller: 'HomeController',
-                controllerAs: 'homeCtrl'
-            });
-
-            $urlRouterProvider.otherwise('/');
-
-        })
-        .controller('HomeController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
-            var self = this;
-
-            // Get a reference to the database service
-            var database = AppFirebase.database();
-
-            // Get the logged in user
-            console.log(AppFirebase.auth().currentUser);
-            self.currentUser = AppFirebase.auth().currentUser;
-
-            var now = new Date();
-            var ticks = now.getTime();
-
-            //firebase.database().ref('table01/' + ticks).set({
-            //    name: "Test-"+ticks,
-            //    id: ticks
-            //});
-
 
         })
 
