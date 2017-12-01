@@ -100,34 +100,43 @@
 
             }
             self.SaveComment = function () {
-                self.comment.author = {email:self.currentUser.email,user:self.currentUser.displayName}
-                console.log(self.comment)
-                var postData = {
-                    "post_id": self.current_post.post_id,
-                    "blog_title": self.current_post.blog_title,
-                    "blog_post" :self.current_post.blog_post,
-                    "author": self.current_post.author,
-                    comment: self.comment
+
+                if(self.IsUserAutheticated()) {
+                    self.comment.author = {email: self.currentUser.email, user: self.currentUser.displayName}
+                    console.log(self.comment)
+                    var postData = {
+                        "post_id": self.current_post.post_id,
+                        "blog_title": self.current_post.blog_title,
+                        "blog_post" :self.current_post.blog_post,
+                        "author": self.current_post.author,
+                        comment: self.comment
+                    }
+                    var updates = {};
+                    updates['/blogs/' + self.current_post.post_id] = postData;
+                    firebase.database().ref().update(updates)
+                    self.comment = {}
+                    self.leaveComment = false;
+                    self.current_post.hasComment = true;
+                }else{
+
+                    console.log("Access denied, login first")
                 }
-                var updates = {};
-                updates['/blogs/' + self.current_post.post_id] = postData;
-                firebase.database().ref().update(updates)
-                self.comment = {}
-                self.leaveComment = false;
-                self.displayComment += 1;
+
             }
 
             self.ifComment = function () {
                 console.log("ifComment")
-                var currentBlog = firebase.database().ref().child('blogs').child(self.current_post.post_id)
-                console.log(currentBlog)
-                currentBlog.child("comment").once("value").then(function(snapshot){
-                        if(snapshot.val()){
-                            console.log(snapshot.val())
-                            self.hasComment = true;
+                if(self.current_post.post_id != null) {
+                    var currentBlog = firebase.database().ref().child('blogs').child(self.current_post.post_id)
+                    console.log(currentBlog)
+                    currentBlog.child("comment").once("value").then(function (snapshot) {
+                            if (snapshot.val()) {
+                                console.log(snapshot.val())
+                                self.current_post.hasComment = true;
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
 
         })
