@@ -9,6 +9,13 @@
                 <li ng-class="{'active': appCtrl.AppService.active == 'solutions'}"><a ui-sref="solutions" class="nav-pill-item primary-link"><i class="fa fa-file-code-o" aria-hidden="true"></i> Coming Soon</a></li>
             </ul>
         </div>
+        <div class="right-menu">
+            <a ng-if="headerCtrl.signin" id = "login" ui-sref="login" class="btn" tooltip-placement="left" uib-tooltip="Sign in"><i class="fa fa-sign-in fa-large" aria-hidden="true"></i></a>
+            <span ng-if="!headerCtrl.signin">
+            <button ng-click = "headerCtrl.signOut()" id = "Logout" class="btn btn-default">Log out</button>
+            <ng-avatar style="margin-top: 5px;" string="{{headerCtrl.currentUser.displayName}}" round-shape="true" bg-color="#FF6600" auto-color="false" width="25" style="display: inline-block;"></ng-avatar>
+        </span>
+        </div>
     </nav>
 </div>
 
