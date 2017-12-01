@@ -25,18 +25,90 @@
                 <a ng-click="blogsCtrl.AllPosts()">All posts</a>
             </div>
             <div class="col-xs-6 text-right">
-                <a ng-click="blogsCtrl.EditPost()">Edit post</a>
+                <a ng-click="blogsCtrl.EditPost()">Edit Posts</a>
             </div>
         </div>
         <div class="blog-container">
             <h3>{{blogsCtrl.current_post.blog_title}}</h3>
-            <p class="blog-post-summary" ng-bind-html="blogsCtrl.current_post.blog_post"></p>
+            <p class="blog-post" ng-bind-html="blogsCtrl.current_post.blog_post"></p>
             <p class="blog-post-summary-buttons">
-                <span class="pull-left"><i class="fa fa-comments" aria-hidden="true"></i></span>
+                <span class="pull-left"><i class="fa fa-comments" aria-hidden="true" ng-click = 'blogsCtrl.Comment()'></i></span>
                 <span class="pull-right"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
             </p>
         </div>
+        <br>
+        <div ng-if="blogsCtrl.hasComment" class="comment-container">
+            <h5>User comments</h5>
+            <div>
+                <h4>{{blogsCtrl.current_post.comment.comment_title}}</h4>
+                <p> author: {{blogsCtrl.current_post.comment.author.email}}</p>
+                <p class="comment-post" ng-bind-html="blogsCtrl.current_post.comment.comment_post"></p>
+            </div>
+        </div>
     </div>
+
+    <div ng-if="blogsCtrl.leaveComment">
+        <h4>Comment</h4>
+        <div class="well">
+            <form name="inputform">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Title</label>
+                            <input type="text" ng-model="blogsCtrl.comment.comment_title" class="form-control" placeholder="Title" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Post</label>
+                            <div text-angular ng-model="blogsCtrl.comment.comment_post" class="btn-groups"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <a class="btn btn-primary" ng-click="blogsCtrl.SaveComment()" ng-disabled="inputform.$invalid">Save Comment</a>&nbsp;&nbsp;
+                        <a class="btn btn-default" ng-click="blogsCtrl.Cancel()">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div ng-if="blogsCtrl.editPost">
+        <h4>Edit Post</h4>
+        <div class="well">
+            <form name="inputform">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Title</label>
+                            <input type="text" ng-model="blogsCtrl.current_post.blog_title" class="form-control" placeholder="Title" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Post</label>
+                            <div text-angular ng-model="blogsCtrl.current_post.blog_post" class="btn-groups"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <a class="btn btn-primary" ng-click="blogsCtrl.SaveChange()" ng-disabled="inputform.$invalid">Save Change</a>&nbsp;&nbsp;
+                        <a class="btn btn-default" ng-click="blogsCtrl.Cancel()">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div ng-if="blogsCtrl.addNew">
         <h4>Add New Post</h4>
         <div class="well">
