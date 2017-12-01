@@ -52,10 +52,10 @@ describe('blogs', function () {
         });
 
         // View a post
-        it('View a post', function(){
-            blogsCtrl.ViewPost({})
-            expect(blogsCtrl.viewPost).toBe(true);
-        });
+        // it('View a post', function(){
+        //     blogsCtrl.ViewPost({})
+        //     expect(blogsCtrl.viewPost).toBe(true);
+        // });
 
         // View all posts
         it('View all posts', function(){
