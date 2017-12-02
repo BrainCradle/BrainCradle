@@ -31,17 +31,18 @@
          WebElement solutionElement = driver.findElement(By.linkText("EXAMPLES"));
          solutionElement.click();
 
-         WebDriverWait wait = new WebDriverWait(driver, 20);
+         WebDriverWait wait = new WebDriverWait(driver, 30);
 
          String previousURL = driver.getCurrentUrl();
 
+         solutionElement.click();
          ExpectedCondition e = new ExpectedCondition<Boolean>() {
              public Boolean apply(WebDriver d) {
                  return (!d.getCurrentUrl().equals(previousURL));
              }
          };
 
-         wait.until(e);
+         //wait.until(e);
 
          wait.until(new ExpectedCondition<Boolean>() {
              public Boolean apply(WebDriver wdriver) {
@@ -65,6 +66,7 @@
          }else{
              System.out.println("Navigation failed.");
          }
+         driver.quit();
      }
 
 
