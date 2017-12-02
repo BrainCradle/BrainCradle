@@ -12,9 +12,29 @@
         <div class="right-menu">
             <a ng-if="headerCtrl.signin" id = "login" ui-sref="login" class="btn" tooltip-placement="left" uib-tooltip="Sign in"><i class="fa fa-sign-in fa-large" aria-hidden="true"></i></a>
             <span ng-if="!headerCtrl.signin">
-            <button ng-click = "headerCtrl.signOut()" id = "Logout" class="btn btn-default">Log out</button>
-            <ng-avatar style="margin-top: 5px;" string="{{headerCtrl.currentUser.displayName}}" round-shape="true" bg-color="#FF6600" auto-color="false" width="25" style="display: inline-block;"></ng-avatar>
-        </span>
+
+
+
+                <div class="btn-group" uib-dropdown is-open="headerCtrl.isopen" auto-close="outsideClick" style="padding-top: 30px;">
+                    <div uib-dropdown-toggle>
+                        <div class="vertical-align right-align">
+                            <ng-avatar string="{{headerCtrl.currentUser.displayName}}" ng-model="headerCtrl.currentUser.displayName" round-shape="true" auto-color="true" width="22" style="display: inline-block;"></ng-avatar>
+                            &nbsp;
+                            {{headerCtrl.currentUser.displayName}}
+                            &nbsp;
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </div>
+                    </div>
+
+                  <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button" style="right: 0;float: right;left: inherit;">
+                      <li role="menuitem"><a>Home Page Content</a></li>
+                    <li role="menuitem"><a>Maintain Categories</a></li>
+                    <li class="divider"></li>
+                    <li role="menuitem"><a ng-click = "headerCtrl.signOut()">Log out</a></li>
+                  </ul>
+                </div>
+
+            </span>
         </div>
     </nav>
 </div>
