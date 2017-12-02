@@ -31,13 +31,11 @@
 
             AppService.active = "home";
 
-            var now = new Date();
-            var ticks = now.getTime();
+            var homepagecontentRef = database.ref().child("homepagecontent");
 
-            //firebase.database().ref('table01/' + ticks).set({
-            //    name: "Test-"+ticks,
-            //    id: ticks
-            //});
+            self.homepagecontent = $firebaseObject(homepagecontentRef);
+
+            
 
 
         })

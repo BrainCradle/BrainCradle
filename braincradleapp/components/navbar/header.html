@@ -3,7 +3,7 @@
         <div class="container-fluid navbar-title">
             <ul class="nav nav-pills">
                 <li ng-class="{'active': appCtrl.AppService.active == 'home'}"><a ui-sref="home" class="nav-pill-item" id="logo-link"><span class="h1 logo-text">Brain Cradle</span><img src="assets/img/temp_logo.png" class="brain-cradle-logo" width="120px" alt=""></a></li>
-                <li ng-class="{'active': appCtrl.AppService.active == 'presentations'}"><a ui-sref="presentations" class="nav-pill-item primary-link"><i class="fa fa-file-powerpoint-o" aria-hidden="true"></i> What's AI?</a></li>
+                <li ng-class="{'active': appCtrl.AppService.active == 'home'}"><a ui-sref="presentations" class="nav-pill-item primary-link"><i class="fa fa-file-powerpoint-o" aria-hidden="true"></i> What's AI?</a></li>
                 <li ng-class="{'active': appCtrl.AppService.active == 'projects'}"><a ui-sref="projects" class="nav-pill-item primary-link"><i class="fa fa-cogs" aria-hidden="true"></i> Examples</a></li>
                 <li ng-class="{'active': appCtrl.AppService.active == 'blogs'}"><a ui-sref="blogs" class="nav-pill-item primary-link"><i class="fa fa-comments" aria-hidden="true"></i> Blog</a></li>
                 <li ng-class="{'active': appCtrl.AppService.active == 'solutions'}"><a ui-sref="solutions" class="nav-pill-item primary-link"><i class="fa fa-file-code-o" aria-hidden="true"></i> Coming Soon</a></li>
@@ -27,8 +27,8 @@
                     </div>
 
                   <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button" style="right: 0;float: right;left: inherit;">
-                      <li role="menuitem"><a>Home Page Content</a></li>
-                    <li role="menuitem"><a>Maintain Categories</a></li>
+                      <li role="menuitem"><a ui-sref="homepage">Home Page Content</a></li>
+                    <li role="menuitem"><a ui-sref="category">Maintain Categories</a></li>
                     <li class="divider"></li>
                     <li role="menuitem"><a ng-click = "headerCtrl.signOut()">Log out</a></li>
                   </ul>

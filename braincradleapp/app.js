@@ -18,6 +18,7 @@
         ,'braincradle.app.projects'
         ,'braincradle.app.solutions'
         ,'braincradle.app.tutorials'
+        ,'braincradle.app.maintain'
     ])
         .service('AppFirebase',function(){
             var self = this;
