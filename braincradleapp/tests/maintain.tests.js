@@ -1,4 +1,4 @@
-describe('navbar', function () {
+describe('maintain', function () {
 
     beforeEach(module('braincradle.app'));
 
@@ -38,7 +38,7 @@ describe('navbar', function () {
 
         // Edit button click
         it('Edit button click', function(){
-            categoryCtrl.Edit()
+            categoryCtrl.Edit({})
             expect(categoryCtrl.index).toBe(false);
         });
 
