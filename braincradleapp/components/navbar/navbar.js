@@ -19,7 +19,7 @@
                 scope.active = attrs.active;
             }
         })
-        .controller('HeaderController', function ($scope,AppFirebase) {
+        .controller('HeaderController', function (AppFirebase) {
             var self = this;
 
             self.signin = true;
@@ -31,7 +31,7 @@
                     //console.log(user);
                     self.currentUser = user;
 
-                    $scope.$apply();
+                    //$scope.$apply();
 
                 } else {
                     // No user is signed in.
@@ -46,6 +46,14 @@
                     // An error happened.
                 });
 
+            }
+
+            self.IsUserAutheticated = function(){
+                if(self.currentUser){
+                    return true;
+                }else{
+                    return false;
+                }
             }
 
         })

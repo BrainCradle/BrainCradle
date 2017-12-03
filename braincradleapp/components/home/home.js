@@ -19,7 +19,7 @@
             $urlRouterProvider.otherwise('/');
 
         })
-        .controller('HomeController', function ($firebaseAuth,$firebaseArray,AppFirebase,AppService) {
+        .controller('HomeController', function ($firebaseObject,AppFirebase,AppService) {
             var self = this;
 
             // Get a reference to the database service
@@ -35,7 +35,13 @@
 
             self.homepagecontent = $firebaseObject(homepagecontentRef);
 
-            
+            self.IsContentLoaded = function(){
+                if(self.homepagecontent){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
 
 
         })

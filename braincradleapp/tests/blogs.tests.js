@@ -2,23 +2,22 @@ describe('blogs', function () {
 
     beforeEach(module('braincradle.app'));
 
-    var $firebaseAuth,$firebaseArray,AppFirebase,Auth,$scope;
+    var $firebaseAuth,$firebaseArray,AppFirebase,Auth,AppService,$scope;
 
-    beforeEach(inject(function (_AppFirebase_,_Auth_,_$firebaseAuth_,_$firebaseArray_,_$scope_) {
+    beforeEach(inject(function ($rootScope,_AppFirebase_,_Auth_,_AppService_,_$firebaseAuth_,_$firebaseArray_) {
         AppFirebase = _AppFirebase_;
         Auth = _Auth_;
         $firebaseAuth = _$firebaseAuth_;
         $firebaseArray = _$firebaseArray_;
-        $scope = _$scope_;
+        AppService = _AppService_;
+        $scope = $rootScope.$new();
     }));
 
     describe('BlogsController',function(){
 
         var blogsCtrl;
-        var headCtrl;
         beforeEach(inject(function($controller){ //instantiate controller using $controller service
-            blogsCtrl = $controller('BlogsController',$firebaseAuth,$firebaseArray,AppFirebase);
-            headCtrl = $controller('HeaderController',$scope,AppFirebase);
+            blogsCtrl = $controller('BlogsController',$firebaseAuth,$firebaseArray,AppFirebase,AppService);
         }));
 
         // Test cases
@@ -48,7 +47,7 @@ describe('blogs', function () {
         });
 
         // Cancel button click
-        it('Add new button click', function(){
+        it('Cancel button click', function(){
             blogsCtrl.AddNew()
             blogsCtrl.Cancel()
             expect(blogsCtrl.addNew).toBe(false);
@@ -94,34 +93,16 @@ describe('blogs', function () {
             expect(blogsCtrl.IsUserAutheticated()).toBe(false);
         });
 
-        // it('Edit blog', function(){
-        //     blogsCtrl.EditPost();
-        //     expect(blogsCtrl.editPost).toBe(true);
-        // });
-        //
-        // // Able to edit comment
-        // it('Edit Comment', function(){
-        //     blogsCtrl.Comment();
-        //     expect(blogsCtrl.leaveComment).toBe(true);
-        // });
-        //
-        // //Logout
-        // it('Log Out', function(){
-        //     headCtrl.signOut();
-        //     expect(blogsCtrl.IsUserAutheticated()).toBe(false);
-        // });
-        //
-        // // Facebook login
-        // it('Login Facebook', function(){
-        //     var provider = new firebase.auth.FacebookAuthProvider();
-        //
-        //     AppFirebase.auth().signInWithPopup(provider).then(function(result) {
-        //         // Successful login
-        //         expect(true).toBe(true);
-        //     }).catch(function(error) {
-        //         expect(false).toBe(true);
-        //     });
-        // });
+        it('Edit blog', function(){
+            blogsCtrl.EditPost();
+            expect(blogsCtrl.editPost).toBe(true);
+        });
+
+        // Able to edit comment
+        it('Edit Comment', function(){
+            blogsCtrl.Comment();
+            expect(blogsCtrl.leaveComment).toBe(true);
+        });
 
     });
 });

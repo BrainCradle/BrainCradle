@@ -233,150 +233,6 @@ window.fbAsyncInit = function () {
 
 (function() {
     'use strict';
-    angular.module('braincradle.app.blogs', [])
-        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
-            var now = new Date();
-            var ticks = now.getTime();
-
-            // Blogs Main
-            $stateProvider.state('blogs', {
-                url: '/blogs',
-                templateUrl: 'components/blogs/blogs.html?'+ticks,
-                controller: 'BlogsController',
-                controllerAs: 'blogsCtrl'
-            });
-
-        })
-        .controller('BlogsController', function ($firebaseAuth,$firebaseArray,AppFirebase,AppService) {
-            var self = this;
-
-            // Get the logged in user
-            console.log(AppFirebase.auth().currentUser);
-            self.currentUser = AppFirebase.auth().currentUser;
-
-            // Get a reference to the database service
-            var database = AppFirebase.database();
-
-            var blogsRef = database.ref().child("blogs");
-            self.blogs = $firebaseArray(blogsRef);
-
-            AppService.active = "blogs";
-            self.addNew = false;
-            self.viewPost = false;
-            self.editPost = false;
-            self.leaveComment = false;
-            self.hasComment = false;
-
-            self.IsUserAutheticated = function(){
-                if(self.currentUser){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
-
-            self.AddNew = function () {
-                self.addNew = true;
-                self.newpost = {}
-            }
-            self.Save = function () {
-                var updateObj = {
-                    blog_title: self.newpost.blog_title,
-                    blog_post: self.newpost.blog_post,
-                    author: {email:self.currentUser.email,user:self.currentUser.displayName}
-                }
-                console.log(updateObj);
-                // Get a key for a new record.
-                var newKey = firebase.database().ref().child('blogs').push().key;
-                database.ref('blogs/'+newKey).set(updateObj);
-
-                // Done
-                self.newpost = {}
-                self.addNew = false;
-            }
-            self.Cancel = function () {
-                self.newpost = {}
-                self.addNew = false;     
-            }
-
-            self.ViewPost = function (post) {
-                self.viewPost = true;
-                self.current_post = post;
-                self.ifComment()
-                console.log(self.hasComment)
-            }
-            self.AllPosts = function () {
-                self.viewPost = false;
-            }
-
-            self.EditPost = function () {
-                self.editPost = true;
-            }
-            self.SaveChange = function () {
-                var updateRef = blogsRef.child(self.current_post.post_id)
-                var updates = {};
-                var postData = {
-                    "post_id": self.current_post.post_id,
-                    "blog_title": self.current_post.blog_title,
-                    "blog_post" :self.current_post.blog_post,
-                    "author": self.current_post.author}
-
-                updates['/blogs/' + self.current_post.post_id] = postData;
-                firebase.database().ref().update(updates)
-
-                self.editPost = false;
-
-            }
-            self.Comment = function () {
-                self.leaveComment = true;
-                self.comment = {}
-
-            }
-            self.SaveComment = function () {
-
-                if(self.IsUserAutheticated()) {
-                    self.comment.author = {email: self.currentUser.email, user: self.currentUser.displayName}
-                    console.log(self.comment)
-                    var postData = {
-                        "post_id": self.current_post.post_id,
-                        "blog_title": self.current_post.blog_title,
-                        "blog_post" :self.current_post.blog_post,
-                        "author": self.current_post.author,
-                        comment: self.comment
-                    }
-                    var updates = {};
-                    updates['/blogs/' + self.current_post.post_id] = postData;
-                    firebase.database().ref().update(updates)
-                    self.comment = {}
-                    self.leaveComment = false;
-                    self.current_post.hasComment = true;
-                }else{
-
-                    console.log("Access denied, login first")
-                }
-
-            }
-
-            self.ifComment = function () {
-                console.log("ifComment")
-                if(self.current_post.post_id != null) {
-                    var currentBlog = firebase.database().ref().child('blogs').child(self.current_post.post_id)
-                    console.log(currentBlog)
-                    currentBlog.child("comment").once("value").then(function (snapshot) {
-                            if (snapshot.val()) {
-                                console.log(snapshot.val())
-                                self.current_post.hasComment = true;
-                            }
-                        }
-                    )
-                }
-            }
-
-        })
-
-})();
-(function() {
-    'use strict';
     angular.module('braincradle.app.common', [])
         .controller('confirmmodalController', function ($uibModalInstance, valid) {
             var self = this;
@@ -590,6 +446,150 @@ window.fbAsyncInit = function () {
 
 (function() {
     'use strict';
+    angular.module('braincradle.app.blogs', [])
+        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
+            var now = new Date();
+            var ticks = now.getTime();
+
+            // Blogs Main
+            $stateProvider.state('blogs', {
+                url: '/blogs',
+                templateUrl: 'components/blogs/blogs.html?'+ticks,
+                controller: 'BlogsController',
+                controllerAs: 'blogsCtrl'
+            });
+
+        })
+        .controller('BlogsController', function ($firebaseAuth,$firebaseArray,AppFirebase,AppService) {
+            var self = this;
+
+            // Get the logged in user
+            console.log(AppFirebase.auth().currentUser);
+            self.currentUser = AppFirebase.auth().currentUser;
+
+            // Get a reference to the database service
+            var database = AppFirebase.database();
+
+            var blogsRef = database.ref().child("blogs");
+            self.blogs = $firebaseArray(blogsRef);
+
+            AppService.active = "blogs";
+            self.addNew = false;
+            self.viewPost = false;
+            self.editPost = false;
+            self.leaveComment = false;
+            self.hasComment = false;
+
+            self.IsUserAutheticated = function(){
+                if(self.currentUser){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+            self.AddNew = function () {
+                self.addNew = true;
+                self.newpost = {}
+            }
+            self.Save = function () {
+                var updateObj = {
+                    blog_title: self.newpost.blog_title,
+                    blog_post: self.newpost.blog_post,
+                    author: {email:self.currentUser.email,user:self.currentUser.displayName}
+                }
+                console.log(updateObj);
+                // Get a key for a new record.
+                var newKey = firebase.database().ref().child('blogs').push().key;
+                database.ref('blogs/'+newKey).set(updateObj);
+
+                // Done
+                self.newpost = {}
+                self.addNew = false;
+            }
+            self.Cancel = function () {
+                self.newpost = {}
+                self.addNew = false;     
+            }
+
+            self.ViewPost = function (post) {
+                self.viewPost = true;
+                self.current_post = post;
+                self.ifComment()
+                console.log(self.hasComment)
+            }
+            self.AllPosts = function () {
+                self.viewPost = false;
+            }
+
+            self.EditPost = function () {
+                self.editPost = true;
+            }
+            self.SaveChange = function () {
+                var updateRef = blogsRef.child(self.current_post.post_id)
+                var updates = {};
+                var postData = {
+                    "post_id": self.current_post.post_id,
+                    "blog_title": self.current_post.blog_title,
+                    "blog_post" :self.current_post.blog_post,
+                    "author": self.current_post.author}
+
+                updates['/blogs/' + self.current_post.post_id] = postData;
+                firebase.database().ref().update(updates)
+
+                self.editPost = false;
+
+            }
+            self.Comment = function () {
+                self.leaveComment = true;
+                self.comment = {}
+
+            }
+            self.SaveComment = function () {
+
+                if(self.IsUserAutheticated()) {
+                    self.comment.author = {email: self.currentUser.email, user: self.currentUser.displayName}
+                    console.log(self.comment)
+                    var postData = {
+                        "post_id": self.current_post.post_id,
+                        "blog_title": self.current_post.blog_title,
+                        "blog_post" :self.current_post.blog_post,
+                        "author": self.current_post.author,
+                        comment: self.comment
+                    }
+                    var updates = {};
+                    updates['/blogs/' + self.current_post.post_id] = postData;
+                    firebase.database().ref().update(updates)
+                    self.comment = {}
+                    self.leaveComment = false;
+                    self.current_post.hasComment = true;
+                }else{
+
+                    console.log("Access denied, login first")
+                }
+
+            }
+
+            self.ifComment = function () {
+                console.log("ifComment")
+                if(self.current_post.post_id != null) {
+                    var currentBlog = firebase.database().ref().child('blogs').child(self.current_post.post_id)
+                    console.log(currentBlog)
+                    currentBlog.child("comment").once("value").then(function (snapshot) {
+                            if (snapshot.val()) {
+                                console.log(snapshot.val())
+                                self.current_post.hasComment = true;
+                            }
+                        }
+                    )
+                }
+            }
+
+        })
+
+})();
+(function() {
+    'use strict';
     angular.module('braincradle.app.home', [])
         .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
             var now = new Date();
@@ -609,7 +609,7 @@ window.fbAsyncInit = function () {
             $urlRouterProvider.otherwise('/');
 
         })
-        .controller('HomeController', function ($firebaseAuth,$firebaseArray,AppFirebase,AppService) {
+        .controller('HomeController', function ($firebaseObject,AppFirebase,AppService) {
             var self = this;
 
             // Get a reference to the database service
@@ -625,7 +625,13 @@ window.fbAsyncInit = function () {
 
             self.homepagecontent = $firebaseObject(homepagecontentRef);
 
-            
+            self.IsContentLoaded = function(){
+                if(self.homepagecontent){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
 
 
         })
@@ -823,7 +829,7 @@ window.fbAsyncInit = function () {
                 scope.active = attrs.active;
             }
         })
-        .controller('HeaderController', function ($scope,AppFirebase) {
+        .controller('HeaderController', function (AppFirebase) {
             var self = this;
 
             self.signin = true;
@@ -835,7 +841,7 @@ window.fbAsyncInit = function () {
                     //console.log(user);
                     self.currentUser = user;
 
-                    $scope.$apply();
+                    //$scope.$apply();
 
                 } else {
                     // No user is signed in.
@@ -852,32 +858,18 @@ window.fbAsyncInit = function () {
 
             }
 
-        })
-
-})();
-
-(function() {
-    'use strict';
-    angular.module('braincradle.app.presentations', [])
-        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
-            var now = new Date();
-            var ticks = now.getTime();
-
-            // Blogs Main
-            $stateProvider.state('presentations', {
-                url: '/presentations',
-                templateUrl: 'components/presentations/presentations.html?'+ticks,
-                controller: 'PresentationsController',
-                controllerAs: 'presentationsCtrl'
-            });
-
-        })
-        .controller('PresentationsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
-            var self = this;
+            self.IsUserAutheticated = function(){
+                if(self.currentUser){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
 
         })
 
 })();
+
 (function() {
     'use strict';
     angular.module('braincradle.app.projects', [])
@@ -898,6 +890,28 @@ window.fbAsyncInit = function () {
             var self = this;
 
             AppService.active = "projects";
+
+        })
+
+})();
+(function() {
+    'use strict';
+    angular.module('braincradle.app.presentations', [])
+        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
+            var now = new Date();
+            var ticks = now.getTime();
+
+            // Blogs Main
+            $stateProvider.state('presentations', {
+                url: '/presentations',
+                templateUrl: 'components/presentations/presentations.html?'+ticks,
+                controller: 'PresentationsController',
+                controllerAs: 'presentationsCtrl'
+            });
+
+        })
+        .controller('PresentationsController', function ($firebaseAuth,$firebaseArray,AppFirebase) {
+            var self = this;
 
         })
 
