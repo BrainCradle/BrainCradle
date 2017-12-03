@@ -32,16 +32,16 @@ describe('navbar', function () {
         });
 
         // Facebook login
-        it('Login Facebook', function(){
-            var provider = new firebase.auth.FacebookAuthProvider();
-
-            AppFirebase.auth().signInWithPopup(provider).then(function(result) {
-                // Successful login
-                expect(true).toBe(true);
-            }).catch(function(error) {
-                expect(false).toBe(true);
-            });
-        });
+        // it('Login Facebook', function(){
+        //     var provider = new firebase.auth.FacebookAuthProvider();
+        //
+        //     AppFirebase.auth().signInWithPopup(provider).then(function(result) {
+        //         // Successful login
+        //         expect(true).toBe(true);
+        //     }).catch(function(error) {
+        //         expect(false).toBe(true);
+        //     });
+        // });
 
     });
 });
