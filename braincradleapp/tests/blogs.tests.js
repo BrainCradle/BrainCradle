@@ -2,20 +2,23 @@ describe('blogs', function () {
 
     beforeEach(module('braincradle.app'));
 
-    var $firebaseAuth,$firebaseArray,AppFirebase,Auth;
+    var $firebaseAuth,$firebaseArray,AppFirebase,Auth,$scope;
 
-    beforeEach(inject(function (_AppFirebase_,_Auth_,_$firebaseAuth_,_$firebaseArray_) {
+    beforeEach(inject(function (_AppFirebase_,_Auth_,_$firebaseAuth_,_$firebaseArray_,_$scope_) {
         AppFirebase = _AppFirebase_;
         Auth = _Auth_;
         $firebaseAuth = _$firebaseAuth_;
         $firebaseArray = _$firebaseArray_;
+        $scope = _$scope_;
     }));
 
     describe('BlogsController',function(){
 
         var blogsCtrl;
+        var headCtrl;
         beforeEach(inject(function($controller){ //instantiate controller using $controller service
             blogsCtrl = $controller('BlogsController',$firebaseAuth,$firebaseArray,AppFirebase);
+            headCtrl = $controller('HeaderController',$scope,AppFirebase);
         }));
 
         // Test cases
@@ -90,6 +93,35 @@ describe('blogs', function () {
         it('User authenticated', function(){
             expect(blogsCtrl.IsUserAutheticated()).toBe(false);
         });
+
+        // it('Edit blog', function(){
+        //     blogsCtrl.EditPost();
+        //     expect(blogsCtrl.editPost).toBe(true);
+        // });
+        //
+        // // Able to edit comment
+        // it('Edit Comment', function(){
+        //     blogsCtrl.Comment();
+        //     expect(blogsCtrl.leaveComment).toBe(true);
+        // });
+        //
+        // //Logout
+        // it('Log Out', function(){
+        //     headCtrl.signOut();
+        //     expect(blogsCtrl.IsUserAutheticated()).toBe(false);
+        // });
+        //
+        // // Facebook login
+        // it('Login Facebook', function(){
+        //     var provider = new firebase.auth.FacebookAuthProvider();
+        //
+        //     AppFirebase.auth().signInWithPopup(provider).then(function(result) {
+        //         // Successful login
+        //         expect(true).toBe(true);
+        //     }).catch(function(error) {
+        //         expect(false).toBe(true);
+        //     });
+        // });
 
     });
 });
