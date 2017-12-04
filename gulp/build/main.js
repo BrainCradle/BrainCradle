@@ -3,6 +3,7 @@
     angular.module('braincradle.app', [
         'ui.router'
         ,'ui.bootstrap'
+        ,'ui.select'
         ,'firebase'
         ,'textAngular'
         ,'ngAvatar'
@@ -260,6 +261,9 @@ window.fbAsyncInit = function () {
             var blogsRef = database.ref().child("blogs");
             self.blogs = $firebaseArray(blogsRef);
 
+            var categoriesRef = database.ref().child("categories");
+            self.categories = $firebaseArray(categoriesRef);
+
             AppService.active = "blogs";
             self.addNew = false;
             self.viewPost = false;
@@ -277,12 +281,14 @@ window.fbAsyncInit = function () {
 
             self.AddNew = function () {
                 self.addNew = true;
+                self.editPost = false;
                 self.newpost = {}
             }
             self.Save = function () {
                 var updateObj = {
                     blog_title: self.newpost.blog_title,
                     blog_post: self.newpost.blog_post,
+                    categories:self.newpost.categories,
                     author: {email:self.currentUser.email,user:self.currentUser.displayName}
                 }
                 console.log(updateObj);
@@ -296,20 +302,24 @@ window.fbAsyncInit = function () {
             }
             self.Cancel = function () {
                 self.newpost = {}
-                self.addNew = false;     
+                self.addNew = false;
+                self.editPost = false;
             }
 
             self.ViewPost = function (post) {
                 self.viewPost = true;
+                self.editPost = false;
                 self.current_post = post;
                 self.ifComment()
                 console.log(self.hasComment)
             }
             self.AllPosts = function () {
                 self.viewPost = false;
+                self.editPost = false;
             }
 
             self.EditPost = function () {
+                self.addNew = false;
                 self.editPost = true;
             }
             self.SaveChange = function () {
@@ -319,6 +329,7 @@ window.fbAsyncInit = function () {
                     "post_id": self.current_post.post_id,
                     "blog_title": self.current_post.blog_title,
                     "blog_post" :self.current_post.blog_post,
+                    "categories":self.current_post.categories,
                     "author": self.current_post.author}
 
                 updates['/blogs/' + self.current_post.post_id] = postData;
@@ -341,6 +352,7 @@ window.fbAsyncInit = function () {
                         "post_id": self.current_post.post_id,
                         "blog_title": self.current_post.blog_title,
                         "blog_post" :self.current_post.blog_post,
+                        "categories":self.current_post.categories,
                         "author": self.current_post.author,
                         comment: self.comment
                     }
@@ -375,56 +387,6 @@ window.fbAsyncInit = function () {
         })
 
 })();
-(function() {
-    'use strict';
-    angular.module('braincradle.app.home', [])
-        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
-            var now = new Date();
-            var ticks = now.getTime();
-
-            // Auto Scroll tot he top
-            $uiViewScrollProvider.useAnchorScroll();
-
-            // Home
-            $stateProvider.state('home', {
-                url: '/',
-                templateUrl: 'components/home/home.html?'+ticks,
-                controller: 'HomeController',
-                controllerAs: 'homeCtrl'
-            });
-
-            $urlRouterProvider.otherwise('/');
-
-        })
-        .controller('HomeController', function ($firebaseObject,AppFirebase,AppService) {
-            var self = this;
-
-            // Get a reference to the database service
-            var database = AppFirebase.database();
-
-            // Get the logged in user
-            console.log(AppFirebase.auth().currentUser);
-            self.currentUser = AppFirebase.auth().currentUser;
-
-            AppService.active = "home";
-
-            var homepagecontentRef = database.ref().child("homepagecontent");
-
-            self.homepagecontent = $firebaseObject(homepagecontentRef);
-
-            self.IsContentLoaded = function(){
-                if(self.homepagecontent){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
-
-
-        })
-
-})();
-
 (function() {
     'use strict';
     angular.module('braincradle.app.common', [])
@@ -640,6 +602,115 @@ window.fbAsyncInit = function () {
 
 (function() {
     'use strict';
+    angular.module('braincradle.app.home', [])
+        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
+            var now = new Date();
+            var ticks = now.getTime();
+
+            // Auto Scroll tot he top
+            $uiViewScrollProvider.useAnchorScroll();
+
+            // Home
+            $stateProvider.state('home', {
+                url: '/',
+                templateUrl: 'components/home/home.html?'+ticks,
+                controller: 'HomeController',
+                controllerAs: 'homeCtrl'
+            });
+
+            $urlRouterProvider.otherwise('/');
+
+        })
+        .controller('HomeController', function ($firebaseObject,AppFirebase,AppService) {
+            var self = this;
+
+            // Get a reference to the database service
+            var database = AppFirebase.database();
+
+            // Get the logged in user
+            console.log(AppFirebase.auth().currentUser);
+            self.currentUser = AppFirebase.auth().currentUser;
+
+            AppService.active = "home";
+
+            var homepagecontentRef = database.ref().child("homepagecontent");
+
+            self.homepagecontent = $firebaseObject(homepagecontentRef);
+
+            self.IsContentLoaded = function(){
+                if(self.homepagecontent){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+
+        })
+
+})();
+
+(function() {
+    'use strict';
+    angular.module('braincradle.app.menu', [])
+        .directive('appMenu', function () {
+            // <app-menu></app-menu>
+            return {
+                restrict: 'E',
+                templateUrl: 'components/menu/menu.html',
+                link: function (scope, element, attrs) {
+                    $(".hamburger").click(function(event) {
+
+                        $(".top-menu").toggleClass("top-animate");
+                        $(".mid-menu").toggleClass("mid-animate");
+                        $(".bottom-menu").toggleClass("bottom-animate");
+                        if($("#nav-container").hasClass("menu-close")){
+                            $("#nav-container" ).animate({ "left": "0px" }, "310" );
+                            $("#nav-container").removeClass("menu-close");
+                            $("#nav-container").addClass("menu-open");
+
+                        }
+                        else{
+                            $("#nav-container").removeClass("menu-open");
+                            $("#nav-container").addClass("menu-close");
+                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
+                        }
+                        //event.stopPropagation();
+                    });
+                    $("body").click(function(){
+                        //console.log("body click");
+                        //if($("#nav-container").hasClass("menu-open")){
+                        //    $("#nav-container" ).animate({ "left": "-300px" }, "310" );
+                        //    $(".top-menu").toggleClass("top-animate");
+                        //    $(".mid-menu").toggleClass("mid-animate");
+                        //    $(".bottom-menu").toggleClass("bottom-animate");
+                        //    $("#nav-container").removeClass("menu-open");
+                        //    $("#nav-container").addClass("menu-close");
+                        //}
+                    })
+                    $(".custom-drop li").click(function() {
+                        console.log(this);
+                        if($(this).children().length>1){
+
+                        }
+                        else{
+                            $("#nav-container").removeClass("menu-open");
+                            $("#nav-container").addClass("menu-close");
+                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
+                            $(".top-menu").toggleClass("top-animate");
+                            $(".mid-menu").toggleClass("mid-animate");
+                            $(".bottom-menu").toggleClass("bottom-animate");
+                        }
+                    });
+                }
+            };
+        })
+
+})();
+
+
+(function() {
+    'use strict';
     angular.module('braincradle.app.maintain', [])
         .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
             var now = new Date();
@@ -749,65 +820,6 @@ window.fbAsyncInit = function () {
         })
 
 })();
-(function() {
-    'use strict';
-    angular.module('braincradle.app.menu', [])
-        .directive('appMenu', function () {
-            // <app-menu></app-menu>
-            return {
-                restrict: 'E',
-                templateUrl: 'components/menu/menu.html',
-                link: function (scope, element, attrs) {
-                    $(".hamburger").click(function(event) {
-
-                        $(".top-menu").toggleClass("top-animate");
-                        $(".mid-menu").toggleClass("mid-animate");
-                        $(".bottom-menu").toggleClass("bottom-animate");
-                        if($("#nav-container").hasClass("menu-close")){
-                            $("#nav-container" ).animate({ "left": "0px" }, "310" );
-                            $("#nav-container").removeClass("menu-close");
-                            $("#nav-container").addClass("menu-open");
-
-                        }
-                        else{
-                            $("#nav-container").removeClass("menu-open");
-                            $("#nav-container").addClass("menu-close");
-                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
-                        }
-                        //event.stopPropagation();
-                    });
-                    $("body").click(function(){
-                        //console.log("body click");
-                        //if($("#nav-container").hasClass("menu-open")){
-                        //    $("#nav-container" ).animate({ "left": "-300px" }, "310" );
-                        //    $(".top-menu").toggleClass("top-animate");
-                        //    $(".mid-menu").toggleClass("mid-animate");
-                        //    $(".bottom-menu").toggleClass("bottom-animate");
-                        //    $("#nav-container").removeClass("menu-open");
-                        //    $("#nav-container").addClass("menu-close");
-                        //}
-                    })
-                    $(".custom-drop li").click(function() {
-                        console.log(this);
-                        if($(this).children().length>1){
-
-                        }
-                        else{
-                            $("#nav-container").removeClass("menu-open");
-                            $("#nav-container").addClass("menu-close");
-                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
-                            $(".top-menu").toggleClass("top-animate");
-                            $(".mid-menu").toggleClass("mid-animate");
-                            $(".bottom-menu").toggleClass("bottom-animate");
-                        }
-                    });
-                }
-            };
-        })
-
-})();
-
-
 (function() {
     'use strict';
     angular.module('braincradle.app.navbar', [])

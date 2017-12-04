@@ -97,6 +97,10 @@ describe('blogs', function () {
             blogsCtrl.EditPost();
             expect(blogsCtrl.editPost).toBe(true);
         });
+        it('Edit blog 2', function(){
+            blogsCtrl.EditPost();
+            expect(blogsCtrl.addNew).toBe(false);
+        });
 
         // Able to edit comment
         it('Edit Comment', function(){

@@ -11,6 +11,7 @@ module.exports = function(config) {
             '../braincradleapp/lib/angular/angular-animate.min.js',
             '../braincradleapp/lib/angular/angular-ui-router.min.js',
             '../braincradleapp/lib/angular/ui-bootstrap-tpls.min.js',
+            '../braincradleapp/lib/angular-ui-select/select.min.js',
             '../braincradleapp/lib/firebase/firebase.js',
             '../braincradleapp/lib/firebase/angularfire.min.js',
             '../braincradleapp/lib/avatar/angular-avatar.min.js',
