@@ -27,6 +27,9 @@
             var blogsRef = database.ref().child("blogs");
             self.blogs = $firebaseArray(blogsRef);
 
+            var categoriesRef = database.ref().child("categories");
+            self.categories = $firebaseArray(categoriesRef);
+
             AppService.active = "blogs";
             self.addNew = false;
             self.viewPost = false;
@@ -44,12 +47,14 @@
 
             self.AddNew = function () {
                 self.addNew = true;
+                self.editPost = false;
                 self.newpost = {}
             }
             self.Save = function () {
                 var updateObj = {
                     blog_title: self.newpost.blog_title,
                     blog_post: self.newpost.blog_post,
+                    categories:self.newpost.categories,
                     author: {email:self.currentUser.email,user:self.currentUser.displayName}
                 }
                 console.log(updateObj);
@@ -63,20 +68,24 @@
             }
             self.Cancel = function () {
                 self.newpost = {}
-                self.addNew = false;     
+                self.addNew = false;
+                self.editPost = false;
             }
 
             self.ViewPost = function (post) {
                 self.viewPost = true;
+                self.editPost = false;
                 self.current_post = post;
                 self.ifComment()
                 console.log(self.hasComment)
             }
             self.AllPosts = function () {
                 self.viewPost = false;
+                self.editPost = false;
             }
 
             self.EditPost = function () {
+                self.addNew = false;
                 self.editPost = true;
             }
             self.SaveChange = function () {
@@ -86,6 +95,7 @@
                     "post_id": self.current_post.post_id,
                     "blog_title": self.current_post.blog_title,
                     "blog_post" :self.current_post.blog_post,
+                    "categories":self.current_post.categories,
                     "author": self.current_post.author}
 
                 updates['/blogs/' + self.current_post.post_id] = postData;
@@ -108,6 +118,7 @@
                         "post_id": self.current_post.post_id,
                         "blog_title": self.current_post.blog_title,
                         "blog_post" :self.current_post.blog_post,
+                        "categories":self.current_post.categories,
                         "author": self.current_post.author,
                         comment: self.comment
                     }

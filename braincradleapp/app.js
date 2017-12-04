@@ -3,6 +3,7 @@
     angular.module('braincradle.app', [
         'ui.router'
         ,'ui.bootstrap'
+        ,'ui.select'
         ,'firebase'
         ,'textAngular'
         ,'ngAvatar'
