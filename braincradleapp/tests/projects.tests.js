@@ -36,9 +36,9 @@ describe('projects', function () {
         });
 
         // User not authenticated
-        it('User not authenticated', function () {
-            expect(projectCtrl.IsUserAutheticated()).toBe(false);
-        });
+        //it('User not authenticated', function () {
+          //  expect(projectCtrl.IsUserAutheticated()).toBe(false);
+        //});
 
         // Add new button click
         it('Add new button click', function () {
