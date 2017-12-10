@@ -31,6 +31,7 @@
 
             self.addNew = false;
             self.viewPost = false;
+            self.editPost = false;
 
             self.AddNew = function () {
                 self.addNew = true;
@@ -38,15 +39,18 @@
             }
 
             self.Save = function () {
+                var newKey = firebase.database().ref().child('blogs').push().key;
+
                 var updateObj = {
+                    post_id: newKey,
                     project_title: self.newpost.project_title,
                     project_post: self.newpost.project_post,
+                    //categories:self.newpost.categories,
                     author: {email:self.currentUser.email,user:self.currentUser.displayName}
                 }
                 console.log(updateObj);
 
                 // Get a key for a new record.
-                var newKey = firebase.database().ref().child('blogs').push().key;
                 database.ref('projects/'+newKey).set(updateObj);
 
                 // Done
@@ -65,6 +69,27 @@
             }
             self.AllPosts = function () {
                 self.viewPost = false;
+            }
+            self.EditPost = function () {
+                self.addNew = false;
+                self.editPost = true;
+            }
+            self.SaveChange = function () {
+                console.log(updateRef)
+                var updateRef = projectRef.child(self.current_post.post_id)
+                var updates = {};
+                var postData = {
+                    post_id: self.current_post.post_id,
+                    project_title : self.current_post.project_title,
+                    project_post :self.current_post.project_post,
+                    //"categories":self.current_post.categories,
+                    author: self.current_post.author}
+
+                updates['/projects/' + self.current_post.post_id] = postData;
+                firebase.database().ref().update(updates)
+
+                self.editPost = false;
+
             }
 
 

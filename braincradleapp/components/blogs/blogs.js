@@ -53,16 +53,18 @@
             }
 
             self.Save = function () {
+                var newKey = firebase.database().ref().child('blogs').push().key;
+
                 var updateObj = {
+                    post_id:newKey,
                     blog_title: self.newpost.blog_title,
                     blog_post: self.newpost.blog_post,
-                    categories:self.newpost.categories,
+                    //categories:self.newpost.categories,
                     author: {email:self.currentUser.email,user:self.currentUser.displayName}
                 }
                 console.log(updateObj);
 
                 // Get a key for a new record.
-                var newKey = firebase.database().ref().child('blogs').push().key;
                 database.ref('blogs/'+newKey).set(updateObj);
 
                 // Done
@@ -99,8 +101,9 @@
                     "post_id": self.current_post.post_id,
                     "blog_title": self.current_post.blog_title,
                     "blog_post" :self.current_post.blog_post,
-                    "categories":self.current_post.categories,
-                    "author": self.current_post.author}
+                    //"categories":self.current_post.categories,
+                    "author": self.current_post.author,
+                    comment: self.comment}
 
                 updates['/blogs/' + self.current_post.post_id] = postData;
                 firebase.database().ref().update(updates)
@@ -123,7 +126,7 @@
                         "post_id": self.current_post.post_id,
                         "blog_title": self.current_post.blog_title,
                         "blog_post" :self.current_post.blog_post,
-                        "categories":self.current_post.categories,
+                        //"categories":self.current_post.categories,
                         "author": self.current_post.author,
                         comment: self.comment
                     }

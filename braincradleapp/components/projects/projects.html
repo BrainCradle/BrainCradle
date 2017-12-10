@@ -42,6 +42,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Category</label>
+                            <ui-select ng-model="projectsCtrl.newpost.categories" theme="bootstrap" multiple>
+                                <ui-select-match placeholder="Select or search a category in the list...">
+                                    {{$item.category_name}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="category.$id as category in blogsCtrl.categories | filter: $select.search">
+                                    <div ng-bind-html="category.category_name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">&nbsp;</div>
                 <div class="row">
                     <div class="col-xs-12 text-center">
@@ -49,6 +64,7 @@
                         <a class="btn btn-default" ng-click="projectsCtrl.Cancel()">Cancel</a>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
@@ -69,6 +85,52 @@
                 <span class="pull-left"><i class="fa fa-comments" aria-hidden="true" ng-click = 'projectsCtrl.Comment()' id="comment button"></i></span>
                 <span class="pull-right"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
             </p>
+        </div>
+    </div>
+
+    <div ng-if="projectsCtrl.editPost">
+        <h4>Edit Post</h4>
+        <div class="well">
+            <form name="inputform">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Title</label>
+                            <input type="text" ng-model="projectsCtrl.current_post.project_title" class="form-control" placeholder="Title" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Post</label>
+                            <div text-angular ng-model="projectsCtrl.current_post.project_post" class="btn-groups"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Category</label>
+                            <ui-select ng-model="projectsCtrl.current_post.categories" theme="bootstrap" multiple>
+                                <ui-select-match placeholder="Select or search a category in the list...">
+                                    {{$item.category_name}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="category.$id as category in projectsCtrl.categories | filter: $select.search">
+                                    <div ng-bind-html="category.category_name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <a class="btn btn-primary" ng-click="projectsCtrl.SaveChange()" ng-disabled="inputform.$invalid">Save Change</a>&nbsp;&nbsp;
+                        <a class="btn btn-default" ng-click="projectsCtrl.Cancel()">Cancel</a>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
