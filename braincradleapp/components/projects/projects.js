@@ -29,9 +29,14 @@
             var projectRef = database.ref().child("projects");
             self.projects= $firebaseArray(projectRef);
 
+
             self.addNew = false;
             self.viewPost = false;
             self.editPost = false;
+            self.vote = "None";
+            // Variables to keep track of number of up votes/down votes
+            self.upVote = 0;
+            self.downVote = 0;
 
             self.AddNew = function () {
                 self.addNew = true;
@@ -75,8 +80,6 @@
                 self.editPost = true;
             }
             self.SaveChange = function () {
-                console.log(updateRef)
-                var updateRef = projectRef.child(self.current_post.post_id)
                 var updates = {};
                 var postData = {
                     post_id: self.current_post.post_id,
@@ -91,6 +94,68 @@
                 self.editPost = false;
 
             }
+
+            self.changeVote = function(vote, flag){
+
+                var projectPostRef = projectRef.child(self.current_post.post_id)
+                self.vote = vote==flag?'None':flag;
+                var upVoteUsers = [];
+                var downVoteUsers = [];
+
+                projectPostRef.once('value').then(function(snapshot) {
+                    var post = snapshot.val();
+                    var currentUser = AppFirebase.auth().currentUser.email;
+                    console.log(post)
+                    console.log(currentUser)
+
+                    if(flag=="up"){
+                        // delete the user from the list contains users don't like the post
+                        if(downVoteUsers.includes(currentUser)){
+                            downVoteUsers.splice(index,downVoteUsers.indexOf(currentUser));
+                        }
+                        // add user to the list contains upvote users
+                        if (snapshot.hasChild("likedUsers")) {
+                            upVoteUsers = post.likedUsers;
+                            if(!upVoteUsers.includes(currentUser)) {
+                                upVoteUsers.push(currentUser);
+                            }
+                        }else{
+                            upVoteUsers.push(currentUser);
+                        }
+
+                        // update downvote users and upvote users to firebase
+                        projectPostRef.update({ "likedUsers": upVoteUsers })
+                        projectPostRef.update({ "dislikedUsers": downVoteUsers })
+                        self.upVote = upVoteUsers.length;
+                        self.downVote = downVoteUsers.length;
+                    }
+
+                    if(flag=="down"){
+                        // delete the user from the upvote list of users
+                        if(upVoteUsers.includes(currentUser)){
+                            upVoteUsers.splice(index,upVoteUsers.indexOf(currentUser));
+                        }
+                        // add user to the list contains downvote users
+                        if (snapshot.hasChild("dislikedUsers")) {
+                            downVoteUsers = post.dislikedUsers;
+                            if(!downVoteUsers.includes(currentUser)) {
+                                downVoteUsers.push(currentUser);
+                            }
+                        }else{
+                            downVoteUsers.push(currentUser);
+                        }
+                        console.log(downVoteUsers)
+                        // update downvote users and upvote users to firebase
+                        projectPostRef.update({ "likedUsers": upVoteUsers })
+                        projectPostRef.update({ "dislikedUsers": downVoteUsers })
+                        self.upVote = upVoteUsers.length;
+                        self.downVote = downVoteUsers.length;
+                    }
+                });
+
+
+
+            };
 
 
         })
