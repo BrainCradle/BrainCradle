@@ -37,6 +37,7 @@
             // Variables to keep track of number of up votes/down votes
             self.upVote = 0;
             self.downVote = 0;
+            self.comment = '';
 
             self.AddNew = function () {
                 self.addNew = true;

@@ -1,11 +1,19 @@
 <div class="container body-content">
     <div ng-if="!blogsCtrl.addNew && !blogsCtrl.viewPost">
         <div class="row">
-            <a ng-if="blogsCtrl.currentUser" class="btn" tooltip-placement="left" uib-tooltip="Add new blog" ng-click="blogsCtrl.AddNew()"><i class="fa fa-plus-circle fa-large" aria-hidden="true"></i> Add</a>
+            <div class="col-xs-10">
+                <div class="input-group">
+                    <input type="text" class="form-control input-sm btn-rounded" placeholder="Search" ng-model="blogsCtrl.search">
+                    <span class="input-group-btn">
+                          <button type="submit" class="btn btn-default btn-sm btn-rounded"><i class="fa fa-search"></i></button>
+                        </span>
+                </div>
+            </div>
+            <div class="col-xs-2 text-right"><a ng-if="blogsCtrl.currentUser" class="btn" tooltip-placement="left" uib-tooltip="Add new blog" ng-click="blogsCtrl.AddNew()"><i class="fa fa-plus-circle fa-large" aria-hidden="true"></i> Add</a></div>
         </div>
         <div class="row">
             <ul class="post-grid">
-                <li ng-repeat="post in blogsCtrl.blogs" class="col-md-4" ng-class="{ 'reset-s' : $index%3==0 }" ng-click="blogsCtrl.ViewPost(post)" >
+                <li ng-repeat="post in blogsCtrl.blogs | filter :blogsCtrl.search" class="col-md-4" ng-class="{ 'reset-s' : $index%3==0 }" ng-click="blogsCtrl.ViewPost(post)" >
                     <div class="blog-container">
                         <h3>{{post.blog_title}}</h3>
                         <p class="blog-post-summary" ng-bind-html="post.blog_post"></p>
@@ -20,13 +28,13 @@
             </ul>
         </div>
     </div>
-    <div ng-if="blogsCtrl.viewPost">
+    <div ng-if="blogsCtrl.viewPost && !blogsCtrl.editPost">
         <div class="row">
             <div class="col-xs-6">
                 <a ng-click="blogsCtrl.AllPosts()">All posts</a>
             </div>
             <div class="col-xs-6 text-right">
-                <a ng-click="blogsCtrl.EditPost()">Edit Posts</a>
+                <a ng-click="blogsCtrl.EditPost()">Edit Post</a>
             </div>
         </div>
         <div class="blog-container">
