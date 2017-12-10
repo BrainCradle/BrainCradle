@@ -19,7 +19,7 @@
             $urlRouterProvider.otherwise('/');
 
         })
-        .controller('HomeController', function ($firebaseAuth,$firebaseArray,AppFirebase,AppService) {
+        .controller('HomeController', function ($firebaseObject,AppFirebase,AppService) {
             var self = this;
 
             // Get a reference to the database service
@@ -31,13 +31,17 @@
 
             AppService.active = "home";
 
-            var now = new Date();
-            var ticks = now.getTime();
+            var homepagecontentRef = database.ref().child("homepagecontent");
 
-            //firebase.database().ref('table01/' + ticks).set({
-            //    name: "Test-"+ticks,
-            //    id: ticks
-            //});
+            self.homepagecontent = $firebaseObject(homepagecontentRef);
+
+            self.IsContentLoaded = function(){
+                if(self.homepagecontent){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
 
 
         })

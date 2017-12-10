@@ -3,6 +3,7 @@
     angular.module('braincradle.app', [
         'ui.router'
         ,'ui.bootstrap'
+        ,'ui.select'
         ,'firebase'
         ,'textAngular'
         ,'ngAvatar'
@@ -18,6 +19,7 @@
         ,'braincradle.app.projects'
         ,'braincradle.app.solutions'
         ,'braincradle.app.tutorials'
+        ,'braincradle.app.maintain'
     ])
         .service('AppFirebase',function(){
             var self = this;

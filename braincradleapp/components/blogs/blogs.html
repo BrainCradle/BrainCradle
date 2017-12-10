@@ -98,6 +98,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Category</label>
+                            <ui-select ng-model="blogsCtrl.current_post.categories" theme="bootstrap" multiple>
+                                <ui-select-match placeholder="Select or search a category in the list...">
+                                    {{$item.category_name}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="category.$id as category in blogsCtrl.categories | filter: $select.search">
+                                    <div ng-bind-html="category.category_name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">&nbsp;</div>
                 <div class="row">
                     <div class="col-xs-12 text-center">
@@ -126,6 +141,21 @@
                         <div class="form-group">
                             <label class="control-label">Post</label>
                             <div text-angular ng-model="blogsCtrl.newpost.blog_post" class="btn-groups"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Category</label>
+                            <ui-select ng-model="blogsCtrl.newpost.categories" theme="bootstrap" multiple>
+                                <ui-select-match placeholder="Select or search a category in the list...">
+                                    {{$item.category_name}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="category.$id as category in blogsCtrl.categories | filter: $select.search">
+                                    <div ng-bind-html="category.category_name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
                         </div>
                     </div>
                 </div>

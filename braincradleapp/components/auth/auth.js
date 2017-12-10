@@ -6,6 +6,7 @@
             var now = new Date();
             var ticks = now.getTime();
 
+
             $stateProvider.state('login', {
                 url: '/login',
                 controller: 'AuthController as authCtrl',

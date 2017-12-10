@@ -2,20 +2,22 @@ describe('blogs', function () {
 
     beforeEach(module('braincradle.app'));
 
-    var $firebaseAuth,$firebaseArray,AppFirebase,Auth;
+    var $firebaseAuth,$firebaseArray,AppFirebase,Auth,AppService,$scope;
 
-    beforeEach(inject(function (_AppFirebase_,_Auth_,_$firebaseAuth_,_$firebaseArray_) {
+    beforeEach(inject(function ($rootScope,_AppFirebase_,_Auth_,_AppService_,_$firebaseAuth_,_$firebaseArray_) {
         AppFirebase = _AppFirebase_;
         Auth = _Auth_;
         $firebaseAuth = _$firebaseAuth_;
         $firebaseArray = _$firebaseArray_;
+        AppService = _AppService_;
+        $scope = $rootScope.$new();
     }));
 
     describe('BlogsController',function(){
 
         var blogsCtrl;
         beforeEach(inject(function($controller){ //instantiate controller using $controller service
-            blogsCtrl = $controller('BlogsController',$firebaseAuth,$firebaseArray,AppFirebase);
+            blogsCtrl = $controller('BlogsController',$firebaseAuth,$firebaseArray,AppFirebase,AppService);
         }));
 
         // Test cases
@@ -45,7 +47,7 @@ describe('blogs', function () {
         });
 
         // Cancel button click
-        it('Add new button click', function(){
+        it('Cancel button click', function(){
             blogsCtrl.AddNew()
             blogsCtrl.Cancel()
             expect(blogsCtrl.addNew).toBe(false);
@@ -89,6 +91,21 @@ describe('blogs', function () {
         // User authenticated
         it('User authenticated', function(){
             expect(blogsCtrl.IsUserAutheticated()).toBe(false);
+        });
+
+        it('Edit blog', function(){
+            blogsCtrl.EditPost();
+            expect(blogsCtrl.editPost).toBe(true);
+        });
+        it('Edit blog 2', function(){
+            blogsCtrl.EditPost();
+            expect(blogsCtrl.addNew).toBe(false);
+        });
+
+        // Able to edit comment
+        it('Edit Comment', function(){
+            blogsCtrl.Comment();
+            expect(blogsCtrl.leaveComment).toBe(true);
         });
 
     });
