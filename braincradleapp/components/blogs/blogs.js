@@ -37,6 +37,7 @@
             self.editPost = false;
             self.leaveComment = false;
             self.hasComment = false;
+            self.comment = '';
 
             self.IsUserAutheticated = function(){
                 if(self.currentUser){

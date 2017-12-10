@@ -32,6 +32,7 @@
             self.addNew = false;
             self.viewPost = false;
             self.editPost = false;
+            self.comment = '';
 
             self.AddNew = function () {
                 self.addNew = true;

@@ -3,11 +3,21 @@
 <div class="container body-content">
     <div ng-if="!projectsCtrl.addNew && !projectsCtrl.viewPost">
         <div class="row">
+            <div class="col-xs-10">
+                <div class="input-group">
+                    <input type="text" class="form-control input-sm btn-rounded" placeholder="Search" ng-model="projectsCtrl.search">
+                    <span class="input-group-btn">
+                          <button type="submit" class="btn btn-default btn-sm btn-rounded"><i class="fa fa-search"></i></button>
+                        </span>
+                </div>
+            </div>
+            <div class="col-xs-2 text-right">
             <a ng-if="projectsCtrl.currentUser" class="btn" tooltip-placement="left" uib-tooltip="Add new project example" ng-click="projectsCtrl.AddNew()"><i class="fa fa-plus-circle fa-large" aria-hidden="true"></i> Add</a>
+            </div>
         </div>
         <div class="row">
             <ul class="post-grid">
-                <li ng-repeat="post in projectsCtrl.projects" class="col-md-4" ng-class="{ 'reset-s' : $index%3==0 }" ng-click="projectsCtrl.ViewPost(post)" >
+                <li ng-repeat="post in projectsCtrl.projects | filter :projectsCtrl.search" class="col-md-4" ng-class="{ 'reset-s' : $index%3==0 }" ng-click="projectsCtrl.ViewPost(post)" >
                     <div class="blog-container">
                         <h3>{{post.project_title}}</h3>
                         <p class="blog-post-summary" ng-bind-html="post.project_post"></p>
@@ -69,13 +79,13 @@
         </div>
     </div>
 
-    <div ng-if="projectsCtrl.viewPost">
+    <div ng-if="projectsCtrl.viewPost  && !projectsCtrl.editPost">
         <div class="row">
             <div class="col-xs-6">
-                <a ng-click="projectsCtrl.AllPosts()">All posts</a>
+                <a ng-click="projectsCtrl.AllPosts()">All examples</a>
             </div>
             <div class="col-xs-6 text-right">
-                <a ng-click="projectsCtrl.EditPost()">Edit Posts</a>
+                <a ng-click="projectsCtrl.EditPost()">Edit Example</a>
             </div>
         </div>
         <div class="blog-container">
