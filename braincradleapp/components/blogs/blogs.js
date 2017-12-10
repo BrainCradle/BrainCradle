@@ -28,6 +28,7 @@
             self.blogs = $firebaseArray(blogsRef);
 
             AppService.active = "blogs";
+
             self.addNew = false;
             self.viewPost = false;
             self.editPost = false;
@@ -46,6 +47,7 @@
                 self.addNew = true;
                 self.newpost = {}
             }
+
             self.Save = function () {
                 var updateObj = {
                     blog_title: self.newpost.blog_title,
@@ -53,6 +55,7 @@
                     author: {email:self.currentUser.email,user:self.currentUser.displayName}
                 }
                 console.log(updateObj);
+
                 // Get a key for a new record.
                 var newKey = firebase.database().ref().child('blogs').push().key;
                 database.ref('blogs/'+newKey).set(updateObj);
@@ -61,6 +64,7 @@
                 self.newpost = {}
                 self.addNew = false;
             }
+
             self.Cancel = function () {
                 self.newpost = {}
                 self.addNew = false;     
@@ -99,6 +103,7 @@
                 self.comment = {}
 
             }
+
             self.SaveComment = function () {
 
                 if(self.IsUserAutheticated()) {
@@ -124,6 +129,7 @@
 
             }
 
+            // to check if the current post has any comments
             self.ifComment = function () {
                 console.log("ifComment")
                 if(self.current_post.post_id != null) {
