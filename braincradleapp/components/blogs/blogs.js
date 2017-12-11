@@ -52,6 +52,10 @@
                 self.editPost = false;
                 self.newpost = {}
             }
+            self.FindCategory = function (id) {
+                var cat = _.find(self.categories, function(o) { return o.$id == id; });
+                return cat.category_name;
+            }
 
             self.Save = function () {
                 var newKey = firebase.database().ref().child('blogs').push().key;
@@ -80,6 +84,7 @@
             }
 
             self.ViewPost = function (post) {
+                console.log(post);
                 self.viewPost = true;
                 self.editPost = false;
                 self.current_post = post;
@@ -102,7 +107,7 @@
                     "post_id": self.current_post.post_id,
                     "blog_title": self.current_post.blog_title,
                     "blog_post" :self.current_post.blog_post,
-                    //"categories":self.current_post.categories,
+                    "categories":self.current_post.categories,
                     "author": self.current_post.author,
                     comment: self.comment}
 
@@ -127,7 +132,7 @@
                         "post_id": self.current_post.post_id,
                         "blog_title": self.current_post.blog_title,
                         "blog_post" :self.current_post.blog_post,
-                        //"categories":self.current_post.categories,
+                        "categories":self.current_post.categories,
                         "author": self.current_post.author,
                         comment: self.comment
                     }

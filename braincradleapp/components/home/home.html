@@ -1,5 +1,16 @@
 
 
 <div class="container body-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="input-group">
+                <input type="text" class="form-control input-sm btn-rounded" placeholder="Search" ng-model="homeCtrl.search">
+                <span class="input-group-btn">
+                          <button type="submit" class="btn btn-default btn-sm btn-rounded"><i class="fa fa-search"></i></button>
+                        </span>
+            </div>
+        </div>
+    </div>
+
     <div ng-bind-html="homeCtrl.homepagecontent.content1"></div>
 </div>

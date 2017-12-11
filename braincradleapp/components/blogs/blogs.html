@@ -11,6 +11,11 @@
             </div>
             <div class="col-xs-2 text-right"><a ng-if="blogsCtrl.currentUser" class="btn" tooltip-placement="left" uib-tooltip="Add new blog" ng-click="blogsCtrl.AddNew()"><i class="fa fa-plus-circle fa-large" aria-hidden="true"></i> Add</a></div>
         </div>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-xs-12">
+                    <span style="margin-right: 10px;" class="badge" ng-repeat="category in blogsCtrl.categories">{{category.category_name}}</span>
+            </div>
+        </div>
         <div class="row">
             <ul class="post-grid">
                 <li ng-repeat="post in blogsCtrl.blogs | filter :blogsCtrl.search" class="col-md-4" ng-class="{ 'reset-s' : $index%3==0 }" ng-click="blogsCtrl.ViewPost(post)" >
@@ -40,6 +45,9 @@
         <div class="blog-container">
             <h3>{{blogsCtrl.current_post.blog_title}}</h3>
             <p class="blog-post" ng-bind-html="blogsCtrl.current_post.blog_post"></p>
+            <p ng-show="blogsCtrl.current_post.categories">
+                Tags:&nbsp;<span style="margin-right: 10px;" class="badge" ng-repeat="category in blogsCtrl.current_post.categories">{{blogsCtrl.FindCategory(category)}}</span>
+            </p>
             <p class="blog-post-summary-buttons">
                 <span class="pull-left"><i class="fa fa-comments" aria-hidden="true" ng-click = 'blogsCtrl.Comment()' id="comment button"></i></span>
                 <span class="pull-right"><i class="btn fa fa-thumbs-down" aria-hidden="true"></i></span>

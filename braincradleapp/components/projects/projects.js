@@ -28,6 +28,9 @@
             var projectRef = database.ref().child("projects");
             self.projects = $firebaseArray(projectRef);
 
+            var categoriesRef = database.ref().child("categories");
+            self.categories = $firebaseArray(categoriesRef);
+
 
             self.addNew = false;
             self.viewPost = false;
@@ -46,7 +49,7 @@
                     post_id: newKey,
                     project_title: self.newpost.project_title,
                     project_post: self.newpost.project_post,
-                    //categories:self.newpost.categories,
+                    categories:self.newpost.categories,
                     author: {email: self.currentUser.email, user: self.currentUser.displayName}
                 }
 
@@ -61,6 +64,7 @@
             self.Cancel = function () {
                 self.newpost = {}
                 self.addNew = false;
+                self.editPost = false;
             }
 
             self.ViewPost = function (post) {
@@ -98,7 +102,7 @@
                     post_id: self.current_post.post_id,
                     project_title: self.current_post.project_title,
                     project_post: self.current_post.project_post,
-                    //"categories":self.current_post.categories,
+                    categories:self.current_post.categories,
                     author: self.current_post.author
                 }
 

@@ -15,6 +15,11 @@
             <a ng-if="projectsCtrl.currentUser" class="btn" tooltip-placement="left" uib-tooltip="Add new project example" ng-click="projectsCtrl.AddNew()"><i class="fa fa-plus-circle fa-large" aria-hidden="true"></i> Add</a>
             </div>
         </div>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-xs-12">
+                <span style="margin-right: 10px;" class="badge" ng-repeat="category in projectsCtrl.categories">{{category.category_name}}</span>
+            </div>
+        </div>
         <div class="row">
             <ul class="post-grid">
                 <li ng-repeat="post in projectsCtrl.projects | filter :projectsCtrl.search" class="col-md-4" ng-class="{ 'reset-s' : $index%3==0 }" ng-click="projectsCtrl.ViewPost(post)" >
@@ -48,7 +53,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="form-group">
-                            <label class="control-label">Post</label>
+                            <label class="control-label">Example</label>
                             <div text-angular ng-model="projectsCtrl.newpost.project_post" class="btn-groups"></div>
                         </div>
                     </div>
@@ -61,7 +66,7 @@
                                 <ui-select-match placeholder="Select or search a category in the list...">
                                     {{$item.category_name}}
                                 </ui-select-match>
-                                <ui-select-choices repeat="category.$id as category in blogsCtrl.categories | filter: $select.search">
+                                <ui-select-choices repeat="category.$id as category in blogsCtrl.categories | orderBy:'category_name' | filter: $select.search">
                                     <div ng-bind-html="category.category_name | highlight: $select.search"></div>
                                 </ui-select-choices>
                             </ui-select>
@@ -71,7 +76,7 @@
                 <div class="row">&nbsp;</div>
                 <div class="row">
                     <div class="col-xs-12 text-center">
-                        <a class="btn btn-primary" ng-click="projectsCtrl.Save()" ng-disabled="inputform.$invalid">Post</a>&nbsp;&nbsp;
+                        <a class="btn btn-primary" ng-click="projectsCtrl.Save()" ng-disabled="inputform.$invalid">Save</a>&nbsp;&nbsp;
                         <a class="btn btn-default" ng-click="projectsCtrl.Cancel()">Cancel</a>
                     </div>
                 </div>
@@ -86,7 +91,7 @@
                 <a ng-click="projectsCtrl.AllPosts()">All examples</a>
             </div>
             <div class="col-xs-6 text-right">
-                <a ng-click="projectsCtrl.EditPost()">Edit Example</a>
+                <a ng-click="projectsCtrl.EditPost()">Edit example</a>
             </div>
         </div>
         <div class="blog-container">
@@ -101,7 +106,7 @@
     </div>
 
     <div ng-if="projectsCtrl.editPost">
-        <h4>Edit Post</h4>
+        <h4>Edit Example</h4>
         <div class="well">
             <form name="inputform">
                 <div class="row">
@@ -115,7 +120,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="form-group">
-                            <label class="control-label">Post</label>
+                            <label class="control-label">Example</label>
                             <div text-angular ng-model="projectsCtrl.current_post.project_post" class="btn-groups"></div>
                         </div>
                     </div>
@@ -128,7 +133,7 @@
                                 <ui-select-match placeholder="Select or search a category in the list...">
                                     {{$item.category_name}}
                                 </ui-select-match>
-                                <ui-select-choices repeat="category.$id as category in projectsCtrl.categories | filter: $select.search">
+                                <ui-select-choices repeat="category.$id as category in projectsCtrl.categories | orderBy:'category_name' | filter: $select.search">
                                     <div ng-bind-html="category.category_name | highlight: $select.search"></div>
                                 </ui-select-choices>
                             </ui-select>
