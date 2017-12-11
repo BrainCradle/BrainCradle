@@ -116,7 +116,7 @@
                                 <ui-select-match placeholder="Select or search a category in the list...">
                                     {{$item.category_name}}
                                 </ui-select-match>
-                                <ui-select-choices repeat="category.$id as category in blogsCtrl.categories | filter: $select.search">
+                                <ui-select-choices repeat="category.$id as category in blogsCtrl.categories | orderBy:'category_name' | filter: $select.search">
                                     <div ng-bind-html="category.category_name | highlight: $select.search"></div>
                                 </ui-select-choices>
                             </ui-select>
