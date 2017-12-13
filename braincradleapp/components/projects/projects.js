@@ -141,7 +141,7 @@
                         if (downVoteUsers.includes(currentUser)) {
                             var newArray = [];
                             downVoteUsers.forEach(function (p) {
-                                if (p == currentUser) {
+                                if (p != currentUser) {
                                     newArray.push(p);
                                 }
                                 downVoteUsers = newArray
@@ -163,7 +163,7 @@
                         if (upVoteUsers.includes(currentUser)) {
                             var newArray = [];
                             upVoteUsers.forEach(function (p) {
-                                if (p == currentUser) {
+                                if (p != currentUser) {
                                     newArray.push(p);
                                 }
                                 upVoteUsers = newArray

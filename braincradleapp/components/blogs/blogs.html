@@ -22,11 +22,6 @@
                     <div class="blog-container">
                         <h3>{{post.blog_title}}</h3>
                         <p class="blog-post-summary" ng-bind-html="post.blog_post"></p>
-                        <p class="blog-post-summary-buttons">
-                            <span class="pull-left"><i class="fa fa-comments" aria-hidden="true"></i></span>
-                            <span class="pull-right"><i class="btn fa fa-thumbs-down" aria-hidden="true"></i></span>
-                            <span class="pull-right"><i class="btn fa fa-thumbs-up" aria-hidden="true"></i></span></span>
-                        </p>
                     </div>
 
                 </li>
@@ -50,8 +45,8 @@
             </p>
             <p class="blog-post-summary-buttons">
                 <span class="pull-left"><i class="fa fa-comments" aria-hidden="true" ng-click = 'blogsCtrl.Comment()' id="comment button"></i></span>
-                <span class="pull-right"><i class="btn fa fa-thumbs-down" aria-hidden="true"></i></span>
-                <span class="pull-right"><i class="btn fa fa-thumbs-up" aria-hidden="true"></i></span></i></span>
+                <span class="pull-right"><i class="btn fa fa-thumbs-down" aria-hidden="true" ng-click="blogsCtrl.changeVote(vote, 'up')"></i>{{blogsCtrl.upVote}}</span>
+                <span class="pull-right"><i class="btn fa fa-thumbs-up" aria-hidden="true" ng-click="blogsCtrl.changeVote(vote, 'down')"></i>{{blogsCtrl.downVote}}</span></i></span>
             </p>
         </div>
         <br>

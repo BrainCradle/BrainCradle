@@ -108,5 +108,17 @@ describe('blogs', function () {
             expect(blogsCtrl.leaveComment).toBe(true);
         });
 
+        // upvote button clicked then vote is up
+        it('Upvote button click', function () {
+            blogsCtrl.changeVote(vote, 'up')
+            expect(blogsCtrl.vote).toBe("up");
+        });
+
+        // downvote button clicked then vote is up
+        it('Downvote button click', function () {
+            blogsCtrl.changeVote(vote, 'down')
+            expect(blogsCtrl.vote).toBe("down");
+        });
+
     });
 });
