@@ -46,17 +46,7 @@ describe('projects', function () {
             expect(projectCtrl.addNew).toBe(true);
         });
 
-        // upvote button clicked then vote is up
-        it('Upvote button click', function () {
-            projectCtrl.changeVote(vote, 'up')
-            expect(projectCtrl.vote).toBe("up");
-        });
-
-        // downvote button clicked then vote is up
-        it('Downvote button click', function () {
-            projectCtrl.changeVote(vote, 'down')
-            expect(projectCtrl.vote).toBe("down");
-        });
+       
 
     });
 });
