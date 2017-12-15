@@ -37,6 +37,14 @@
             self.editPost = false;
             self.vote = "None";
 
+            self.IsUserAutheticated = function(){
+                if(self.currentUser){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
             self.AddNew = function () {
                 self.addNew = true;
                 self.newpost = {}

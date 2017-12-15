@@ -35,6 +35,14 @@
 
             self.homepagecontent = $firebaseObject(homepagecontentRef);
 
+            self.IsUserAutheticated = function(){
+                if(self.currentUser){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
             self.IsContentLoaded = function(){
                 if(self.homepagecontent){
                     return true;

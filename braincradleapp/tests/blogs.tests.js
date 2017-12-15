@@ -40,17 +40,24 @@ describe('blogs', function () {
             expect(blogsCtrl.IsUserAutheticated()).toBe(false);
         });
 
-        // Add new button click
-        it('Add new button click', function(){
+        // Add new
+        it('Add new', function(){
             blogsCtrl.AddNew()
             expect(blogsCtrl.addNew).toBe(true);
         });
 
-        // Cancel button click
-        it('Cancel button click', function(){
+        // Cancel
+        it('Cancel - check addNew', function(){
             blogsCtrl.AddNew()
             blogsCtrl.Cancel()
             expect(blogsCtrl.addNew).toBe(false);
+        });
+
+        // Cancel
+        it('Cancel - check editPost', function(){
+            blogsCtrl.AddNew()
+            blogsCtrl.Cancel()
+            expect(blogsCtrl.editPost).toBe(false);
         });
 
         // View a post
@@ -88,9 +95,18 @@ describe('blogs', function () {
 
         });
 
-        // User authenticated
+
+        // Assume user is logged in
         it('User authenticated', function(){
-            expect(blogsCtrl.IsUserAutheticated()).toBe(false);
+            blogsCtrl.currentUser = {};
+            expect(blogsCtrl.IsUserAutheticated()).toBe(true);
+        });
+
+        // Comment
+        it('Check Comment', function(){
+            blogsCtrl.leaveComment = false;
+            blogsCtrl.Comment();
+            expect(blogsCtrl.leaveComment).toBe(true);
         });
 
         it('Edit blog', function(){

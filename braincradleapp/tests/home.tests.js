@@ -31,5 +31,16 @@ describe('home', function () {
             expect(homeCtrl.IsContentLoaded()).toBe(true);
         });
 
+        // User not authenticated
+        it('User not authenticated', function(){
+            expect(homeCtrl.IsUserAutheticated()).toBe(false);
+        });
+
+        // Assume user is logged in
+        it('User authenticated', function(){
+            homeCtrl.currentUser = {};
+            expect(homeCtrl.IsUserAutheticated()).toBe(true);
+        });
+
     });
 });

@@ -723,11 +723,42 @@ window.fbAsyncInit = function () {
 
             self.homepagecontent = $firebaseObject(homepagecontentRef);
 
+            self.IsUserAutheticated = function(){
+                if(self.currentUser){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
             self.IsContentLoaded = function(){
                 if(self.homepagecontent){
                     return true;
                 }else{
                     return false;
+                }
+            }
+
+            self.doSearch = function(search) {
+
+                if (window.find && window.getSelection) {
+
+                    document.designMode = "on";
+                    var sel = window.getSelection();
+                    sel.empty();
+                    sel.collapse(document.body, 0);
+                    while (window.find(search)) {
+                        document.execCommand("HiliteColor", false, "yellow");
+                        sel.collapseToEnd();
+                    }
+                    document.designMode = "off";
+
+                } else if (document.body.createTextRange) {
+                    var textRange = document.body.createTextRange();
+                    while (textRange.findText(search)) {
+                        textRange.execCommand("BackColor", false, "yellow");
+                        textRange.collapse(false);
+                    }
                 }
             }
 
@@ -1028,6 +1059,14 @@ window.fbAsyncInit = function () {
             self.viewPost = false;
             self.editPost = false;
             self.vote = "None";
+
+            self.IsUserAutheticated = function(){
+                if(self.currentUser){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
 
             self.AddNew = function () {
                 self.addNew = true;

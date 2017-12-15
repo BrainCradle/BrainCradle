@@ -36,16 +36,36 @@ describe('projects', function () {
         });
 
         // User not authenticated
-        //it('User not authenticated', function () {
-          //  expect(projectCtrl.IsUserAutheticated()).toBe(false);
-        //});
+        it('User not authenticated', function () {
+           expect(projectCtrl.IsUserAutheticated()).toBe(false);
+        });
 
-        // Add new button click
-        it('Add new button click', function () {
+        // Add new click
+        it('Add new', function () {
             projectCtrl.AddNew()
             expect(projectCtrl.addNew).toBe(true);
         });
 
+        // Assume user is logged in
+        it('User authenticated', function(){
+            projectCtrl.currentUser = {};
+            expect(projectCtrl.IsUserAutheticated()).toBe(true);
+        });
+
+        // Cancel
+        it('Cancel check addnew', function(){
+            projectCtrl.Cancel();
+            expect(projectCtrl.addNew).toBe(false);
+        });
+        it('Cancel check editPost', function(){
+            projectCtrl.Cancel();
+            expect(projectCtrl.editPost).toBe(false);
+        });
+
+        it('Edit blog', function(){
+            projectCtrl.EditPost();
+            expect(projectCtrl.editPost).toBe(true);
+        });
        
 
     });
