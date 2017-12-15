@@ -1,5 +1,149 @@
 
 
 <div class="container body-content">
-    Projects content will come here....
+    <div ng-if="!projectsCtrl.addNew && !projectsCtrl.viewPost">
+        <div class="row">
+            <div class="col-xs-10">
+                <div class="input-group">
+                    <input type="text" class="form-control input-sm btn-rounded" placeholder="Search" ng-model="projectsCtrl.search">
+                    <span class="input-group-btn">
+                          <button type="submit" class="btn btn-default btn-sm btn-rounded"><i class="fa fa-search"></i></button>
+                        </span>
+                </div>
+            </div>
+            <div class="col-xs-2 text-right">
+            <a ng-if="projectsCtrl.currentUser" class="btn" tooltip-placement="left" uib-tooltip="Add new project example" ng-click="projectsCtrl.AddNew()"><i class="fa fa-plus-circle fa-large" aria-hidden="true"></i> Add</a>
+            </div>
+        </div>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-xs-12">
+                <span style="margin-right: 10px;" class="badge" ng-repeat="category in projectsCtrl.categories">{{category.category_name}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <ul class="post-grid">
+                <li ng-repeat="post in projectsCtrl.projects | filter :projectsCtrl.search" class="col-md-4" ng-class="{ 'reset-s' : $index%3==0 }" ng-click="projectsCtrl.ViewPost(post)" >
+                    <div class="blog-container">
+                        <h3>{{post.project_title}}</h3>
+                        <p class="blog-post-summary" ng-bind-html="post.project_post"></p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div ng-if="projectsCtrl.addNew">
+        <h4>Add New Example</h4>
+        <div class="well">
+            <form name="inputform">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Title</label>
+                            <input type="text" ng-model="projectsCtrl.newpost.project_title" class="form-control" placeholder="Title" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Example</label>
+                            <div text-angular ng-model="projectsCtrl.newpost.project_post" class="btn-groups"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Category</label>
+                            <ui-select ng-model="projectsCtrl.newpost.categories" theme="bootstrap" multiple>
+                                <ui-select-match placeholder="Select or search a category in the list...">
+                                    {{$item.category_name}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="category.$id as category in blogsCtrl.categories | orderBy:'category_name' | filter: $select.search">
+                                    <div ng-bind-html="category.category_name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <a class="btn btn-primary" ng-click="projectsCtrl.Save()" ng-disabled="inputform.$invalid">Save</a>&nbsp;&nbsp;
+                        <a class="btn btn-default" ng-click="projectsCtrl.Cancel()">Cancel</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div ng-if="projectsCtrl.viewPost  && !projectsCtrl.editPost">
+        <div class="row">
+            <div class="col-xs-6">
+                <a ng-click="projectsCtrl.AllPosts()">All examples</a>
+            </div>
+            <div class="col-xs-6 text-right">
+                <a ng-click="projectsCtrl.EditPost()">Edit example</a>
+            </div>
+        </div>
+        <div class="blog-container">
+            <h3>{{projectsCtrl.current_post.project_title}}</h3>
+            <p class="blog-post" ng-bind-html="projectsCtrl.current_post.project_post"></p>
+            <p class="blog-post-summary-buttons">
+                <span class="pull-left"><i class="fa fa-comments" aria-hidden="true" ng-click = 'projectsCtrl.Comment()' id="comment button"></i></span>
+                <span class="pull-right"><i class="btn fa fa-thumbs-up" aria-hidden="true" ng-click="projectsCtrl.changeVote(vote, 'up')" ng-class="{true:'up', false:''}[projectsCtrl.self.vote=='up']" ></i>{{projectsCtrl.upVote}}</span>
+                <span class="pull-right"><i class="btn fa fa-thumbs-down" aria-hidden="true" ng-click="projectsCtrl.changeVote(vote, 'down')" ng-class="{true:'down', false:''}[projectsCtrl.self.vote=='down']" ></i>{{projectsCtrl.downVote}}</span></i></span>
+            </p>
+        </div>
+    </div>
+
+    <div ng-if="projectsCtrl.editPost">
+        <h4>Edit Example</h4>
+        <div class="well">
+            <form name="inputform">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Title</label>
+                            <input type="text" ng-model="projectsCtrl.current_post.project_title" class="form-control" placeholder="Title" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Example</label>
+                            <div text-angular ng-model="projectsCtrl.current_post.project_post" class="btn-groups"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Category</label>
+                            <ui-select ng-model="projectsCtrl.current_post.categories" theme="bootstrap" multiple>
+                                <ui-select-match placeholder="Select or search a category in the list...">
+                                    {{$item.category_name}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="category.$id as category in projectsCtrl.categories | orderBy:'category_name' | filter: $select.search">
+                                    <div ng-bind-html="category.category_name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <a class="btn btn-primary" ng-click="projectsCtrl.SaveChange()" ng-disabled="inputform.$invalid">Save Change</a>&nbsp;&nbsp;
+                        <a class="btn btn-default" ng-click="projectsCtrl.Cancel()">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

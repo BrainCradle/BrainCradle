@@ -85,7 +85,7 @@ gulp.task('clean', function () {
 });
 
 // Run Unit Tests
-gulp.task('test',['index'], function (done) {
+gulp.task('testing',['index'], function (done) {
   new Server({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
@@ -93,4 +93,4 @@ gulp.task('test',['index'], function (done) {
 });
 
 // Default Task
-gulp.task('default', ['test','print','index', 'lib', 'assets', 'icons', 'resources', 'js', 'css', 'html', 'appconfig']);
+gulp.task('default', ['testing','print','index', 'lib', 'assets', 'icons', 'resources', 'js', 'css', 'html', 'appconfig']);

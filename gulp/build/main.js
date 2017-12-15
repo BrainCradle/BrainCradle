@@ -265,11 +265,13 @@ window.fbAsyncInit = function () {
             self.categories = $firebaseArray(categoriesRef);
 
             AppService.active = "blogs";
+
             self.addNew = false;
             self.viewPost = false;
             self.editPost = false;
             self.leaveComment = false;
             self.hasComment = false;
+            self.comment = '';
 
             self.IsUserAutheticated = function(){
                 if(self.currentUser){
@@ -284,22 +286,31 @@ window.fbAsyncInit = function () {
                 self.editPost = false;
                 self.newpost = {}
             }
+            self.FindCategory = function (id) {
+                var cat = _.find(self.categories, function(o) { return o.$id == id; });
+                return cat.category_name;
+            }
+
             self.Save = function () {
+                var newKey = firebase.database().ref().child('blogs').push().key;
+
                 var updateObj = {
+                    post_id:newKey,
                     blog_title: self.newpost.blog_title,
                     blog_post: self.newpost.blog_post,
-                    categories:self.newpost.categories,
+                    //categories:self.newpost.categories,
                     author: {email:self.currentUser.email,user:self.currentUser.displayName}
                 }
                 console.log(updateObj);
+
                 // Get a key for a new record.
-                var newKey = firebase.database().ref().child('blogs').push().key;
                 database.ref('blogs/'+newKey).set(updateObj);
 
                 // Done
                 self.newpost = {}
                 self.addNew = false;
             }
+
             self.Cancel = function () {
                 self.newpost = {}
                 self.addNew = false;
@@ -307,6 +318,7 @@ window.fbAsyncInit = function () {
             }
 
             self.ViewPost = function (post) {
+                console.log(post);
                 self.viewPost = true;
                 self.editPost = false;
                 self.current_post = post;
@@ -330,7 +342,8 @@ window.fbAsyncInit = function () {
                     "blog_title": self.current_post.blog_title,
                     "blog_post" :self.current_post.blog_post,
                     "categories":self.current_post.categories,
-                    "author": self.current_post.author}
+                    "author": self.current_post.author,
+                    comment: self.comment}
 
                 updates['/blogs/' + self.current_post.post_id] = postData;
                 firebase.database().ref().update(updates)
@@ -343,6 +356,7 @@ window.fbAsyncInit = function () {
                 self.comment = {}
 
             }
+
             self.SaveComment = function () {
 
                 if(self.IsUserAutheticated()) {
@@ -369,6 +383,7 @@ window.fbAsyncInit = function () {
 
             }
 
+            // to check if the current post has any comments
             self.ifComment = function () {
                 console.log("ifComment")
                 if(self.current_post.post_id != null) {
@@ -384,6 +399,77 @@ window.fbAsyncInit = function () {
                 }
             }
 
+
+            self.changeVote = function (vote, flag) {
+
+                var blogsPostRef = blogsRef.child(self.current_post.post_id)
+                self.vote = vote == flag ? 'None' : flag;
+
+
+                blogsPostRef.once('value').then(function (snapshot) {
+                    var post = snapshot.val();
+                    var currentUser = AppFirebase.auth().currentUser.email;
+
+
+                    if (snapshot.hasChild("likedUsers")) {
+                            var upVoteUsers = post.likedUsers;
+                    } else {
+                        var upVoteUsers = [];
+                    }
+
+                    if (snapshot.hasChild("dislikedUsers")) {
+                        var downVoteUsers = post.dislikedUsers;
+                    } else {
+                        var downVoteUsers = [];
+                    }
+
+                    if (flag == "up") {
+                        // delete the user from the list contains users don't like the post
+                        if (downVoteUsers.includes(currentUser)) {
+                            var newArray = [];
+                            downVoteUsers.forEach(function (p) {
+                                if (p != currentUser) {
+                                    newArray.push(p);
+                                }
+                                downVoteUsers = newArray
+                            });
+                        }
+                        // add user to the list contains upvote users if not already exists
+                        if (!upVoteUsers.includes(currentUser)) {
+                            upVoteUsers.push(currentUser);
+                        }
+                        // update downvote users and upvote users to firebase
+                        blogsPostRef.update({"likedUsers": upVoteUsers})
+                        blogsPostRef.update({"dislikedUsers": downVoteUsers})
+                        self.upVote = upVoteUsers.length;
+                        self.downVote = downVoteUsers.length;
+                    }
+
+                    if (flag == "down") {
+                        // delete the user from the upvote list of users
+                        if (upVoteUsers.includes(currentUser)) {
+                            var newArray = [];
+                            upVoteUsers.forEach(function (p) {
+                                if (p != currentUser) {
+                                    newArray.push(p);
+                                }
+                                upVoteUsers = newArray
+                            });
+                        }
+                        // add user to the list contains downvote users if not already exists
+                        if (!downVoteUsers.includes(currentUser)) {
+                            downVoteUsers.push(currentUser);
+                        }
+
+                        // update downvote users and upvote users to firebase
+                        blogsPostRef.update({"likedUsers": upVoteUsers})
+                        blogsPostRef.update({"dislikedUsers": downVoteUsers})
+                        self.upVote = upVoteUsers.length;
+                        self.downVote = downVoteUsers.length;
+                    }
+                });
+
+        };
         })
 
 })();
@@ -652,65 +738,6 @@ window.fbAsyncInit = function () {
 
 (function() {
     'use strict';
-    angular.module('braincradle.app.menu', [])
-        .directive('appMenu', function () {
-            // <app-menu></app-menu>
-            return {
-                restrict: 'E',
-                templateUrl: 'components/menu/menu.html',
-                link: function (scope, element, attrs) {
-                    $(".hamburger").click(function(event) {
-
-                        $(".top-menu").toggleClass("top-animate");
-                        $(".mid-menu").toggleClass("mid-animate");
-                        $(".bottom-menu").toggleClass("bottom-animate");
-                        if($("#nav-container").hasClass("menu-close")){
-                            $("#nav-container" ).animate({ "left": "0px" }, "310" );
-                            $("#nav-container").removeClass("menu-close");
-                            $("#nav-container").addClass("menu-open");
-
-                        }
-                        else{
-                            $("#nav-container").removeClass("menu-open");
-                            $("#nav-container").addClass("menu-close");
-                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
-                        }
-                        //event.stopPropagation();
-                    });
-                    $("body").click(function(){
-                        //console.log("body click");
-                        //if($("#nav-container").hasClass("menu-open")){
-                        //    $("#nav-container" ).animate({ "left": "-300px" }, "310" );
-                        //    $(".top-menu").toggleClass("top-animate");
-                        //    $(".mid-menu").toggleClass("mid-animate");
-                        //    $(".bottom-menu").toggleClass("bottom-animate");
-                        //    $("#nav-container").removeClass("menu-open");
-                        //    $("#nav-container").addClass("menu-close");
-                        //}
-                    })
-                    $(".custom-drop li").click(function() {
-                        console.log(this);
-                        if($(this).children().length>1){
-
-                        }
-                        else{
-                            $("#nav-container").removeClass("menu-open");
-                            $("#nav-container").addClass("menu-close");
-                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
-                            $(".top-menu").toggleClass("top-animate");
-                            $(".mid-menu").toggleClass("mid-animate");
-                            $(".bottom-menu").toggleClass("bottom-animate");
-                        }
-                    });
-                }
-            };
-        })
-
-})();
-
-
-(function() {
-    'use strict';
     angular.module('braincradle.app.maintain', [])
         .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
             var now = new Date();
@@ -822,6 +849,65 @@ window.fbAsyncInit = function () {
 })();
 (function() {
     'use strict';
+    angular.module('braincradle.app.menu', [])
+        .directive('appMenu', function () {
+            // <app-menu></app-menu>
+            return {
+                restrict: 'E',
+                templateUrl: 'components/menu/menu.html',
+                link: function (scope, element, attrs) {
+                    $(".hamburger").click(function(event) {
+
+                        $(".top-menu").toggleClass("top-animate");
+                        $(".mid-menu").toggleClass("mid-animate");
+                        $(".bottom-menu").toggleClass("bottom-animate");
+                        if($("#nav-container").hasClass("menu-close")){
+                            $("#nav-container" ).animate({ "left": "0px" }, "310" );
+                            $("#nav-container").removeClass("menu-close");
+                            $("#nav-container").addClass("menu-open");
+
+                        }
+                        else{
+                            $("#nav-container").removeClass("menu-open");
+                            $("#nav-container").addClass("menu-close");
+                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
+                        }
+                        //event.stopPropagation();
+                    });
+                    $("body").click(function(){
+                        //console.log("body click");
+                        //if($("#nav-container").hasClass("menu-open")){
+                        //    $("#nav-container" ).animate({ "left": "-300px" }, "310" );
+                        //    $(".top-menu").toggleClass("top-animate");
+                        //    $(".mid-menu").toggleClass("mid-animate");
+                        //    $(".bottom-menu").toggleClass("bottom-animate");
+                        //    $("#nav-container").removeClass("menu-open");
+                        //    $("#nav-container").addClass("menu-close");
+                        //}
+                    })
+                    $(".custom-drop li").click(function() {
+                        console.log(this);
+                        if($(this).children().length>1){
+
+                        }
+                        else{
+                            $("#nav-container").removeClass("menu-open");
+                            $("#nav-container").addClass("menu-close");
+                            $("#nav-container" ).animate({ "left": "-300px" }, "310" );
+                            $(".top-menu").toggleClass("top-animate");
+                            $(".mid-menu").toggleClass("mid-animate");
+                            $(".bottom-menu").toggleClass("bottom-animate");
+                        }
+                    });
+                }
+            };
+        })
+
+})();
+
+
+(function() {
+    'use strict';
     angular.module('braincradle.app.navbar', [])
         .directive('appHeader', function () {
             // <app-navbar></app-navbar>
@@ -904,26 +990,193 @@ window.fbAsyncInit = function () {
         })
 
 })();
-(function() {
+(function () {
     'use strict';
     angular.module('braincradle.app.projects', [])
-        .config(function ($stateProvider, $urlRouterProvider,$uiViewScrollProvider) {
+        .config(function ($stateProvider, $urlRouterProvider, $uiViewScrollProvider) {
             var now = new Date();
             var ticks = now.getTime();
 
             // Blogs Main
             $stateProvider.state('projects', {
                 url: '/projects',
-                templateUrl: 'components/projects/projects.html?'+ticks,
+                templateUrl: 'components/projects/projects.html?' + ticks,
                 controller: 'ProjectsController',
                 controllerAs: 'projectsCtrl'
             });
 
         })
-        .controller('ProjectsController', function ($firebaseAuth,$firebaseArray,AppFirebase,AppService) {
+        .controller('ProjectsController', function ($firebaseAuth, $firebaseArray, AppFirebase, AppService) {
             var self = this;
 
             AppService.active = "projects";
+
+            // Get the logged in user
+            self.currentUser = AppFirebase.auth().currentUser;
+
+            // Get a reference to the database service
+            var database = AppFirebase.database();
+
+            var projectRef = database.ref().child("projects");
+            self.projects = $firebaseArray(projectRef);
+
+            var categoriesRef = database.ref().child("categories");
+            self.categories = $firebaseArray(categoriesRef);
+
+
+            self.addNew = false;
+            self.viewPost = false;
+            self.editPost = false;
+            self.vote = "None";
+
+            self.AddNew = function () {
+                self.addNew = true;
+                self.newpost = {}
+            }
+
+            self.Save = function () {
+                var newKey = firebase.database().ref().child('blogs').push().key;
+
+                var updateObj = {
+                    post_id: newKey,
+                    project_title: self.newpost.project_title,
+                    project_post: self.newpost.project_post,
+                    categories:self.newpost.categories,
+                    author: {email: self.currentUser.email, user: self.currentUser.displayName}
+                }
+
+                // Get a key for a new record.
+                database.ref('projects/' + newKey).set(updateObj);
+
+                // Done
+                self.newpost = {}
+                self.addNew = false;
+            }
+
+            self.Cancel = function () {
+                self.newpost = {}
+                self.addNew = false;
+                self.editPost = false;
+            }
+
+            self.ViewPost = function (post) {
+                self.viewPost = true;
+                self.current_post = post;
+                // Variables to keep track of number of up votes/down votes
+                var projectPostRef = projectRef.child(self.current_post.post_id)
+                self.upVoteUsers = [];
+                self.downVoteUsers = [];
+                projectPostRef.once('value').then(function (snapshot) {
+                    var post = snapshot.val();
+                    var currentUser = AppFirebase.auth().currentUser.email;
+                    if (snapshot.hasChild("likedUsers")) {
+                        self.upVoteUsers = post.likedUsers;
+                        self.upVote = self.upVoteUsers.length;
+                    }
+                    if (snapshot.hasChild("dislikedUsers")) {
+                        self.downVoteUsers = post.dislikedUsers;
+                        self.downVote = self.downVoteUsers.length;
+                    }
+                });
+                self.comment = '';
+            }
+
+            self.AllPosts = function () {
+                self.viewPost = false;
+            }
+            self.EditPost = function () {
+                self.addNew = false;
+                self.editPost = true;
+            }
+            self.SaveChange = function () {
+                var updates = {};
+                var postData = {
+                    post_id: self.current_post.post_id,
+                    project_title: self.current_post.project_title,
+                    project_post: self.current_post.project_post,
+                    categories:self.current_post.categories,
+                    author: self.current_post.author
+                }
+
+                updates['/projects/' + self.current_post.post_id] = postData;
+                firebase.database().ref().update(updates)
+
+                self.editPost = false;
+
+            }
+
+            self.changeVote = function (vote, flag) {
+
+                var projectPostRef = projectRef.child(self.current_post.post_id)
+                self.vote = vote == flag ? 'None' : flag;
+
+
+                projectPostRef.once('value').then(function (snapshot) {
+                    var post = snapshot.val();
+                    var currentUser = AppFirebase.auth().currentUser.email;
+
+
+                    if (snapshot.hasChild("likedUsers")) {
+                        var upVoteUsers = post.likedUsers;
+                    } else {
+                        var upVoteUsers = [];
+                    }
+
+                    if (snapshot.hasChild("dislikedUsers")) {
+                        var downVoteUsers = post.dislikedUsers;
+                    } else {
+                        var downVoteUsers = [];
+                    }
+
+                    if (flag == "up") {
+                        // delete the user from the list contains users don't like the post
+                        if (downVoteUsers.includes(currentUser)) {
+                            var newArray = [];
+                            downVoteUsers.forEach(function (p) {
+                                if (p != currentUser) {
+                                    newArray.push(p);
+                                }
+                                downVoteUsers = newArray
+                            });
+                        }
+                        // add user to the list contains upvote users if not already exists
+                        if (!upVoteUsers.includes(currentUser)) {
+                            upVoteUsers.push(currentUser);
+                        }
+                        // update downvote users and upvote users to firebase
+                        projectPostRef.update({"likedUsers": upVoteUsers})
+                        projectPostRef.update({"dislikedUsers": downVoteUsers})
+                        self.upVote = upVoteUsers.length;
+                        self.downVote = downVoteUsers.length;
+                    }
+
+                    if (flag == "down") {
+                        // delete the user from the upvote list of users
+                        if (upVoteUsers.includes(currentUser)) {
+                            var newArray = [];
+                            upVoteUsers.forEach(function (p) {
+                                if (p != currentUser) {
+                                    newArray.push(p);
+                                }
+                                upVoteUsers = newArray
+                            });
+                        }
+                        // add user to the list contains downvote users if not already exists
+                        if (!downVoteUsers.includes(currentUser)) {
+                            downVoteUsers.push(currentUser);
+                        }
+
+                        // update downvote users and upvote users to firebase
+                        projectPostRef.update({"likedUsers": upVoteUsers})
+                        projectPostRef.update({"dislikedUsers": downVoteUsers})
+                        self.upVote = upVoteUsers.length;
+                        self.downVote = downVoteUsers.length;
+                    }
+                });
+
+
+            };
+
 
         })
 

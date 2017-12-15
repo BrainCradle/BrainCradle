@@ -75,7 +75,7 @@ describe('blogs', function () {
             expect(blogsCtrl.blogs.length).toBe(blogs.length);
         });
 
-        // Login
+        // Login - Not a unit test
         it('Login', function(){
             var provider = new firebase.auth.GoogleAuthProvider();
 
