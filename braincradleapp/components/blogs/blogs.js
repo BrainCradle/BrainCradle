@@ -125,10 +125,10 @@
             }
 
             self.SaveComment = function () {
-
+                console.log(self.IsUserAutheticated())
                 if(self.IsUserAutheticated()) {
                     self.comment.author = {email: self.currentUser.email, user: self.currentUser.displayName}
-                    console.log(self.comment)
+
                     var postData = {
                         "post_id": self.current_post.post_id,
                         "blog_title": self.current_post.blog_title,

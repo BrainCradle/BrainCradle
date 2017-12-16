@@ -42,7 +42,7 @@
              }
          };
 
-         //wait.until(e);
+         wait.until(e);
 
          wait.until(new ExpectedCondition<Boolean>() {
              public Boolean apply(WebDriver wdriver) {

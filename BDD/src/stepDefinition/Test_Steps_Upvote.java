@@ -16,10 +16,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class Test_Steps_Comment {
+
+public class Test_Steps_Upvote {
     public static WebDriver driver;
 
-    @Given("^User is logged in and on a blog view$")
+    @Given("^User is logged in and on a example post view$")
     public void user_is_on_Home_Page() throws Throwable {
         System.setProperty("webdriver.chrome.driver", "/Users/ailingwang/Library/Mobile Documents/com~apple~CloudDocs/Agile/BrainCradleTest/chromedriver");
         driver = new ChromeDriver();
@@ -31,6 +32,9 @@ public class Test_Steps_Comment {
         driver.findElement(By.id("password")).sendKeys("andy12345");
         driver.findElement(By.xpath("//button[text()='Log In']")).click();
 
+        driver.findElement(By.linkText("EXAMPLES")).click();
+        driver.findElement(By.xpath("//*[contains(text(), 'Image')]")).click();
+
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver wdriver) {
@@ -40,23 +44,29 @@ public class Test_Steps_Comment {
             }
         });
 
-        driver.findElement(By.linkText("BLOG")).click();
-        driver.findElement(By.xpath("//*[contains(text(), 'machine learning')]")).click();
 
     }
-    @When("^User click on comment button and edit comment$")
+    @When("^User click on upvote button$")
     public void user_Navigate_to_LogIn_Page() throws Throwable {
-        driver.findElement(By.id("comment button")).click();
-        driver.findElement(By.xpath("//*[@ng-model='blogsCtrl.comment.comment_title']"))
-                .sendKeys("Good Content");
-        driver.findElement(By.linkText("Save Comment")).click();
+        driver.findElement(By.id("upVote")).click();
+        driver.findElement(By.id("upVote")).click();
+        driver.findElement(By.id("upVote")).click();
+
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver wdriver) {
+                return ((JavascriptExecutor) driver).executeScript(
+                        "return document.readyState"
+                ).equals("complete");
+            }
+        });
     }
 
-    @Then("^Comment is on the page$")
+    @Then("^User liked the post$")
     public void message_displayed_Login_Successfully() throws Throwable {
 
-        String bodyText = driver.findElement(By.tagName("body")).getText();
-        Assert.assertTrue("Text not found!", bodyText.contains("Good Content"));
+        String upVoteNumber = driver.findElement(By.id("upVoteNumber")).getText();
+        Assert.assertEquals(upVoteNumber,"1");
         driver.quit();
     }
 
