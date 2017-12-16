@@ -36,6 +36,7 @@
             self.viewPost = false;
             self.editPost = false;
             self.vote = "None";
+            self.search = '';
 
             self.IsUserAutheticated = function(){
                 if(self.currentUser){
@@ -193,6 +194,13 @@
 
             };
 
+            self.FilterContent = function (txt) {
+                console.log(txt)
+                if(txt == 'All'){
+                    txt = '';
+                }
+                self.search = txt;
+            }
 
         })
 

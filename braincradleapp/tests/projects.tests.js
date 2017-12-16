@@ -66,7 +66,17 @@ describe('projects', function () {
             projectCtrl.EditPost();
             expect(projectCtrl.editPost).toBe(true);
         });
-       
+
+        it('Filter Content', function(){
+            projectCtrl.FilterContent('Artificial intelligence');
+            expect(projectCtrl.search).toBe('Artificial intelligence');
+        });
+
+        // Filter
+        it('Filter None', function(){
+            projectCtrl.FilterContent('All');
+            expect(projectCtrl.search).toBe('');
+        });
 
     });
 });

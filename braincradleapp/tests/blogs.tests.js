@@ -124,6 +124,16 @@ describe('blogs', function () {
             expect(blogsCtrl.leaveComment).toBe(true);
         });
 
+        it('Filter Content', function(){
+            blogsCtrl.FilterContent('Artificial intelligence');
+            expect(blogsCtrl.search).toBe('Artificial intelligence');
+        });
+
+        // Filter
+        it('Filter None', function(){
+            blogsCtrl.FilterContent('All');
+            expect(blogsCtrl.search).toBe('');
+        });
 
     });
 });

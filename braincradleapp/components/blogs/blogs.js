@@ -38,6 +38,7 @@
             self.leaveComment = false;
             self.hasComment = false;
             self.comment = '';
+            self.search = '';
 
             self.IsUserAutheticated = function(){
                 if(self.currentUser){
@@ -236,6 +237,15 @@
                 });
 
         };
+
+            self.FilterContent = function (txt) {
+                console.log(txt)
+                if(txt == 'All'){
+                    txt = '';
+                }
+                self.search = txt;
+            }
         })
+
 
 })();
