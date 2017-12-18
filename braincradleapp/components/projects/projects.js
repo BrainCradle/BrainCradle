@@ -37,6 +37,8 @@
             self.editPost = false;
             self.vote = "None";
             self.search = '';
+            self.newpost = {}
+            self.newpost.categories = []
 
             self.IsUserAutheticated = function () {
                 if (self.currentUser) {
@@ -50,6 +52,10 @@
                 self.addNew = true;
                 self.newpost = {}
             }
+            self.FindCategory = function (id) {
+                var cat = _.find(self.categories, function(o) { return o.$id == id; });
+                return cat.category_name;
+            }
 
             self.Save = function () {
                 var newKey = firebase.database().ref().child('blogs').push().key;
@@ -58,8 +64,11 @@
                     post_id: newKey,
                     project_title: self.newpost.project_title,
                     project_post: self.newpost.project_post,
-                    categories: self.newpost.categories,
                     author: {email: self.currentUser.email, user: self.currentUser.displayName}
+                }
+
+                if(self.newpost.categories){
+                    updateObj['categories'] = self.newpost.categories
                 }
 
                 // Get a key for a new record.

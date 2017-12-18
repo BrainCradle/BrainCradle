@@ -572,10 +572,10 @@ window.fbAsyncInit = function () {
             }
 
             self.SaveComment = function () {
-
+                console.log(self.IsUserAutheticated())
                 if(self.IsUserAutheticated()) {
                     self.comment.author = {email: self.currentUser.email, user: self.currentUser.displayName}
-                    console.log(self.comment)
+
                     var postData = {
                         "post_id": self.current_post.post_id,
                         "blog_title": self.current_post.blog_title,
@@ -622,66 +622,69 @@ window.fbAsyncInit = function () {
 
                 blogsPostRef.once('value').then(function (snapshot) {
                     var post = snapshot.val();
-                    var currentUser = AppFirebase.auth().currentUser.email;
+                    if (self.IsUserAutheticated()) {
+                        var currentUser = AppFirebase.auth().currentUser.email;
 
-
-                    if (snapshot.hasChild("likedUsers")) {
+                        if (snapshot.hasChild("likedUsers")) {
                             var upVoteUsers = post.likedUsers;
-                    } else {
-                        var upVoteUsers = [];
-                    }
-
-                    if (snapshot.hasChild("dislikedUsers")) {
-                        var downVoteUsers = post.dislikedUsers;
-                    } else {
-                        var downVoteUsers = [];
-                    }
-
-                    if (flag == "up") {
-                        // delete the user from the list contains users don't like the post
-                        if (downVoteUsers.includes(currentUser)) {
-                            var newArray = [];
-                            downVoteUsers.forEach(function (p) {
-                                if (p != currentUser) {
-                                    newArray.push(p);
-                                }
-                                downVoteUsers = newArray
-                            });
-                        }
-                        // add user to the list contains upvote users if not already exists
-                        if (!upVoteUsers.includes(currentUser)) {
-                            upVoteUsers.push(currentUser);
-                        }
-                        // update downvote users and upvote users to firebase
-                        blogsPostRef.update({"likedUsers": upVoteUsers})
-                        blogsPostRef.update({"dislikedUsers": downVoteUsers})
-                        self.upVote = upVoteUsers.length;
-                        self.downVote = downVoteUsers.length;
-                    }
-
-                    if (flag == "down") {
-                        // delete the user from the upvote list of users
-                        if (upVoteUsers.includes(currentUser)) {
-                            var newArray = [];
-                            upVoteUsers.forEach(function (p) {
-                                if (p != currentUser) {
-                                    newArray.push(p);
-                                }
-                                upVoteUsers = newArray
-                            });
-                        }
-                        // add user to the list contains downvote users if not already exists
-                        if (!downVoteUsers.includes(currentUser)) {
-                            downVoteUsers.push(currentUser);
+                        } else {
+                            var upVoteUsers = [];
                         }
 
-                        // update downvote users and upvote users to firebase
-                        blogsPostRef.update({"likedUsers": upVoteUsers})
-                        blogsPostRef.update({"dislikedUsers": downVoteUsers})
-                        self.upVote = upVoteUsers.length;
-                        self.downVote = downVoteUsers.length;
+                        if (snapshot.hasChild("dislikedUsers")) {
+                            var downVoteUsers = post.dislikedUsers;
+                        } else {
+                            var downVoteUsers = [];
+                        }
+
+                        if (flag == "up") {
+                            // delete the user from the list contains users don't like the post
+                            if (downVoteUsers.includes(currentUser)) {
+                                var newArray = [];
+                                downVoteUsers.forEach(function (p) {
+                                    if (p != currentUser) {
+                                        newArray.push(p);
+                                    }
+                                    downVoteUsers = newArray
+                                });
+                            }
+                            // add user to the list contains upvote users if not already exists
+                            if (!upVoteUsers.includes(currentUser)) {
+                                upVoteUsers.push(currentUser);
+                            }
+                            // update downvote users and upvote users to firebase
+                            blogsPostRef.update({"likedUsers": upVoteUsers})
+                            blogsPostRef.update({"dislikedUsers": downVoteUsers})
+                            self.upVote = upVoteUsers.length;
+                            self.downVote = downVoteUsers.length;
+                        }
+
+                        if (flag == "down") {
+                            // delete the user from the upvote list of users
+                            if (upVoteUsers.includes(currentUser)) {
+                                var newArray = [];
+                                upVoteUsers.forEach(function (p) {
+                                    if (p != currentUser) {
+                                        newArray.push(p);
+                                    }
+                                    upVoteUsers = newArray
+                                });
+                            }
+                            // add user to the list contains downvote users if not already exists
+                            if (!downVoteUsers.includes(currentUser)) {
+                                downVoteUsers.push(currentUser);
+                            }
+
+                            // update downvote users and upvote users to firebase
+                            blogsPostRef.update({"likedUsers": upVoteUsers})
+                            blogsPostRef.update({"dislikedUsers": downVoteUsers})
+                            self.upVote = upVoteUsers.length;
+                            self.downVote = downVoteUsers.length;
+                        }
+                    }else{
+                        alert("Please log in")
                     }
-                });
+                } );
 
         };
 
@@ -1070,11 +1073,13 @@ window.fbAsyncInit = function () {
             self.editPost = false;
             self.vote = "None";
             self.search = '';
+            self.newpost = {}
+            self.newpost.categories = []
 
-            self.IsUserAutheticated = function(){
-                if(self.currentUser){
+            self.IsUserAutheticated = function () {
+                if (self.currentUser) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
             }
@@ -1082,6 +1087,10 @@ window.fbAsyncInit = function () {
             self.AddNew = function () {
                 self.addNew = true;
                 self.newpost = {}
+            }
+            self.FindCategory = function (id) {
+                var cat = _.find(self.categories, function(o) { return o.$id == id; });
+                return cat.category_name;
             }
 
             self.Save = function () {
@@ -1091,8 +1100,11 @@ window.fbAsyncInit = function () {
                     post_id: newKey,
                     project_title: self.newpost.project_title,
                     project_post: self.newpost.project_post,
-                    categories:self.newpost.categories,
                     author: {email: self.currentUser.email, user: self.currentUser.displayName}
+                }
+
+                if(self.newpost.categories){
+                    updateObj['categories'] = self.newpost.categories
                 }
 
                 // Get a key for a new record.
@@ -1118,7 +1130,6 @@ window.fbAsyncInit = function () {
                 self.downVoteUsers = [];
                 projectPostRef.once('value').then(function (snapshot) {
                     var post = snapshot.val();
-                    var currentUser = AppFirebase.auth().currentUser.email;
                     if (snapshot.hasChild("likedUsers")) {
                         self.upVoteUsers = post.likedUsers;
                         self.upVote = self.upVoteUsers.length;
@@ -1144,7 +1155,7 @@ window.fbAsyncInit = function () {
                     post_id: self.current_post.post_id,
                     project_title: self.current_post.project_title,
                     project_post: self.current_post.project_post,
-                    categories:self.current_post.categories,
+                    categories: self.current_post.categories,
                     author: self.current_post.author
                 }
 
@@ -1160,76 +1171,81 @@ window.fbAsyncInit = function () {
                 var projectPostRef = projectRef.child(self.current_post.post_id)
                 self.vote = vote == flag ? 'None' : flag;
 
+                if (self.IsUserAutheticated()) {
+                    projectPostRef.once('value').then(function (snapshot) {
+                        var post = snapshot.val();
+                        var currentUser = AppFirebase.auth().currentUser.email;
 
-                projectPostRef.once('value').then(function (snapshot) {
-                    var post = snapshot.val();
-                    var currentUser = AppFirebase.auth().currentUser.email;
 
-
-                    if (snapshot.hasChild("likedUsers")) {
-                        var upVoteUsers = post.likedUsers;
-                    } else {
-                        var upVoteUsers = [];
-                    }
-
-                    if (snapshot.hasChild("dislikedUsers")) {
-                        var downVoteUsers = post.dislikedUsers;
-                    } else {
-                        var downVoteUsers = [];
-                    }
-
-                    if (flag == "up") {
-                        // delete the user from the list contains users don't like the post
-                        if (downVoteUsers.includes(currentUser)) {
-                            var newArray = [];
-                            downVoteUsers.forEach(function (p) {
-                                if (p != currentUser) {
-                                    newArray.push(p);
-                                }
-                                downVoteUsers = newArray
-                            });
-                        }
-                        // add user to the list contains upvote users if not already exists
-                        if (!upVoteUsers.includes(currentUser)) {
-                            upVoteUsers.push(currentUser);
-                        }
-                        // update downvote users and upvote users to firebase
-                        projectPostRef.update({"likedUsers": upVoteUsers})
-                        projectPostRef.update({"dislikedUsers": downVoteUsers})
-                        self.upVote = upVoteUsers.length;
-                        self.downVote = downVoteUsers.length;
-                    }
-
-                    if (flag == "down") {
-                        // delete the user from the upvote list of users
-                        if (upVoteUsers.includes(currentUser)) {
-                            var newArray = [];
-                            upVoteUsers.forEach(function (p) {
-                                if (p != currentUser) {
-                                    newArray.push(p);
-                                }
-                                upVoteUsers = newArray
-                            });
-                        }
-                        // add user to the list contains downvote users if not already exists
-                        if (!downVoteUsers.includes(currentUser)) {
-                            downVoteUsers.push(currentUser);
+                        if (snapshot.hasChild("likedUsers")) {
+                            var upVoteUsers = post.likedUsers;
+                        } else {
+                            var upVoteUsers = [];
                         }
 
-                        // update downvote users and upvote users to firebase
-                        projectPostRef.update({"likedUsers": upVoteUsers})
-                        projectPostRef.update({"dislikedUsers": downVoteUsers})
-                        self.upVote = upVoteUsers.length;
-                        self.downVote = downVoteUsers.length;
-                    }
-                });
+                        if (snapshot.hasChild("dislikedUsers")) {
+                            var downVoteUsers = post.dislikedUsers;
+                        } else {
+                            var downVoteUsers = [];
+                        }
+
+                        if (flag == "up") {
+                            // delete the user from the list contains users don't like the post
+                            if (downVoteUsers.includes(currentUser)) {
+                                var newArray = [];
+                                downVoteUsers.forEach(function (p) {
+                                    if (p != currentUser) {
+                                        newArray.push(p);
+                                    }
+                                    downVoteUsers = newArray
+                                });
+                            }
+                            // add user to the list contains upvote users if not already exists
+                            if (!upVoteUsers.includes(currentUser)) {
+                                upVoteUsers.push(currentUser);
+                            }
+                            // update downvote users and upvote users to firebase
+                            projectPostRef.update({"likedUsers": upVoteUsers})
+                            projectPostRef.update({"dislikedUsers": downVoteUsers})
+                            self.upVote = upVoteUsers.length;
+                            self.downVote = downVoteUsers.length;
+                        }
+
+                        if (flag == "down") {
+                            // delete the user from the upvote list of users
+                            if (upVoteUsers.includes(currentUser)) {
+                                var newArray = [];
+                                upVoteUsers.forEach(function (p) {
+                                    if (p != currentUser) {
+                                        newArray.push(p);
+                                    }
+                                    upVoteUsers = newArray
+                                });
+                            }
+                            // add user to the list contains downvote users if not already exists
+                            if (!downVoteUsers.includes(currentUser)) {
+                                downVoteUsers.push(currentUser);
+                            }
+
+                            // update downvote users and upvote users to firebase
+                            projectPostRef.update({"likedUsers": upVoteUsers})
+                            projectPostRef.update({"dislikedUsers": downVoteUsers})
+                            self.upVote = upVoteUsers.length;
+                            self.downVote = downVoteUsers.length;
+                        }
+
+                    })
+                } else {
+                    alert("Please log in")
+                }
+                ;
 
 
             };
 
             self.FilterContent = function (txt) {
                 console.log(txt)
-                if(txt == 'All'){
+                if (txt == 'All') {
                     txt = '';
                 }
                 self.search = txt;

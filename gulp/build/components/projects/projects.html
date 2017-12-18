@@ -93,9 +93,12 @@
         <div class="blog-container">
             <h3>{{projectsCtrl.current_post.project_title}}</h3>
             <p class="blog-post" ng-bind-html="projectsCtrl.current_post.project_post"></p>
+            <p ng-show="projectsCtrl.current_post.categories">
+                Tags:&nbsp;<span style="margin-right: 10px;" class="badge" ng-repeat="category in projectsCtrl.current_post.categories">{{projectsCtrl.FindCategory(category)}}</span>
+            </p>
             <p class="blog-post-summary-buttons">
                 <span class="pull-left"><i class="fa fa-comments" aria-hidden="true" ng-click = 'projectsCtrl.Comment()' id="comment button"></i></span>
-                <span class="pull-right"><i class="btn fa fa-thumbs-up" aria-hidden="true" ng-click="projectsCtrl.changeVote(vote, 'up')" ng-class="{true:'up', false:''}[projectsCtrl.self.vote=='up']" ></i>{{projectsCtrl.upVote}}</span>
+                <span class="pull-right"><i class="btn fa fa-thumbs-up" aria-hidden="true" ng-click="projectsCtrl.changeVote(vote, 'up')" ng-class="{true:'up', false:''}[projectsCtrl.self.vote=='up']" id="upVote"></i><span id="upVoteNumber">{{projectsCtrl.upVote}}</span></span>
                 <span class="pull-right"><i class="btn fa fa-thumbs-down" aria-hidden="true" ng-click="projectsCtrl.changeVote(vote, 'down')" ng-class="{true:'down', false:''}[projectsCtrl.self.vote=='down']" ></i>{{projectsCtrl.downVote}}</span></i></span>
             </p>
         </div>
